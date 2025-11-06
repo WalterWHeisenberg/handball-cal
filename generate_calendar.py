@@ -37,7 +37,6 @@ hallen_cache = {}
 def hole_hallen_info(hallen_nr, spielplan_url):
     """
     Holt die Halleninformationen (Name + Adresse) von liga.nu
-    Falls nichts gefunden wird, wird nur die Hallennummer zurückgegeben
     """
     if hallen_nr in hallen_cache:
         return hallen_cache[hallen_nr]
@@ -67,52 +66,51 @@ def hole_hallen_info(hallen_nr, spielplan_url):
         hallen_soup = BeautifulSoup(hallen_response.text, "html.parser")
         
         # Hallenname aus dem Titel extrahieren
-        hallen_name = None
+        hallen_name = ""
         title_tag = hallen_soup.find("title")
         if title_tag:
             title_text = title_tag.get_text()
             # Format: "Hallenname (Nummer) - nuLiga"
-            if "(" in title_text and "-" in title_text:
-                hallen_name = title_text.split("(")[0].strip()
-                # Prüfen, ob ein sinnvoller Name extrahiert wurde
-                if not hallen_name or len(hallen_name) < 3:
-                    hallen_name = None
-        
-        # Wenn kein sinnvoller Hallenname gefunden wurde, Fallback verwenden
-        if not hallen_name:
-            hallen_cache[hallen_nr] = fallback
-            return fallback
+            if "(" in title_text:
+                extracted_name = title_text.split("(")[0].strip()
+                # Nur verwenden wenn es NICHT "Unbekannte Halle" ist
+                if extracted_name and "unbekannt" not in extracted_name.lower():
+                    hallen_name = extracted_name
         
         # Adresse extrahieren
         adresse = ""
-        # Suche nach verschiedenen möglichen Adress-Markierungen
-        for header_text in ["adresse", "anschrift", "ort"]:
-            adresse_header = hallen_soup.find(["h2", "h3", "strong"], 
-                                             string=lambda t: t and header_text in t.lower())
-            if adresse_header:
-                # Die Adresse steht normalerweise direkt nach dem Header
-                adresse_elem = adresse_header.find_next_sibling()
-                if adresse_elem:
-                    adresse_text = adresse_elem.get_text(separator=" ", strip=True)
-                    # Entferne "[Routenplaner...]" und ähnliches
-                    adresse = adresse_text.split("[")[0].strip()
-                    break
+        adresse_header = hallen_soup.find("h2", string=lambda t: t and "adresse" in t.lower())
+        if adresse_header:
+            # Die Adresse steht normalerweise direkt nach dem Header
+            adresse_elem = adresse_header.find_next_sibling()
+            if adresse_elem:
+                adresse_text = adresse_elem.get_text(separator=" ", strip=True)
+                # Entferne "[Routenplaner...]" und ähnliches
+                adresse = adresse_text.split("[")[0].strip()
         
         # Ergebnis zusammensetzen
-        if adresse and len(adresse) > 5:  # Mindestens sinnvolle Länge
+        if hallen_name and adresse:
+            # Beides vorhanden: Name + Adresse
             result = f"{hallen_name}, {adresse}"
-        else:
-            # Nur Hallenname, wenn Adresse nicht gefunden oder zu kurz
+        elif adresse:
+            # Nur Adresse (Hallenname war "Unbekannte Halle" oder leer)
+            result = adresse
+        elif hallen_name:
+            # Nur Name (keine Adresse gefunden)
             result = hallen_name
+        else:
+            # Nichts gefunden: Fallback auf Hallennummer
+            result = fallback
         
         hallen_cache[hallen_nr] = result
         print(f"  → Halle {hallen_nr}: {result}")
         return result
         
     except Exception as e:
-        # Bei Fehler: Nur Hallennummer verwenden, keine Fehlermeldung
+        # Bei Fehler: Nur Hallennummer verwenden
         hallen_cache[hallen_nr] = fallback
         return fallback
+
 
 def erstelle_kalender(team_name, url, output_datei):
     """Erstellt einen Kalender für ein Team"""
