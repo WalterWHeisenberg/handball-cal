@@ -5,25 +5,25 @@ from datetime import datetime
 import pytz
 import sys
 
-# --- Konfiguration ---
+# --- Konfiguration für mehrere Kalender ---
 KALENDER_CONFIG = [
     {
-        "name": "SSV Nümbrecht Handball",
+        "name": "SSV Nümbrecht Handball",  # weibliche Jugend C
         "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424244",
         "output": "handball_wjc.ics"
     },
     {
-        "name": "SSV Nümbrecht Handball",
+        "name": "SSV Nümbrecht Handball",  # männliche Jugend D1
         "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424217",
         "output": "handball_mjd1.ics"
     },
     {
-        "name": "SSV Nümbrecht Handball",
+        "name": "SSV Nümbrecht Handball",  # männliche Jugend D2
         "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424113",
         "output": "handball_mjd2.ics"
     },
     {
-        "name": "SSV Nümbrecht Handball III",
+        "name": "SSV Nümbrecht Handball III",  # Herren III
         "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424114",
         "output": "handball_h3.ics"
     }
@@ -37,16 +37,16 @@ hallen_cache = {}
 def hole_hallen_info(hallen_nr, spielplan_url):
     """
     Holt die Halleninformationen (Name + Adresse) von liga.nu
+    Falls nichts gefunden wird, wird nur die Hallennummer zurückgegeben
     """
     if hallen_nr in hallen_cache:
         return hallen_cache[hallen_nr]
     
-    # Fallback-Wert, falls nichts gefunden wird
+    # Fallback: Nur die Hallennummer
     fallback = f"Halle {hallen_nr}"
     
     try:
         # Die Hallen-URL aus dem Spielplan-Link auf der Seite extrahieren
-        # Normalerweise sind die Hallennummern verlinkt
         response = requests.get(spielplan_url, timeout=5)
         soup = BeautifulSoup(response.text, "html.parser")
         
@@ -59,7 +59,6 @@ def hole_hallen_info(hallen_nr, spielplan_url):
         # Vollständige URL konstruieren
         hallen_url = hallen_link["href"]
         if not hallen_url.startswith("http"):
-            # Relative URL zu absoluter URL machen
             base_url = spielplan_url.split("/cgi-bin/")[0]
             hallen_url = base_url + hallen_url
         
@@ -67,37 +66,51 @@ def hole_hallen_info(hallen_nr, spielplan_url):
         hallen_response = requests.get(hallen_url, timeout=5)
         hallen_soup = BeautifulSoup(hallen_response.text, "html.parser")
         
-        # Hallenname aus dem Titel oder Header extrahieren
-        hallen_name = "Unbekannte Halle"
+        # Hallenname aus dem Titel extrahieren
+        hallen_name = None
         title_tag = hallen_soup.find("title")
         if title_tag:
-            # Format: "Hallenname (Nummer) - nuLiga"
             title_text = title_tag.get_text()
-            if "(" in title_text:
+            # Format: "Hallenname (Nummer) - nuLiga"
+            if "(" in title_text and "-" in title_text:
                 hallen_name = title_text.split("(")[0].strip()
+                # Prüfen, ob ein sinnvoller Name extrahiert wurde
+                if not hallen_name or len(hallen_name) < 3:
+                    hallen_name = None
+        
+        # Wenn kein sinnvoller Hallenname gefunden wurde, Fallback verwenden
+        if not hallen_name:
+            hallen_cache[hallen_nr] = fallback
+            return fallback
         
         # Adresse extrahieren
         adresse = ""
-        adresse_header = hallen_soup.find("h2", string=lambda t: t and "adresse" in t.lower())
-        if adresse_header:
-            # Die Adresse steht normalerweise direkt nach dem Header
-            adresse_elem = adresse_header.find_next_sibling()
-            if adresse_elem:
-                adresse_text = adresse_elem.get_text(separator=" ", strip=True)
-                # Entferne "[Routenplaner...]" und ähnliches
-                adresse = adresse_text.split("[")[0].strip()
+        # Suche nach verschiedenen möglichen Adress-Markierungen
+        for header_text in ["adresse", "anschrift", "ort"]:
+            adresse_header = hallen_soup.find(["h2", "h3", "strong"], 
+                                             string=lambda t: t and header_text in t.lower())
+            if adresse_header:
+                # Die Adresse steht normalerweise direkt nach dem Header
+                adresse_elem = adresse_header.find_next_sibling()
+                if adresse_elem:
+                    adresse_text = adresse_elem.get_text(separator=" ", strip=True)
+                    # Entferne "[Routenplaner...]" und ähnliches
+                    adresse = adresse_text.split("[")[0].strip()
+                    break
         
         # Ergebnis zusammensetzen
-        if adresse:
+        if adresse and len(adresse) > 5:  # Mindestens sinnvolle Länge
             result = f"{hallen_name}, {adresse}"
         else:
+            # Nur Hallenname, wenn Adresse nicht gefunden oder zu kurz
             result = hallen_name
         
         hallen_cache[hallen_nr] = result
+        print(f"  → Halle {hallen_nr}: {result}")
         return result
         
     except Exception as e:
-        print(f"⚠ Konnte Hallen-Info für {hallen_nr} nicht abrufen: {e}")
+        # Bei Fehler: Nur Hallennummer verwenden, keine Fehlermeldung
         hallen_cache[hallen_nr] = fallback
         return fallback
 
@@ -110,12 +123,13 @@ def erstelle_kalender(team_name, url, output_datei):
     
     # Webseite abrufen
     try:
+        print("Lade Webseite...")
         response = requests.get(url, timeout=10)
         response.raise_for_status()
         html = response.text
-        print(f"✓ Webseite geladen")
+        print(f"✓ Webseite geladen ({len(html)} Zeichen)")
     except requests.exceptions.RequestException as e:
-        print(f"✗ Fehler beim Abrufen: {e}")
+        print(f"✗ Fehler beim Abrufen der Webseite: {e}")
         return False
     
     # HTML parsen
@@ -127,6 +141,7 @@ def erstelle_kalender(team_name, url, output_datei):
         print("✗ Keine Tabelle gefunden!")
         return False
     
+    # Die richtige Tabelle finden
     table = None
     for t in tables:
         headers = [th.get_text(strip=True) for th in t.find_all("th")]
@@ -144,6 +159,8 @@ def erstelle_kalender(team_name, url, output_datei):
     tbody = table.find("tbody")
     rows = tbody.find_all("tr") if tbody else table.find_all("tr")[1:]
     
+    print("Extrahiere Spiele und Hallen-Informationen...")
+    
     for row in rows:
         cols = [c.get_text(strip=True) for c in row.find_all("td")]
         
@@ -152,19 +169,22 @@ def erstelle_kalender(team_name, url, output_datei):
         
         tag, datum_str, zeit, hallen_nr, spiel_nr, heim, gast, ergebnis = cols[:8]
         
+        # Datum aktualisieren
         if datum_str:
             aktuelles_datum = datum_str
         
         if not aktuelles_datum:
             continue
         
+        # spielfrei überspringen
         if "spielfrei" in heim.lower() or "spielfrei" in gast.lower():
             continue
         
+        # Nur Spiele mit dem gesuchten Team
         if team_name not in heim and team_name not in gast:
             continue
         
-        # Hallen-Information abrufen
+        # Hallen-Information abrufen (mit Cache)
         hallen_info = hole_hallen_info(hallen_nr, url)
         
         # Gegner bestimmen
@@ -187,7 +207,7 @@ def erstelle_kalender(team_name, url, output_datei):
                 "ort": ort,
             })
         except (ValueError, IndexError) as e:
-            print(f"⚠ Fehler beim Parsen: {aktuelles_datum} {zeit}")
+            print(f"⚠ Fehler beim Parsen: {aktuelles_datum} {zeit} - {e}")
             continue
     
     print(f"✓ {len(spiele)} Spiele gefunden")
@@ -237,4 +257,4 @@ print(f"{'='*60}\n")
 if fehler_counter > 0:
     print("⚠️ Es gab Fehler, aber bereits erstellte Kalender werden trotzdem gespeichert.")
 
-sys.exit(0)
+sys.exit(0)  # Immer erfolgreich beenden
