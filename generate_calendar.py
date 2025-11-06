@@ -212,23 +212,26 @@ def erstelle_kalender(team_name, url, output_datei):
     
     print(f"✓ {len(spiele)} Spiele gefunden")
     
- # Kalender erstellen
+    # Kalender erstellen
     cal = Calendar()
     
     if spiele:
         for s in spiele:
             e = Event()
-            # GEÄNDERT: Einfache Darstellung ohne Emojis und "Heimspiel/Auswärts"
+            # SUMMARY: Heimteam - Gastteam (immer in dieser Reihenfolge)
             if s["spieltyp"] == "Heimspiel":
                 e.name = f"{team_name} - {s['gegner']}"
+                beschreibung_teams = f"{team_name} - {s['gegner']}"
             else:
                 e.name = f"{s['gegner']} - {team_name}"
+                beschreibung_teams = f"{s['gegner']} - {team_name}"  # KORRIGIERT: Gleiche Reihenfolge
             
             e.begin = s["beginn"]
-            e.location = s["ort"]  # Nur die Adresse, ohne Heim/Auswärts
-            e.description = f"Handballspiel ({s['spieltyp']})\n{team_name} - {s['gegner']}\n\nOrt: {s['ort']}"
+            e.location = s["ort"]
+            e.description = f"Handballspiel ({s['spieltyp']})\n{beschreibung_teams}\n\nOrt: {s['ort']}"
             e.duration = {"hours": 1, "minutes": 30}
             cal.events.add(e)
+
     
     # Kalender speichern
     with open(output_datei, "w", encoding="utf-8") as f:
