@@ -2,52 +2,28 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:ics.py - http://git.io/lLljaA
 BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Auswärts)\nHSG Marienheide/Müllenbach - SSV Nümbrecht Handball\n\nOrt: Pestalozzistr. 51709\n            Marienheide
+DURATION:PT1H30M
+LOCATION:Pestalozzistr. 51709\n            Marienheide
+DTSTART:20251214T120000Z
+SUMMARY:HSG Marienheide/Müllenbach - SSV Nümbrecht Handball
+UID:c50421ba-be76-49d2-9b93-2d9f8c27ac84@c504.org
+END:VEVENT
+BEGIN:VEVENT
 DESCRIPTION:Handballspiel (Heimspiel)\nSSV Nümbrecht Handball - CVJM Oberwiehl\n\nOrt: Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
 DURATION:PT1H30M
 LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
 DTSTART:20251117T164500Z
 SUMMARY:SSV Nümbrecht Handball - CVJM Oberwiehl
-UID:1f04b8f2-8175-4cea-8330-ea0f1d1098cd@1f04.org
+UID:e7dd9ac7-7212-45f8-b99b-015c44eb3ebc@e7dd.org
 END:VEVENT
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nSSV Nümbrecht Handball - TuS 09 Drolshagen e.V.\n\nOrt: Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DESCRIPTION:Handballspiel (Auswärts)\nSV Frielingsdorf - SSV Nümbrecht Handball\n\nOrt: Carola-Lob-Weg 1 51789\n            Lindlar
 DURATION:PT1H30M
-LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
-DTSTART:20251208T161500Z
-SUMMARY:SSV Nümbrecht Handball - TuS 09 Drolshagen e.V.
-UID:a807a5b9-b0ac-4e0a-a6b9-60d5eee1d7ed@a807.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\nSSV Nümbrecht Handball - TV Wahlscheid\n\nOrt: Wahlscheider Str. 56 53797\n            Lohmar-Wahlscheid
-DURATION:PT1H30M
-LOCATION:Wahlscheider Str. 56 53797\n            Lohmar-Wahlscheid
-DTSTART:20251130T110000Z
-SUMMARY:TV Wahlscheid - SSV Nümbrecht Handball
-UID:3c1ea4d8-0826-43b8-ba02-6684d439b904@3c1e.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nSSV Nümbrecht Handball - TVE Netphen\n\nOrt: Gouvieuxstr. 2 51588\n            Nümbrecht
-DURATION:PT1H30M
-LOCATION:Gouvieuxstr. 2 51588\n            Nümbrecht
-DTSTART:20250927T140000Z
-SUMMARY:SSV Nümbrecht Handball - TVE Netphen
-UID:6b52ac57-309e-4298-876b-3ce02ce2e9d7@6b52.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\nSSV Nümbrecht Handball - HSG Marienheide/Müllenbach\n\nOrt: Pestalozzistr. 51709\n            Marienheide
-DURATION:PT1H30M
-LOCATION:Pestalozzistr. 51709\n            Marienheide
-DTSTART:20251214T120000Z
-SUMMARY:HSG Marienheide/Müllenbach - SSV Nümbrecht Handball
-UID:48f13c3a-f979-47a6-a55d-284f1b37e13d@48f1.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\nSSV Nümbrecht Handball - VTV Freier Grund 2016 e.V.\n\nOrt: Kopernikusring 102 57290\n            Neunkirchen
-DURATION:PT1H30M
-LOCATION:Kopernikusring 102 57290\n            Neunkirchen
-DTSTART:20250921T100000Z
-SUMMARY:VTV Freier Grund 2016 e.V. - SSV Nümbrecht Handball
-UID:d3f32f28-507b-4a71-875e-f22d5afa3acd@d3f3.org
+LOCATION:Carola-Lob-Weg 1 51789\n            Lindlar
+DTSTART:20251108T153000Z
+SUMMARY:SV Frielingsdorf - SSV Nümbrecht Handball
+UID:34f6d07e-355d-48e8-90b3-cc237ae42dce@34f6.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel (Heimspiel)\nSSV Nümbrecht Handball - HBD Löwen Oberberg\n\nOrt: Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
@@ -55,15 +31,39 @@ DURATION:PT1H30M
 LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
 DTSTART:20250913T113000Z
 SUMMARY:SSV Nümbrecht Handball - HBD Löwen Oberberg
-UID:ff66d60d-53c4-4d1b-8c7a-7cc13a286f8c@ff66.org
+UID:94a8faed-cd9c-43d2-9b7f-f0c4a7eec989@94a8.org
 END:VEVENT
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\nSSV Nümbrecht Handball - SV Frielingsdorf\n\nOrt: Carola-Lob-Weg 1 51789\n            Lindlar
+DESCRIPTION:Handballspiel (Auswärts)\nTV Wahlscheid - SSV Nümbrecht Handball\n\nOrt: Wahlscheider Str. 56 53797\n            Lohmar-Wahlscheid
 DURATION:PT1H30M
-LOCATION:Carola-Lob-Weg 1 51789\n            Lindlar
-DTSTART:20251108T153000Z
-SUMMARY:SV Frielingsdorf - SSV Nümbrecht Handball
-UID:f355c4ee-0d4b-4034-a020-2fd820c6478e@f355.org
+LOCATION:Wahlscheider Str. 56 53797\n            Lohmar-Wahlscheid
+DTSTART:20251130T110000Z
+SUMMARY:TV Wahlscheid - SSV Nümbrecht Handball
+UID:309776f3-c333-4b15-9fc8-5fc81570ecbf@3097.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Heimspiel)\nSSV Nümbrecht Handball - TVE Netphen\n\nOrt: Gouvieuxstr. 2 51588\n            Nümbrecht
+DURATION:PT1H30M
+LOCATION:Gouvieuxstr. 2 51588\n            Nümbrecht
+DTSTART:20250927T140000Z
+SUMMARY:SSV Nümbrecht Handball - TVE Netphen
+UID:faed48e0-37ad-4d79-b7ab-017cc59ff042@faed.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Heimspiel)\nSSV Nümbrecht Handball - TuS 09 Drolshagen e.V.\n\nOrt: Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DURATION:PT1H30M
+LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DTSTART:20251208T161500Z
+SUMMARY:SSV Nümbrecht Handball - TuS 09 Drolshagen e.V.
+UID:03f2c93c-dec7-484d-9aa2-3a5df6f9e0e2@03f2.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Auswärts)\nVTV Freier Grund 2016 e.V. - SSV Nümbrecht Handball\n\nOrt: Kopernikusring 102 57290\n            Neunkirchen
+DURATION:PT1H30M
+LOCATION:Kopernikusring 102 57290\n            Neunkirchen
+DTSTART:20250921T100000Z
+SUMMARY:VTV Freier Grund 2016 e.V. - SSV Nümbrecht Handball
+UID:83143442-cc91-4bd4-b6e2-0e5191aeb6cf@8314.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel (Heimspiel)\nSSV Nümbrecht Handball - SSV Overath\n\nOrt: Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
@@ -71,6 +71,6 @@ DURATION:PT1H30M
 LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
 DTSTART:20251102T111500Z
 SUMMARY:SSV Nümbrecht Handball - SSV Overath
-UID:4173e38e-f2ec-45e0-9470-f3ef38688fca@4173.org
+UID:3be6a0aa-44f6-4b11-8f23-8a2989539eff@3be6.org
 END:VEVENT
 END:VCALENDAR
