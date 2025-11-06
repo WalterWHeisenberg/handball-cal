@@ -5,25 +5,25 @@ from datetime import datetime
 import pytz
 import sys
 
-# --- Konfiguration für mehrere Kalender ---
+# --- Konfiguration ---
 KALENDER_CONFIG = [
     {
-        "name": "SSV Nümbrecht Handball",  # weibliche Jugend C
+        "name": "SSV Nümbrecht Handball",
         "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424244",
         "output": "handball_wjc.ics"
     },
     {
-        "name": "SSV Nümbrecht Handball",  # männliche Jugend D1
+        "name": "SSV Nümbrecht Handball",
         "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424217",
         "output": "handball_mjd1.ics"
     },
     {
-        "name": "SSV Nümbrecht Handball",  # männliche Jugend D2
+        "name": "SSV Nümbrecht Handball",
         "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424113",
         "output": "handball_mjd2.ics"
     },
     {
-        "name": "SSV Nümbrecht Handball III",  # Herren III
+        "name": "SSV Nümbrecht Handball III",
         "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424114",
         "output": "handball_h3.ics"
     }
@@ -31,26 +31,91 @@ KALENDER_CONFIG = [
 
 ZEITZONE = pytz.timezone("Europe/Berlin")
 
+# Cache für Hallen-Informationen, um wiederholte Abfragen zu vermeiden
+hallen_cache = {}
+
+def hole_hallen_info(hallen_nr, spielplan_url):
+    """
+    Holt die Halleninformationen (Name + Adresse) von liga.nu
+    """
+    if hallen_nr in hallen_cache:
+        return hallen_cache[hallen_nr]
+    
+    # Fallback-Wert, falls nichts gefunden wird
+    fallback = f"Halle {hallen_nr}"
+    
+    try:
+        # Die Hallen-URL aus dem Spielplan-Link auf der Seite extrahieren
+        # Normalerweise sind die Hallennummern verlinkt
+        response = requests.get(spielplan_url, timeout=5)
+        soup = BeautifulSoup(response.text, "html.parser")
+        
+        # Suche nach Link mit der Hallennummer
+        hallen_link = soup.find("a", string=hallen_nr)
+        if not hallen_link or not hallen_link.get("href"):
+            hallen_cache[hallen_nr] = fallback
+            return fallback
+        
+        # Vollständige URL konstruieren
+        hallen_url = hallen_link["href"]
+        if not hallen_url.startswith("http"):
+            # Relative URL zu absoluter URL machen
+            base_url = spielplan_url.split("/cgi-bin/")[0]
+            hallen_url = base_url + hallen_url
+        
+        # Hallen-Detailseite abrufen
+        hallen_response = requests.get(hallen_url, timeout=5)
+        hallen_soup = BeautifulSoup(hallen_response.text, "html.parser")
+        
+        # Hallenname aus dem Titel oder Header extrahieren
+        hallen_name = "Unbekannte Halle"
+        title_tag = hallen_soup.find("title")
+        if title_tag:
+            # Format: "Hallenname (Nummer) - nuLiga"
+            title_text = title_tag.get_text()
+            if "(" in title_text:
+                hallen_name = title_text.split("(")[0].strip()
+        
+        # Adresse extrahieren
+        adresse = ""
+        adresse_header = hallen_soup.find("h2", string=lambda t: t and "adresse" in t.lower())
+        if adresse_header:
+            # Die Adresse steht normalerweise direkt nach dem Header
+            adresse_elem = adresse_header.find_next_sibling()
+            if adresse_elem:
+                adresse_text = adresse_elem.get_text(separator=" ", strip=True)
+                # Entferne "[Routenplaner...]" und ähnliches
+                adresse = adresse_text.split("[")[0].strip()
+        
+        # Ergebnis zusammensetzen
+        if adresse:
+            result = f"{hallen_name}, {adresse}"
+        else:
+            result = hallen_name
+        
+        hallen_cache[hallen_nr] = result
+        return result
+        
+    except Exception as e:
+        print(f"⚠ Konnte Hallen-Info für {hallen_nr} nicht abrufen: {e}")
+        hallen_cache[hallen_nr] = fallback
+        return fallback
+
 def erstelle_kalender(team_name, url, output_datei):
     """Erstellt einen Kalender für ein Team"""
     
     print(f"\n{'='*60}")
     print(f"Erstelle Kalender für: {team_name}")
-    print(f"URL: {url}")
-    print(f"Output: {output_datei}")
     print(f"{'='*60}")
     
     # Webseite abrufen
     try:
-        print("Lade Webseite...")
         response = requests.get(url, timeout=10)
         response.raise_for_status()
         html = response.text
-        print(f"✓ Webseite geladen ({len(html)} Zeichen)")
+        print(f"✓ Webseite geladen")
     except requests.exceptions.RequestException as e:
-        print(f"✗ Fehler beim Abrufen der Webseite: {e}")
-        status = getattr(getattr(e, 'response', None), 'status_code', 'N/A')
-        print(f"✗ Status Code: {status}")
+        print(f"✗ Fehler beim Abrufen: {e}")
         return False
     
     # HTML parsen
@@ -62,46 +127,22 @@ def erstelle_kalender(team_name, url, output_datei):
         print("✗ Keine Tabelle gefunden!")
         return False
     
-    print(f"✓ {len(tables)} Tabelle(n) gefunden")
-    
-    # Die richtige Tabelle finden
     table = None
-    for idx, t in enumerate(tables):
+    for t in tables:
         headers = [th.get_text(strip=True) for th in t.find_all("th")]
         if any("mannschaft" in h.lower() or "datum" in h.lower() for h in headers):
             table = t
-            print(f"✓ Spielplan-Tabelle gefunden (Tabelle {idx+1})")
             break
     
     if not table:
-        print("⚠ Keine passende Tabelle mit Headers gefunden, verwende erste Tabelle")
         table = tables[0]
-    
-    # DEBUG: Alle gefundenen Teams ausgeben
-    print("\n--- GEFUNDENE TEAMS IN DER TABELLE ---")
-    tbody = table.find("tbody")
-    rows = tbody.find_all("tr") if tbody else table.find_all("tr")[1:]
-    
-    gefundene_teams = set()
-    for row in rows[:20]:  # Nur erste 20 Zeilen
-        cols = [c.get_text(strip=True) for c in row.find_all("td")]
-        if len(cols) >= 7:
-            heim = cols[5] if len(cols) > 5 else ""
-            gast = cols[6] if len(cols) > 6 else ""
-            if heim and "spielfrei" not in heim.lower():
-                gefundene_teams.add(heim)
-            if gast and "spielfrei" not in gast.lower():
-                gefundene_teams.add(gast)
-    
-    for team in sorted(gefundene_teams):
-        marker = " ← MATCH!" if team_name in team or team in team_name else ""
-        print(f"  - '{team}'{marker}")
-    print("--- ENDE DER TEAMLISTE ---\n")
     
     # Spiele extrahieren
     spiele = []
     aktuelles_datum = None
-    zeilen_mit_team = 0
+    
+    tbody = table.find("tbody")
+    rows = tbody.find_all("tr") if tbody else table.find_all("tr")[1:]
     
     for row in rows:
         cols = [c.get_text(strip=True) for c in row.find_all("td")]
@@ -109,32 +150,30 @@ def erstelle_kalender(team_name, url, output_datei):
         if len(cols) < 8:
             continue
         
-        tag, datum_str, zeit, halle_nr, spiel_nr, heim, gast, ergebnis = cols[:8]
+        tag, datum_str, zeit, hallen_nr, spiel_nr, heim, gast, ergebnis = cols[:8]
         
-        # Datum aktualisieren
         if datum_str:
             aktuelles_datum = datum_str
         
         if not aktuelles_datum:
             continue
         
-        # spielfrei überspringen
         if "spielfrei" in heim.lower() or "spielfrei" in gast.lower():
             continue
         
-        # Nur Spiele mit dem gesuchten Team
         if team_name not in heim and team_name not in gast:
             continue
         
-        zeilen_mit_team += 1
+        # Hallen-Information abrufen
+        hallen_info = hole_hallen_info(hallen_nr, url)
         
         # Gegner bestimmen
         if team_name in heim:
             gegner = gast
-            ort = f"Heimspiel – Halle {halle_nr}"
+            ort = f"Heimspiel – {hallen_info}"
         else:
             gegner = heim
-            ort = f"Auswärts – Halle {halle_nr}"
+            ort = f"Auswärts – {hallen_info}"
         
         # Datum parsen
         try:
@@ -148,11 +187,10 @@ def erstelle_kalender(team_name, url, output_datei):
                 "ort": ort,
             })
         except (ValueError, IndexError) as e:
-            print(f"⚠ Fehler beim Parsen: {aktuelles_datum} {zeit} - {e}")
+            print(f"⚠ Fehler beim Parsen: {aktuelles_datum} {zeit}")
             continue
     
-    print(f"✓ Zeilen mit Team '{team_name}': {zeilen_mit_team}")
-    print(f"✓ Erfolgreich geparste Spiele: {len(spiele)}")
+    print(f"✓ {len(spiele)} Spiele gefunden")
     
     # Kalender erstellen
     cal = Calendar()
@@ -166,23 +204,17 @@ def erstelle_kalender(team_name, url, output_datei):
             e.description = f"Handballspiel: {e.name}\nOrt: {s['ort']}"
             e.duration = {"hours": 1, "minutes": 30}
             cal.events.add(e)
-        print(f"✓ {len(spiele)} Events zum Kalender hinzugefügt")
-    else:
-        print("⚠ Keine Spiele gefunden - erstelle leeren Kalender")
     
     # Kalender speichern
-    try:
-        with open(output_datei, "w", encoding="utf-8") as f:
-            f.writelines(cal)
-        print(f"✓ {output_datei} erfolgreich erstellt")
-        return True
-    except Exception as e:
-        print(f"✗ Fehler beim Schreiben der Datei: {e}")
-        return False
+    with open(output_datei, "w", encoding="utf-8") as f:
+        f.writelines(cal)
+    
+    print(f"✓ {output_datei} erfolgreich erstellt")
+    return True
 
 # --- Hauptprogramm ---
 print("="*60)
-print("HANDBALL KALENDER GENERATOR (DEBUG VERSION)")
+print("HANDBALL KALENDER GENERATOR")
 print("="*60)
 
 erfolg_counter = 0
@@ -199,9 +231,10 @@ print(f"ZUSAMMENFASSUNG")
 print(f"{'='*60}")
 print(f"Erfolgreich erstellt: {erfolg_counter}")
 print(f"Fehler: {fehler_counter}")
+print(f"Hallen im Cache: {len(hallen_cache)}")
 print(f"{'='*60}\n")
 
 if fehler_counter > 0:
     print("⚠️ Es gab Fehler, aber bereits erstellte Kalender werden trotzdem gespeichert.")
 
-sys.exit(0)  # Immer erfolgreich beenden
+sys.exit(0)
