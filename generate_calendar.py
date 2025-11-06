@@ -33,7 +33,6 @@ KALENDER_CONFIG = [
         "output": "handball_wjb.ics"
     }
 ]
-]
 
 ZEITZONE = pytz.timezone("Europe/Berlin")
 
