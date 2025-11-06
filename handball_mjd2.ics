@@ -2,84 +2,12 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:ics.py - http://git.io/lLljaA
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel: CVJM Waldbröl vs. SSV Nümbrecht Handball\nOrt: Auswärts – Halle 09001
-DURATION:PT1H30M
-LOCATION:Auswärts – Halle 09001
-DTSTART:20251109T123000Z
-SUMMARY:CVJM Waldbröl vs. SSV Nümbrecht Handball
-UID:50b25ad5-a10f-4c18-b892-08236a81e65b@50b2.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel: SSV Nümbrecht Handball vs. SV Frielingsdorf II\nOrt: Heimspiel – Halle 09004
-DURATION:PT1H30M
-LOCATION:Heimspiel – Halle 09004
-DTSTART:20251122T123000Z
-SUMMARY:SSV Nümbrecht Handball vs. SV Frielingsdorf II
-UID:73ab69a9-9ec3-4652-91e8-ebdd7dcb505d@73ab.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel: SSV Nümbrecht Handball vs. TV Wahlscheid II\nOrt: Heimspiel – Halle 09005
-DURATION:PT1H30M
-LOCATION:Heimspiel – Halle 09005
-DTSTART:20250927T120000Z
-SUMMARY:SSV Nümbrecht Handball vs. TV Wahlscheid II
-UID:92498799-5a5d-46c9-b46e-9d1fb0ac72e6@9249.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel: HC Gelpe/Strombach II vs. SSV Nümbrecht Handball\nOrt: Auswärts – Halle 09007
-DURATION:PT1H30M
-LOCATION:Auswärts – Halle 09007
-DTSTART:20250920T113000Z
-SUMMARY:HC Gelpe/Strombach II vs. SSV Nümbrecht Handball
-UID:02d70bf9-31b6-450e-9005-a6a327d83b9e@02d7.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel: TV Wahlscheid II vs. SSV Nümbrecht Handball\nOrt: Auswärts – Halle 09023
-DURATION:PT1H30M
-LOCATION:Auswärts – Halle 09023
-DTSTART:20260118T113000Z
-SUMMARY:TV Wahlscheid II vs. SSV Nümbrecht Handball
-UID:91decbef-692c-4887-9b4c-86556ba5b65b@91de.org
-END:VEVENT
-BEGIN:VEVENT
 DESCRIPTION:Handballspiel: SSV Nümbrecht Handball vs. SSV Overath\nOrt: Heimspiel – Halle 09005
 DURATION:PT1H30M
 LOCATION:Heimspiel – Halle 09005
 DTSTART:20251005T100000Z
 SUMMARY:SSV Nümbrecht Handball vs. SSV Overath
-UID:908c3e9e-a180-4dc9-bcd6-73723afb0d15@908c.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel: SSV Nümbrecht Handball vs. VfL Gummersbach II\nOrt: Heimspiel – Halle 09004
-DURATION:PT1H30M
-LOCATION:Heimspiel – Halle 09004
-DTSTART:20260221T140000Z
-SUMMARY:SSV Nümbrecht Handball vs. VfL Gummersbach II
-UID:71c9a2c9-7da2-4ed7-a56b-9ffa2b19c4af@71c9.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel: SSV Nümbrecht Handball vs. HC Gelpe/Strombach II\nOrt: Heimspiel – Halle 09004
-DURATION:PT1H30M
-LOCATION:Heimspiel – Halle 09004
-DTSTART:20251213T153000Z
-SUMMARY:SSV Nümbrecht Handball vs. HC Gelpe/Strombach II
-UID:4e858b2e-6730-469f-aec6-213a4286566c@4e85.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel: SSV Overath vs. SSV Nümbrecht Handball\nOrt: Auswärts – Halle 09028
-DURATION:PT1H30M
-LOCATION:Auswärts – Halle 09028
-DTSTART:20260125T153000Z
-SUMMARY:SSV Overath vs. SSV Nümbrecht Handball
-UID:a0d569c5-96cd-4d5e-81ee-c76a23e64ecc@a0d5.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel: VfL Gummersbach II vs. SSV Nümbrecht Handball\nOrt: Auswärts – Halle 09030
-DURATION:PT1H30M
-LOCATION:Auswärts – Halle 09030
-DTSTART:20251130T113000Z
-SUMMARY:VfL Gummersbach II vs. SSV Nümbrecht Handball
-UID:7fe5796f-621d-4915-bf50-4fa8e404d36a@7fe5.org
+UID:4dc84091-2f5e-4fe1-8431-dbf76a2ed301@4dc8.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel: SV Frielingsdorf II vs. SSV Nümbrecht Handball\nOrt: Auswärts – Halle 09022
@@ -87,7 +15,71 @@ DURATION:PT1H30M
 LOCATION:Auswärts – Halle 09022
 DTSTART:20260207T150000Z
 SUMMARY:SV Frielingsdorf II vs. SSV Nümbrecht Handball
-UID:0298f9f3-737d-4753-a29b-addc313ad358@0298.org
+UID:227eea24-3e62-4aa5-a751-b45ce360948f@227e.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel: SSV Nümbrecht Handball vs. TV Wahlscheid II\nOrt: Heimspiel – Halle 09005
+DURATION:PT1H30M
+LOCATION:Heimspiel – Halle 09005
+DTSTART:20250927T120000Z
+SUMMARY:SSV Nümbrecht Handball vs. TV Wahlscheid II
+UID:299cd6b7-ce00-4f7e-90b5-8f2508202c42@299c.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel: SSV Overath vs. SSV Nümbrecht Handball\nOrt: Auswärts – Halle 09028
+DURATION:PT1H30M
+LOCATION:Auswärts – Halle 09028
+DTSTART:20260125T153000Z
+SUMMARY:SSV Overath vs. SSV Nümbrecht Handball
+UID:d3fd0055-fad0-41fc-a452-bd8a64895fc1@d3fd.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel: SSV Nümbrecht Handball vs. VfL Gummersbach II\nOrt: Heimspiel – Halle 09004
+DURATION:PT1H30M
+LOCATION:Heimspiel – Halle 09004
+DTSTART:20260221T140000Z
+SUMMARY:SSV Nümbrecht Handball vs. VfL Gummersbach II
+UID:c947bcb1-6573-4168-a1bd-2b4bab22e2b2@c947.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel: VfL Gummersbach II vs. SSV Nümbrecht Handball\nOrt: Auswärts – Halle 09030
+DURATION:PT1H30M
+LOCATION:Auswärts – Halle 09030
+DTSTART:20251130T113000Z
+SUMMARY:VfL Gummersbach II vs. SSV Nümbrecht Handball
+UID:3f48c5e5-40dd-433f-9d16-4245b8ceb34e@3f48.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel: CVJM Waldbröl vs. SSV Nümbrecht Handball\nOrt: Auswärts – Halle 09001
+DURATION:PT1H30M
+LOCATION:Auswärts – Halle 09001
+DTSTART:20251109T123000Z
+SUMMARY:CVJM Waldbröl vs. SSV Nümbrecht Handball
+UID:97acc4de-beea-4c12-9648-6b8c1bdfd5f7@97ac.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel: SSV Nümbrecht Handball vs. SV Frielingsdorf II\nOrt: Heimspiel – Halle 09004
+DURATION:PT1H30M
+LOCATION:Heimspiel – Halle 09004
+DTSTART:20251122T123000Z
+SUMMARY:SSV Nümbrecht Handball vs. SV Frielingsdorf II
+UID:21b4cf62-cbf8-45c5-9bdd-c06d8ef0838f@21b4.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel: SSV Nümbrecht Handball vs. HC Gelpe/Strombach II\nOrt: Heimspiel – Halle 09004
+DURATION:PT1H30M
+LOCATION:Heimspiel – Halle 09004
+DTSTART:20251213T153000Z
+SUMMARY:SSV Nümbrecht Handball vs. HC Gelpe/Strombach II
+UID:1b3c6cc7-387a-48ea-abe2-80fd0b3bb418@1b3c.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel: HC Gelpe/Strombach II vs. SSV Nümbrecht Handball\nOrt: Auswärts – Halle 09007
+DURATION:PT1H30M
+LOCATION:Auswärts – Halle 09007
+DTSTART:20250920T113000Z
+SUMMARY:HC Gelpe/Strombach II vs. SSV Nümbrecht Handball
+UID:e6d42f07-0d46-43e2-b331-40a6481533db@e6d4.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel: SSV Nümbrecht Handball vs. CVJM Waldbröl\nOrt: Heimspiel – Halle 09004
@@ -95,6 +87,14 @@ DURATION:PT1H30M
 LOCATION:Heimspiel – Halle 09004
 DTSTART:20260201T113000Z
 SUMMARY:SSV Nümbrecht Handball vs. CVJM Waldbröl
-UID:d3a887ee-2df4-4f07-9ef6-ff5462193830@d3a8.org
+UID:7daab09e-f267-4763-bba9-2afc3a723d3e@7daa.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel: TV Wahlscheid II vs. SSV Nümbrecht Handball\nOrt: Auswärts – Halle 09023
+DURATION:PT1H30M
+LOCATION:Auswärts – Halle 09023
+DTSTART:20260118T113000Z
+SUMMARY:TV Wahlscheid II vs. SSV Nümbrecht Handball
+UID:164eb11b-5068-4ce9-b109-198b048be69f@164e.org
 END:VEVENT
 END:VCALENDAR

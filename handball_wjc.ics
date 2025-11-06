@@ -2,12 +2,20 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:ics.py - http://git.io/lLljaA
 BEGIN:VEVENT
+DESCRIPTION:Handballspiel: SSV Nümbrecht Handball vs. HBD Löwen Oberberg\nOrt: Heimspiel – Halle 09004
+DURATION:PT1H30M
+LOCATION:Heimspiel – Halle 09004
+DTSTART:20250913T113000Z
+SUMMARY:SSV Nümbrecht Handball vs. HBD Löwen Oberberg
+UID:8fb1416d-5572-4645-9b9b-ea08d5c3a35d@8fb1.org
+END:VEVENT
+BEGIN:VEVENT
 DESCRIPTION:Handballspiel: SSV Nümbrecht Handball vs. TVE Netphen\nOrt: Heimspiel – Halle 09005
 DURATION:PT1H30M
 LOCATION:Heimspiel – Halle 09005
 DTSTART:20250927T140000Z
 SUMMARY:SSV Nümbrecht Handball vs. TVE Netphen
-UID:6c0dbeea-768c-44b3-8100-d8c823ed6088@6c0d.org
+UID:703b194a-2aee-49a7-9efc-e3a5a6568b38@703b.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel: HSG Marienheide/Müllenbach vs. SSV Nümbrecht Handball\nOrt: Auswärts – Halle 09014
@@ -15,7 +23,7 @@ DURATION:PT1H30M
 LOCATION:Auswärts – Halle 09014
 DTSTART:20251214T120000Z
 SUMMARY:HSG Marienheide/Müllenbach vs. SSV Nümbrecht Handball
-UID:d0c67776-a420-4770-a171-3a5053fce424@d0c6.org
+UID:44e743cd-4b64-4512-a451-4aaf276e46e8@44e7.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel: SSV Nümbrecht Handball vs. CVJM Oberwiehl\nOrt: Heimspiel – Halle 09004
@@ -23,23 +31,7 @@ DURATION:PT1H30M
 LOCATION:Heimspiel – Halle 09004
 DTSTART:20251117T164500Z
 SUMMARY:SSV Nümbrecht Handball vs. CVJM Oberwiehl
-UID:4c71f2c8-1526-4d82-a57a-750f14d4df9c@4c71.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel: VTV Freier Grund 2016 e.V. vs. SSV Nümbrecht Handball\nOrt: Auswärts – Halle 09037
-DURATION:PT1H30M
-LOCATION:Auswärts – Halle 09037
-DTSTART:20250921T100000Z
-SUMMARY:VTV Freier Grund 2016 e.V. vs. SSV Nümbrecht Handball
-UID:eb91ab3d-423c-4d01-9237-9a7c2d59413d@eb91.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel: TV Wahlscheid vs. SSV Nümbrecht Handball\nOrt: Auswärts – Halle 09023
-DURATION:PT1H30M
-LOCATION:Auswärts – Halle 09023
-DTSTART:20251130T110000Z
-SUMMARY:TV Wahlscheid vs. SSV Nümbrecht Handball
-UID:8c5a2e8b-27df-4b05-8217-53538f0506a6@8c5a.org
+UID:7228bfa2-8dbb-4978-a6d2-23dea1f2c144@7228.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel: SSV Nümbrecht Handball vs. TuS 09 Drolshagen e.V.\nOrt: Heimspiel – Halle 09004
@@ -47,7 +39,7 @@ DURATION:PT1H30M
 LOCATION:Heimspiel – Halle 09004
 DTSTART:20251208T161500Z
 SUMMARY:SSV Nümbrecht Handball vs. TuS 09 Drolshagen e.V.
-UID:7e4361ab-5a51-4526-a8bf-ec5a2147d27b@7e43.org
+UID:8d5f0057-5714-497a-9b03-2560fcb3c847@8d5f.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel: SV Frielingsdorf vs. SSV Nümbrecht Handball\nOrt: Auswärts – Halle 09022
@@ -55,7 +47,23 @@ DURATION:PT1H30M
 LOCATION:Auswärts – Halle 09022
 DTSTART:20251108T153000Z
 SUMMARY:SV Frielingsdorf vs. SSV Nümbrecht Handball
-UID:522bf7dc-a30e-4775-aff6-997389dea264@522b.org
+UID:d01df171-16cf-471b-ab8e-854bfe80a226@d01d.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel: TV Wahlscheid vs. SSV Nümbrecht Handball\nOrt: Auswärts – Halle 09023
+DURATION:PT1H30M
+LOCATION:Auswärts – Halle 09023
+DTSTART:20251130T110000Z
+SUMMARY:TV Wahlscheid vs. SSV Nümbrecht Handball
+UID:900a114c-f8fc-4e78-bafb-1cf4470c33ff@900a.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel: VTV Freier Grund 2016 e.V. vs. SSV Nümbrecht Handball\nOrt: Auswärts – Halle 09037
+DURATION:PT1H30M
+LOCATION:Auswärts – Halle 09037
+DTSTART:20250921T100000Z
+SUMMARY:VTV Freier Grund 2016 e.V. vs. SSV Nümbrecht Handball
+UID:efbea0a0-abb3-464c-b785-a7217f0ce755@efbe.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel: SSV Nümbrecht Handball vs. SSV Overath\nOrt: Heimspiel – Halle 09004
@@ -63,14 +71,6 @@ DURATION:PT1H30M
 LOCATION:Heimspiel – Halle 09004
 DTSTART:20251102T111500Z
 SUMMARY:SSV Nümbrecht Handball vs. SSV Overath
-UID:c41a7b13-a133-45df-87fb-a4dea85ba65a@c41a.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel: SSV Nümbrecht Handball vs. HBD Löwen Oberberg\nOrt: Heimspiel – Halle 09004
-DURATION:PT1H30M
-LOCATION:Heimspiel – Halle 09004
-DTSTART:20250913T113000Z
-SUMMARY:SSV Nümbrecht Handball vs. HBD Löwen Oberberg
-UID:8b0ce8aa-4b8a-495a-9fe8-14eea556a7c2@8b0c.org
+UID:a6c7a768-4d87-4d9a-86bc-151c9699c5af@a6c7.org
 END:VEVENT
 END:VCALENDAR

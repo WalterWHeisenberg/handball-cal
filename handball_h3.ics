@@ -2,84 +2,12 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:ics.py - http://git.io/lLljaA
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel: HBD Löwen Oberberg III vs. SSV Nümbrecht Handball III\nOrt: Auswärts – Halle 09012
-DURATION:PT1H30M
-LOCATION:Auswärts – Halle 09012
-DTSTART:20260308T120000Z
-SUMMARY:HBD Löwen Oberberg III vs. SSV Nümbrecht Handball III
-UID:2efd1a00-ec32-4f67-a8f8-680b4d43bffb@2efd.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel: SSV Nümbrecht Handball III vs. CVJM Oberwiehl III\nOrt: Heimspiel – Halle 09004
-DURATION:PT1H30M
-LOCATION:Heimspiel – Halle 09004
-DTSTART:20251102T144500Z
-SUMMARY:SSV Nümbrecht Handball III vs. CVJM Oberwiehl III
-UID:65b8a449-34e3-4503-9e7c-f95e43066b4b@65b8.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel: SV Frielingsdorf vs. SSV Nümbrecht Handball III\nOrt: Auswärts – Halle 09022
-DURATION:PT1H30M
-LOCATION:Auswärts – Halle 09022
-DTSTART:20251206T190000Z
-SUMMARY:SV Frielingsdorf vs. SSV Nümbrecht Handball III
-UID:95c6cfbb-1bc7-4bdb-b666-20c3279daad8@95c6.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel: TV Wahlscheid II vs. SSV Nümbrecht Handball III\nOrt: Auswärts – Halle 09024
-DURATION:PT1H30M
-LOCATION:Auswärts – Halle 09024
-DTSTART:20260201T150000Z
-SUMMARY:TV Wahlscheid II vs. SSV Nümbrecht Handball III
-UID:5a7445f7-5f48-4e67-b593-b5cfbbca5da8@5a74.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel: Blue-White-Dynamite VfL Gummersbach e.V. vs. SSV Nümbrecht Handball III\nOrt: Auswärts – Halle 09019
-DURATION:PT1H30M
-LOCATION:Auswärts – Halle 09019
-DTSTART:20250921T160000Z
-SUMMARY:Blue-White-Dynamite VfL Gummersbach e.V. vs. SSV Nümbrecht Handball III
-UID:02d00cc3-4851-45ff-8608-c107cd8b4be7@02d0.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel: CVJM Oberwiehl III vs. SSV Nümbrecht Handball III\nOrt: Auswärts – Halle 09020
-DURATION:PT1H30M
-LOCATION:Auswärts – Halle 09020
-DTSTART:20260124T183000Z
-SUMMARY:CVJM Oberwiehl III vs. SSV Nümbrecht Handball III
-UID:2650c862-1ef1-42af-8db4-97aab62cc0d4@2650.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel: SSV Nümbrecht Handball III vs. Blue-White-Dynamite VfL Gummersbach e.V.\nOrt: Heimspiel – Halle 09004
-DURATION:PT1H30M
-LOCATION:Heimspiel – Halle 09004
-DTSTART:20260117T150000Z
-SUMMARY:SSV Nümbrecht Handball III vs. Blue-White-Dynamite VfL Gummersbach e.V.
-UID:04ebfc1d-0729-40e5-8b0a-631eb44f6828@04eb.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel: SSV Nümbrecht Handball III vs. SV Frielingsdorf\nOrt: Heimspiel – Halle 09005
-DURATION:PT1H30M
-LOCATION:Heimspiel – Halle 09005
-DTSTART:20260314T170000Z
-SUMMARY:SSV Nümbrecht Handball III vs. SV Frielingsdorf
-UID:d1198db6-e77e-4204-95e9-58fba41be650@d119.org
-END:VEVENT
-BEGIN:VEVENT
 DESCRIPTION:Handballspiel: SSV Nümbrecht Handball III vs. HBD Löwen Oberberg III\nOrt: Heimspiel – Halle 09005
 DURATION:PT1H30M
 LOCATION:Heimspiel – Halle 09005
 DTSTART:20251130T170000Z
 SUMMARY:SSV Nümbrecht Handball III vs. HBD Löwen Oberberg III
-UID:6d312319-db33-45af-baa3-c70712290519@6d31.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel: SSV Nümbrecht Handball III vs. TV Wahlscheid II\nOrt: Heimspiel – Halle 09005
-DURATION:PT1H30M
-LOCATION:Heimspiel – Halle 09005
-DTSTART:20251109T170000Z
-SUMMARY:SSV Nümbrecht Handball III vs. TV Wahlscheid II
-UID:9d8ab48f-373e-4923-aba3-8d51fefe5777@9d8a.org
+UID:f6a1cc08-5eb9-41c3-a1b5-f8835b14aff3@f6a1.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel: SSV Nümbrecht Handball III vs. HSG Marienheide/Müllenbach II\nOrt: Heimspiel – Halle 09005
@@ -87,7 +15,55 @@ DURATION:PT1H30M
 LOCATION:Heimspiel – Halle 09005
 DTSTART:20260228T170000Z
 SUMMARY:SSV Nümbrecht Handball III vs. HSG Marienheide/Müllenbach II
-UID:8dde93a7-c3b3-4388-b9c1-eae5935514ab@8dde.org
+UID:12f28bb6-11c4-40bc-9487-897c8848e062@12f2.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel: TV Wahlscheid II vs. SSV Nümbrecht Handball III\nOrt: Auswärts – Halle 09024
+DURATION:PT1H30M
+LOCATION:Auswärts – Halle 09024
+DTSTART:20260201T150000Z
+SUMMARY:TV Wahlscheid II vs. SSV Nümbrecht Handball III
+UID:930137b0-36ed-47ca-9d0f-038d938e0c5b@9301.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel: SV Frielingsdorf vs. SSV Nümbrecht Handball III\nOrt: Auswärts – Halle 09022
+DURATION:PT1H30M
+LOCATION:Auswärts – Halle 09022
+DTSTART:20251206T190000Z
+SUMMARY:SV Frielingsdorf vs. SSV Nümbrecht Handball III
+UID:a496e890-128d-4360-9719-6ee3b4cac50f@a496.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel: SSV Nümbrecht Handball III vs. Blue-White-Dynamite VfL Gummersbach e.V.\nOrt: Heimspiel – Halle 09004
+DURATION:PT1H30M
+LOCATION:Heimspiel – Halle 09004
+DTSTART:20260117T150000Z
+SUMMARY:SSV Nümbrecht Handball III vs. Blue-White-Dynamite VfL Gummersbach e.V.
+UID:b4cab9e3-025a-4694-aa15-610001b773b2@b4ca.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel: CVJM Oberwiehl III vs. SSV Nümbrecht Handball III\nOrt: Auswärts – Halle 09020
+DURATION:PT1H30M
+LOCATION:Auswärts – Halle 09020
+DTSTART:20260124T183000Z
+SUMMARY:CVJM Oberwiehl III vs. SSV Nümbrecht Handball III
+UID:f9946439-1351-4eb1-a8e3-6883d1af4605@f994.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel: HBD Löwen Oberberg III vs. SSV Nümbrecht Handball III\nOrt: Auswärts – Halle 09012
+DURATION:PT1H30M
+LOCATION:Auswärts – Halle 09012
+DTSTART:20260308T120000Z
+SUMMARY:HBD Löwen Oberberg III vs. SSV Nümbrecht Handball III
+UID:91d8b641-f990-45c4-b29c-958ed128dde5@91d8.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel: SSV Nümbrecht Handball III vs. CVJM Oberwiehl III\nOrt: Heimspiel – Halle 09004
+DURATION:PT1H30M
+LOCATION:Heimspiel – Halle 09004
+DTSTART:20251102T144500Z
+SUMMARY:SSV Nümbrecht Handball III vs. CVJM Oberwiehl III
+UID:6fceb0ce-692a-42ef-805d-3cd8ee8f262c@6fce.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel: HSG Marienheide/Müllenbach II vs. SSV Nümbrecht Handball III\nOrt: Auswärts – Halle 09014
@@ -95,6 +71,30 @@ DURATION:PT1H30M
 LOCATION:Auswärts – Halle 09014
 DTSTART:20251116T151000Z
 SUMMARY:HSG Marienheide/Müllenbach II vs. SSV Nümbrecht Handball III
-UID:9c76bf11-4a36-480e-8a5d-680ae25b71f7@9c76.org
+UID:5910ae49-6a71-4f1c-aa7a-860a7b4a1b6d@5910.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel: Blue-White-Dynamite VfL Gummersbach e.V. vs. SSV Nümbrecht Handball III\nOrt: Auswärts – Halle 09019
+DURATION:PT1H30M
+LOCATION:Auswärts – Halle 09019
+DTSTART:20250921T160000Z
+SUMMARY:Blue-White-Dynamite VfL Gummersbach e.V. vs. SSV Nümbrecht Handball III
+UID:c341a954-7455-4a87-80df-79f2d7d5df82@c341.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel: SSV Nümbrecht Handball III vs. TV Wahlscheid II\nOrt: Heimspiel – Halle 09005
+DURATION:PT1H30M
+LOCATION:Heimspiel – Halle 09005
+DTSTART:20251109T170000Z
+SUMMARY:SSV Nümbrecht Handball III vs. TV Wahlscheid II
+UID:0b9c1847-9851-410d-a62f-1340e40361de@0b9c.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel: SSV Nümbrecht Handball III vs. SV Frielingsdorf\nOrt: Heimspiel – Halle 09005
+DURATION:PT1H30M
+LOCATION:Heimspiel – Halle 09005
+DTSTART:20260314T170000Z
+SUMMARY:SSV Nümbrecht Handball III vs. SV Frielingsdorf
+UID:2f95d75c-23f9-46b1-8b7a-6d386c7776d2@2f95.org
 END:VEVENT
 END:VCALENDAR
