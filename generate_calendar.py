@@ -1,4 +1,5 @@
 # generate_calendar.py
+
 import requests
 from bs4 import BeautifulSoup
 from ics import Calendar, Event
@@ -11,38 +12,56 @@ TEAM = "SSV Nümbrecht Handball"
 ZEITZONE = pytz.timezone("Europe/Berlin")
 
 # --- Webseite abrufen ---
-html = requests.get(URL).text
-soup = BeautifulSoup(html, "html.parser")
+try:
+    html = requests.get(URL).text
+    soup = BeautifulSoup(html, "html.parser")
+except requests.exceptions.RequestException as e:
+    print(f"Fehler beim Abrufen der Webseite: {e}")
+    exit(1)
 
 # --- Spiele aus Tabelle auslesen ---
-# Auf liga.nu liegen die Spieltermine meist in einer Tabelle mit <table class="result-set">
 spiele = []
+# Die Tabelle hat keine "result-set"-Klasse mehr. Wir suchen die erste Tabelle im Dokument.
+table = soup.find("table")
 
-for row in soup.select("table.result-set tr"):
+if not table:
+    print("Fehler: Keine Spieltabelle auf der Seite gefunden.")
+    exit(1)
+
+# Die relevanten Daten sind in <tbody>-Zeilen
+for row in table.select("tbody tr"):
     cols = [c.get_text(strip=True) for c in row.find_all("td")]
-    if len(cols) < 6:
+
+    # Die Struktur der Tabelle hat sich geändert und hat nun mehr Spalten.
+    if len(cols) < 8:
         continue
 
-    datum, zeit, halle, heim, gast, ergebnis = cols[:6]
+    # Neue Spaltenzuordnung
+    datum_str, zeit, halle_nr, _, heim, gast, tore, ergebnis = cols[:8]
 
-    # Nur Spiele mit unserem Team
+    # Nur Spiele mit dem gewünschten Team filtern
     if TEAM not in heim and TEAM not in gast:
         continue
 
-    # Gegner bestimmen
+    # Gegner und Spielort bestimmen
     if TEAM in heim:
         gegner = gast
-        ort = "Heimspiel – " + halle
+        # Der Hallenname ist komplexer zu parsen; wir verwenden vorerst die Hallennummer.
+        ort = f"Heimspiel – Halle {halle_nr}"
     else:
         gegner = heim
-        ort = "Auswärts – " + halle
+        ort = f"Auswärts – Halle {halle_nr}"
 
-    # Datum + Uhrzeit parsen
+    # Datum und Uhrzeit parsen (das Format hat sich geändert)
     try:
-        start = datetime.strptime(datum + " " + zeit, "%d.%m.%Y %H:%M")
+        # Das Format ist jetzt z.B. "Sa, 05.10.25". Wir extrahieren das Datum.
+        start_datum = datum_str.split(',')[1].strip()
+        # Das Jahr ist nur zweistellig (%y statt %Y)
+        start = datetime.strptime(f"{start_datum} {zeit}", "%d.%m.%y %H:%M")
         start = ZEITZONE.localize(start)
-    except ValueError:
-        continue  # ggf. unvollständige Angaben überspringen
+    except (ValueError, IndexError):
+        # Zeilen ohne gültiges Datum werden übersprungen
+        continue
 
     spiele.append({
         "beginn": start,
@@ -53,18 +72,21 @@ for row in soup.select("table.result-set tr"):
 print(f"{len(spiele)} Spiele für {TEAM} gefunden.")
 
 # --- Kalenderdatei erzeugen ---
-cal = Calendar()
+if spiele:
+    cal = Calendar()
+    for s in spiele:
+        e = Event()
+        e.name = f"{TEAM} vs. {s['gegner']}" if "Heimspiel" in s["ort"] else f"{s['gegner']} vs. {TEAM}"
+        e.begin = s["beginn"]
+        e.location = s["ort"]
+        e.description = f"Handballspiel: {e.name}\nOrt: {s['ort']}"
+        # Ungefähre Spieldauer
+        e.duration = {"hours": 1, "minutes": 30}
+        cal.events.add(e)
 
-for s in spiele:
-    e = Event()
-    e.name = f"{TEAM} vs. {s['gegner']}" if "Heimspiel" in s["ort"] else f"{s['gegner']} vs. {TEAM}"
-    e.begin = s["beginn"]
-    e.location = s["ort"]
-    e.description = f"Handballspiel: {e.name}\nOrt: {s['ort']}"
-    e.duration = {"hours": 1, "minutes": 30}  # ca. Spieldauer
-    cal.events.add(e)
+    with open("handball.ics", "w", encoding="utf-8") as f:
+        f.writelines(cal)
+    print("✅ handball.ics erfolgreich erstellt.")
+else:
+    print("Keine Spiele gefunden, um einen Kalender zu erstellen.")
 
-with open("handball.ics", "w", encoding="utf-8") as f:
-    f.writelines(cal)
-
-print("✅ handball.ics erfolgreich erstellt.")
