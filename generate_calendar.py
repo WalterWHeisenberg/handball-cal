@@ -8,25 +8,25 @@ import sys
 # --- Konfiguration für mehrere Kalender ---
 KALENDER_CONFIG = [
     {
-        "name": "SSV Nümbrecht Handball", # <-- weibliche Jugend C
+        "name": "SSV Nümbrecht Handball",  # weibliche Jugend C
         "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424244",
         "output": "handball_wjc.ics"
     },
     {
-        "name": "SSV Nümbrecht Handball",  # <-- männliche Jugend D1
-        "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424217",  # <-- URL des zweiten Teams
+        "name": "SSV Nümbrecht Handball",  # männliche Jugend D1
+        "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424217",
         "output": "handball_mjd1.ics"
     },
     {
-        "name": "SSV Nümbrecht Handball",  # <-- männliche Jugend D2
-        "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424113",  # <-- URL des dritten Teams
+        "name": "SSV Nümbrecht Handball",  # männliche Jugend D2
+        "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424113",
         "output": "handball_mjd2.ics"
     },
     {
-        "name": "SSV Nümbrecht Handball III",  # <-- Herren III
-        "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424114",  # <-- URL des dritten Teams
+        "name": "SSV Nümbrecht Handball III",  # Herren III
+        "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424114",
         "output": "handball_h3.ics"
-    }    
+    }
 ]
 
 ZEITZONE = pytz.timezone("Europe/Berlin")
@@ -36,8 +36,8 @@ def erstelle_kalender(team_name, url, output_datei):
     
     print(f"\n{'='*60}")
     print(f"Erstelle Kalender für: {team_name}")
-    print(f"URL: {url}")  # <-- URL ausgeben
-    print(f"Output: {output_datei}")  # <-- Output-Datei ausgeben
+    print(f"URL: {url}")
+    print(f"Output: {output_datei}")
     print(f"{'='*60}")
     
     # Webseite abrufen
@@ -49,7 +49,8 @@ def erstelle_kalender(team_name, url, output_datei):
         print(f"✓ Webseite geladen ({len(html)} Zeichen)")
     except requests.exceptions.RequestException as e:
         print(f"✗ Fehler beim Abrufen der Webseite: {e}")
-        print(f"✗ Status Code: {getattr(e.response, 'status_code', 'N/A')}")  # <-- Status Code
+        status = getattr(getattr(e, 'response', None), 'status_code', 'N/A')
+        print(f"✗ Status Code: {status}")
         return False
     
     # HTML parsen
@@ -61,23 +62,46 @@ def erstelle_kalender(team_name, url, output_datei):
         print("✗ Keine Tabelle gefunden!")
         return False
     
+    print(f"✓ {len(tables)} Tabelle(n) gefunden")
+    
     # Die richtige Tabelle finden
     table = None
-    for t in tables:
+    for idx, t in enumerate(tables):
         headers = [th.get_text(strip=True) for th in t.find_all("th")]
         if any("mannschaft" in h.lower() or "datum" in h.lower() for h in headers):
             table = t
+            print(f"✓ Spielplan-Tabelle gefunden (Tabelle {idx+1})")
             break
     
     if not table:
+        print("⚠ Keine passende Tabelle mit Headers gefunden, verwende erste Tabelle")
         table = tables[0]
+    
+    # DEBUG: Alle gefundenen Teams ausgeben
+    print("\n--- GEFUNDENE TEAMS IN DER TABELLE ---")
+    tbody = table.find("tbody")
+    rows = tbody.find_all("tr") if tbody else table.find_all("tr")[1:]
+    
+    gefundene_teams = set()
+    for row in rows[:20]:  # Nur erste 20 Zeilen
+        cols = [c.get_text(strip=True) for c in row.find_all("td")]
+        if len(cols) >= 7:
+            heim = cols[5] if len(cols) > 5 else ""
+            gast = cols[6] if len(cols) > 6 else ""
+            if heim and "spielfrei" not in heim.lower():
+                gefundene_teams.add(heim)
+            if gast and "spielfrei" not in gast.lower():
+                gefundene_teams.add(gast)
+    
+    for team in sorted(gefundene_teams):
+        marker = " ← MATCH!" if team_name in team or team in team_name else ""
+        print(f"  - '{team}'{marker}")
+    print("--- ENDE DER TEAMLISTE ---\n")
     
     # Spiele extrahieren
     spiele = []
     aktuelles_datum = None
-    
-    tbody = table.find("tbody")
-    rows = tbody.find_all("tr") if tbody else table.find_all("tr")[1:]
+    zeilen_mit_team = 0
     
     for row in rows:
         cols = [c.get_text(strip=True) for c in row.find_all("td")]
@@ -102,6 +126,8 @@ def erstelle_kalender(team_name, url, output_datei):
         if team_name not in heim and team_name not in gast:
             continue
         
+        zeilen_mit_team += 1
+        
         # Gegner bestimmen
         if team_name in heim:
             gegner = gast
@@ -125,7 +151,8 @@ def erstelle_kalender(team_name, url, output_datei):
             print(f"⚠ Fehler beim Parsen: {aktuelles_datum} {zeit} - {e}")
             continue
     
-    print(f"✓ {len(spiele)} Spiele gefunden")
+    print(f"✓ Zeilen mit Team '{team_name}': {zeilen_mit_team}")
+    print(f"✓ Erfolgreich geparste Spiele: {len(spiele)}")
     
     # Kalender erstellen
     cal = Calendar()
@@ -139,17 +166,23 @@ def erstelle_kalender(team_name, url, output_datei):
             e.description = f"Handballspiel: {e.name}\nOrt: {s['ort']}"
             e.duration = {"hours": 1, "minutes": 30}
             cal.events.add(e)
+        print(f"✓ {len(spiele)} Events zum Kalender hinzugefügt")
+    else:
+        print("⚠ Keine Spiele gefunden - erstelle leeren Kalender")
     
     # Kalender speichern
-    with open(output_datei, "w", encoding="utf-8") as f:
-        f.writelines(cal)
-    
-    print(f"✓ {output_datei} erfolgreich erstellt")
-    return True
+    try:
+        with open(output_datei, "w", encoding="utf-8") as f:
+            f.writelines(cal)
+        print(f"✓ {output_datei} erfolgreich erstellt")
+        return True
+    except Exception as e:
+        print(f"✗ Fehler beim Schreiben der Datei: {e}")
+        return False
 
 # --- Hauptprogramm ---
 print("="*60)
-print("HANDBALL KALENDER GENERATOR")
+print("HANDBALL KALENDER GENERATOR (DEBUG VERSION)")
 print("="*60)
 
 erfolg_counter = 0
@@ -168,8 +201,6 @@ print(f"Erfolgreich erstellt: {erfolg_counter}")
 print(f"Fehler: {fehler_counter}")
 print(f"{'='*60}\n")
 
-# GEÄNDERT: Auch bei Fehlern mit Exit-Code 0 beenden
-# So wird der GitHub Workflow nicht abgebrochen
 if fehler_counter > 0:
     print("⚠️ Es gab Fehler, aber bereits erstellte Kalender werden trotzdem gespeichert.")
 
