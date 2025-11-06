@@ -21,7 +21,7 @@ KALENDER_CONFIG = [
         "name": "SSV Nümbrecht Handball",  # <-- männliche Jugend D2
         "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424113",  # <-- URL des dritten Teams
         "output": "handball_mjd2.ics"
-    }
+    },
     {
         "name": "SSV Nümbrecht Handball III",  # <-- Herren III
         "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424114",  # <-- URL des dritten Teams
