@@ -8,6 +8,27 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    # --- HIER DIE BERECHTIGUNGEN HINZUFÜGEN ---
+    permissions:
+      contents: write  # Erforderlich, um Änderungen in das Repository zu pushen
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+on:
+  schedule:
+    - cron: '0 0 * * *'   # Täglich um Mitternacht UTC
+  workflow_dispatch:       # Manuell startbar
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
