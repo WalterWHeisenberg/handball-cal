@@ -2,20 +2,12 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:ics.py - http://git.io/lLljaA
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel: VfL Gummersbach vs. SSV Nümbrecht Handball\nOrt: Auswärts – Halle 09030
+DESCRIPTION:Handballspiel: SV Frielingsdorf vs. SSV Nümbrecht Handball\nOrt: Auswärts – Halle 09022
 DURATION:PT1H30M
-LOCATION:Auswärts – Halle 09030
-DTSTART:20260118T120000Z
-SUMMARY:VfL Gummersbach vs. SSV Nümbrecht Handball
-UID:a4dff401-441a-4c7a-ae23-952e73c84edf@a4df.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel: SSV Nümbrecht Handball vs. SV Frielingsdorf\nOrt: Heimspiel – Halle 09004
-DURATION:PT1H30M
-LOCATION:Heimspiel – Halle 09004
-DTSTART:20251206T123000Z
-SUMMARY:SSV Nümbrecht Handball vs. SV Frielingsdorf
-UID:b87f563e-acc0-4c1b-a073-afce6d70dd64@b87f.org
+LOCATION:Auswärts – Halle 09022
+DTSTART:20260228T150000Z
+SUMMARY:SV Frielingsdorf vs. SSV Nümbrecht Handball
+UID:6c5b328e-ecaa-4154-acc7-2fbf77f42afd@6c5b.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel: TV Wahlscheid vs. SSV Nümbrecht Handball\nOrt: Auswärts – Halle 09023
@@ -23,15 +15,7 @@ DURATION:PT1H30M
 LOCATION:Auswärts – Halle 09023
 DTSTART:20251212T230000Z
 SUMMARY:TV Wahlscheid vs. SSV Nümbrecht Handball
-UID:8d6342c5-2e77-4b02-ba61-8df4342b858d@8d63.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel: SSV Nümbrecht Handball vs. HSG Marienheide/Müllenbach\nOrt: Heimspiel – Halle 09004
-DURATION:PT1H30M
-LOCATION:Heimspiel – Halle 09004
-DTSTART:20260131T113000Z
-SUMMARY:SSV Nümbrecht Handball vs. HSG Marienheide/Müllenbach
-UID:677fe467-9e35-462f-9c35-95beb88f1872@677f.org
+UID:d97f7b66-3af6-491d-9d3e-22b296645be6@d97f.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel: SSV Nümbrecht Handball vs. HC Gelpe/Strombach\nOrt: Heimspiel – Halle 09004
@@ -39,15 +23,7 @@ DURATION:PT1H30M
 LOCATION:Heimspiel – Halle 09004
 DTSTART:20251004T120000Z
 SUMMARY:SSV Nümbrecht Handball vs. HC Gelpe/Strombach
-UID:e0777177-d831-40db-95b7-eddbf2f2f457@e077.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel: SSV Nümbrecht Handball vs. CVJM Oberwiehl\nOrt: Heimspiel – Halle 09004
-DURATION:PT1H30M
-LOCATION:Heimspiel – Halle 09004
-DTSTART:20251122T153000Z
-SUMMARY:SSV Nümbrecht Handball vs. CVJM Oberwiehl
-UID:68e71b39-d98d-48b4-b502-51e9e257fd28@68e7.org
+UID:0db75f36-1b87-4da2-8277-486132eb0084@0db7.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel: HC Gelpe/Strombach vs. SSV Nümbrecht Handball\nOrt: Auswärts – Halle 09007
@@ -55,31 +31,23 @@ DURATION:PT1H30M
 LOCATION:Auswärts – Halle 09007
 DTSTART:20260124T143000Z
 SUMMARY:HC Gelpe/Strombach vs. SSV Nümbrecht Handball
-UID:fb94ae42-8d6d-4d5f-939a-e0239126fb13@fb94.org
+UID:4fdeb508-4b0f-4051-96dc-21569c232d30@4fde.org
 END:VEVENT
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel: CVJM Oberwiehl vs. SSV Nümbrecht Handball\nOrt: Auswärts – Halle 09020
+DESCRIPTION:Handballspiel: VfL Gummersbach vs. SSV Nümbrecht Handball\nOrt: Auswärts – Halle 09030
 DURATION:PT1H30M
-LOCATION:Auswärts – Halle 09020
-DTSTART:20260207T153000Z
-SUMMARY:CVJM Oberwiehl vs. SSV Nümbrecht Handball
-UID:23039142-65d4-4694-be59-cb67075161cd@2303.org
+LOCATION:Auswärts – Halle 09030
+DTSTART:20260118T120000Z
+SUMMARY:VfL Gummersbach vs. SSV Nümbrecht Handball
+UID:fa5f1f7d-d9b2-432e-bc55-7e3a2d537aa1@fa5f.org
 END:VEVENT
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel: SSV Nümbrecht Handball vs. VfL Gummersbach\nOrt: Heimspiel – Halle 09004
+DESCRIPTION:Handballspiel: SSV Nümbrecht Handball vs. SV Frielingsdorf\nOrt: Heimspiel – Halle 09004
 DURATION:PT1H30M
 LOCATION:Heimspiel – Halle 09004
-DTSTART:20250927T141500Z
-SUMMARY:SSV Nümbrecht Handball vs. VfL Gummersbach
-UID:10336189-5373-4794-ba4d-5bd0d5234969@1033.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel: SV Frielingsdorf vs. SSV Nümbrecht Handball\nOrt: Auswärts – Halle 09022
-DURATION:PT1H30M
-LOCATION:Auswärts – Halle 09022
-DTSTART:20260228T150000Z
-SUMMARY:SV Frielingsdorf vs. SSV Nümbrecht Handball
-UID:f42283a2-bafa-4b5e-acc0-f2ec3acd8542@f422.org
+DTSTART:20251206T123000Z
+SUMMARY:SSV Nümbrecht Handball vs. SV Frielingsdorf
+UID:7cdb3102-89f1-446b-807c-428310d55a8b@7cdb.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel: SSV Nümbrecht Handball vs. TV Wahlscheid\nOrt: Heimspiel – Halle 09004
@@ -87,7 +55,39 @@ DURATION:PT1H30M
 LOCATION:Heimspiel – Halle 09004
 DTSTART:20250921T120000Z
 SUMMARY:SSV Nümbrecht Handball vs. TV Wahlscheid
-UID:74dbb947-c2bb-4a40-b231-6c024bd1a31f@74db.org
+UID:2167633b-a541-42f8-9c12-5918187ce5ef@2167.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel: SSV Nümbrecht Handball vs. CVJM Oberwiehl\nOrt: Heimspiel – Halle 09004
+DURATION:PT1H30M
+LOCATION:Heimspiel – Halle 09004
+DTSTART:20251122T153000Z
+SUMMARY:SSV Nümbrecht Handball vs. CVJM Oberwiehl
+UID:62dbb53a-57c3-42d3-9cb5-7cb2b3e94210@62db.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel: CVJM Oberwiehl vs. SSV Nümbrecht Handball\nOrt: Auswärts – Halle 09020
+DURATION:PT1H30M
+LOCATION:Auswärts – Halle 09020
+DTSTART:20260207T153000Z
+SUMMARY:CVJM Oberwiehl vs. SSV Nümbrecht Handball
+UID:d5d65ede-3098-44e8-9f7e-877df8d066a4@d5d6.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel: SSV Nümbrecht Handball vs. HSG Marienheide/Müllenbach\nOrt: Heimspiel – Halle 09004
+DURATION:PT1H30M
+LOCATION:Heimspiel – Halle 09004
+DTSTART:20260131T113000Z
+SUMMARY:SSV Nümbrecht Handball vs. HSG Marienheide/Müllenbach
+UID:9fd09867-1e73-4c2b-b87a-4681b61721f5@9fd0.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel: SSV Nümbrecht Handball vs. VfL Gummersbach\nOrt: Heimspiel – Halle 09004
+DURATION:PT1H30M
+LOCATION:Heimspiel – Halle 09004
+DTSTART:20250927T141500Z
+SUMMARY:SSV Nümbrecht Handball vs. VfL Gummersbach
+UID:4861a1aa-a790-477e-9dd8-a430fc2a388f@4861.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel: HSG Marienheide/Müllenbach vs. SSV Nümbrecht Handball\nOrt: Auswärts – Halle 09014
@@ -95,6 +95,6 @@ DURATION:PT1H30M
 LOCATION:Auswärts – Halle 09014
 DTSTART:20251102T093000Z
 SUMMARY:HSG Marienheide/Müllenbach vs. SSV Nümbrecht Handball
-UID:2d5b89d8-8779-48a5-b950-36bf217ec340@2d5b.org
+UID:1ba6d895-b923-411a-a31a-2b81b10e59f7@1ba6.org
 END:VEVENT
 END:VCALENDAR

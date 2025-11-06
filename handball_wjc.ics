@@ -2,44 +2,12 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:ics.py - http://git.io/lLljaA
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel: SSV Nümbrecht Handball vs. HBD Löwen Oberberg\nOrt: Heimspiel – Halle 09004
+DESCRIPTION:Handballspiel: VTV Freier Grund 2016 e.V. vs. SSV Nümbrecht Handball\nOrt: Auswärts – Halle 09037
 DURATION:PT1H30M
-LOCATION:Heimspiel – Halle 09004
-DTSTART:20250913T113000Z
-SUMMARY:SSV Nümbrecht Handball vs. HBD Löwen Oberberg
-UID:8fb1416d-5572-4645-9b9b-ea08d5c3a35d@8fb1.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel: SSV Nümbrecht Handball vs. TVE Netphen\nOrt: Heimspiel – Halle 09005
-DURATION:PT1H30M
-LOCATION:Heimspiel – Halle 09005
-DTSTART:20250927T140000Z
-SUMMARY:SSV Nümbrecht Handball vs. TVE Netphen
-UID:703b194a-2aee-49a7-9efc-e3a5a6568b38@703b.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel: HSG Marienheide/Müllenbach vs. SSV Nümbrecht Handball\nOrt: Auswärts – Halle 09014
-DURATION:PT1H30M
-LOCATION:Auswärts – Halle 09014
-DTSTART:20251214T120000Z
-SUMMARY:HSG Marienheide/Müllenbach vs. SSV Nümbrecht Handball
-UID:44e743cd-4b64-4512-a451-4aaf276e46e8@44e7.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel: SSV Nümbrecht Handball vs. CVJM Oberwiehl\nOrt: Heimspiel – Halle 09004
-DURATION:PT1H30M
-LOCATION:Heimspiel – Halle 09004
-DTSTART:20251117T164500Z
-SUMMARY:SSV Nümbrecht Handball vs. CVJM Oberwiehl
-UID:7228bfa2-8dbb-4978-a6d2-23dea1f2c144@7228.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel: SSV Nümbrecht Handball vs. TuS 09 Drolshagen e.V.\nOrt: Heimspiel – Halle 09004
-DURATION:PT1H30M
-LOCATION:Heimspiel – Halle 09004
-DTSTART:20251208T161500Z
-SUMMARY:SSV Nümbrecht Handball vs. TuS 09 Drolshagen e.V.
-UID:8d5f0057-5714-497a-9b03-2560fcb3c847@8d5f.org
+LOCATION:Auswärts – Halle 09037
+DTSTART:20250921T100000Z
+SUMMARY:VTV Freier Grund 2016 e.V. vs. SSV Nümbrecht Handball
+UID:5df6eb0f-be69-47f3-9ee3-5d8705f186ec@5df6.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel: SV Frielingsdorf vs. SSV Nümbrecht Handball\nOrt: Auswärts – Halle 09022
@@ -47,7 +15,15 @@ DURATION:PT1H30M
 LOCATION:Auswärts – Halle 09022
 DTSTART:20251108T153000Z
 SUMMARY:SV Frielingsdorf vs. SSV Nümbrecht Handball
-UID:d01df171-16cf-471b-ab8e-854bfe80a226@d01d.org
+UID:cf148451-e9f4-44fa-800f-77f0bb2cf334@cf14.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel: SSV Nümbrecht Handball vs. HBD Löwen Oberberg\nOrt: Heimspiel – Halle 09004
+DURATION:PT1H30M
+LOCATION:Heimspiel – Halle 09004
+DTSTART:20250913T113000Z
+SUMMARY:SSV Nümbrecht Handball vs. HBD Löwen Oberberg
+UID:9a3c1fc0-a6ea-451b-8d87-493bce839319@9a3c.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel: TV Wahlscheid vs. SSV Nümbrecht Handball\nOrt: Auswärts – Halle 09023
@@ -55,15 +31,7 @@ DURATION:PT1H30M
 LOCATION:Auswärts – Halle 09023
 DTSTART:20251130T110000Z
 SUMMARY:TV Wahlscheid vs. SSV Nümbrecht Handball
-UID:900a114c-f8fc-4e78-bafb-1cf4470c33ff@900a.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel: VTV Freier Grund 2016 e.V. vs. SSV Nümbrecht Handball\nOrt: Auswärts – Halle 09037
-DURATION:PT1H30M
-LOCATION:Auswärts – Halle 09037
-DTSTART:20250921T100000Z
-SUMMARY:VTV Freier Grund 2016 e.V. vs. SSV Nümbrecht Handball
-UID:efbea0a0-abb3-464c-b785-a7217f0ce755@efbe.org
+UID:9bb593bc-5159-4ffa-b308-9e64d506e5da@9bb5.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel: SSV Nümbrecht Handball vs. SSV Overath\nOrt: Heimspiel – Halle 09004
@@ -71,6 +39,38 @@ DURATION:PT1H30M
 LOCATION:Heimspiel – Halle 09004
 DTSTART:20251102T111500Z
 SUMMARY:SSV Nümbrecht Handball vs. SSV Overath
-UID:a6c7a768-4d87-4d9a-86bc-151c9699c5af@a6c7.org
+UID:a01b3fad-e9f6-4232-8cd9-eb341aab18e6@a01b.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel: SSV Nümbrecht Handball vs. TuS 09 Drolshagen e.V.\nOrt: Heimspiel – Halle 09004
+DURATION:PT1H30M
+LOCATION:Heimspiel – Halle 09004
+DTSTART:20251208T161500Z
+SUMMARY:SSV Nümbrecht Handball vs. TuS 09 Drolshagen e.V.
+UID:f2fddd96-4a47-44b3-a027-daf8d43309df@f2fd.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel: SSV Nümbrecht Handball vs. TVE Netphen\nOrt: Heimspiel – Halle 09005
+DURATION:PT1H30M
+LOCATION:Heimspiel – Halle 09005
+DTSTART:20250927T140000Z
+SUMMARY:SSV Nümbrecht Handball vs. TVE Netphen
+UID:27e76609-afba-43af-b173-32d4f441a6a6@27e7.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel: SSV Nümbrecht Handball vs. CVJM Oberwiehl\nOrt: Heimspiel – Halle 09004
+DURATION:PT1H30M
+LOCATION:Heimspiel – Halle 09004
+DTSTART:20251117T164500Z
+SUMMARY:SSV Nümbrecht Handball vs. CVJM Oberwiehl
+UID:7d79538d-33ef-4486-92b9-31d2fd30decb@7d79.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel: HSG Marienheide/Müllenbach vs. SSV Nümbrecht Handball\nOrt: Auswärts – Halle 09014
+DURATION:PT1H30M
+LOCATION:Auswärts – Halle 09014
+DTSTART:20251214T120000Z
+SUMMARY:HSG Marienheide/Müllenbach vs. SSV Nümbrecht Handball
+UID:a3bbcfed-6ec6-423f-8458-c68a68384e85@a3bb.org
 END:VEVENT
 END:VCALENDAR
