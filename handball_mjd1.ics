@@ -2,99 +2,99 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:ics.py - http://git.io/lLljaA
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel: SSV Nümbrecht Handball vs. TV Wahlscheid\nOrt: Heimspiel – Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DESCRIPTION:Handballspiel (Auswärts)\nSSV Nümbrecht Handball vs. VfL Gummersbach\n\nOrt: Steinmüllerallee 51643\n            Gummersbach
 DURATION:PT1H30M
-LOCATION:Heimspiel – Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
-DTSTART:20250921T120000Z
-SUMMARY:SSV Nümbrecht Handball vs. TV Wahlscheid
-UID:efc73a3a-0ad9-44e8-901a-fecca6c24f4d@efc7.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel: SSV Nümbrecht Handball vs. HSG Marienheide/Müllenbach\nOrt: Heimspiel – Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
-DURATION:PT1H30M
-LOCATION:Heimspiel – Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
-DTSTART:20260131T113000Z
-SUMMARY:SSV Nümbrecht Handball vs. HSG Marienheide/Müllenbach
-UID:fec6d1ee-15f8-4a09-8fd9-f7c94f21093e@fec6.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel: HSG Marienheide/Müllenbach vs. SSV Nümbrecht Handball\nOrt: Auswärts – Pestalozzistr. 51709\n            Marienheide
-DURATION:PT1H30M
-LOCATION:Auswärts – Pestalozzistr. 51709\n            Marienheide
-DTSTART:20251102T093000Z
-SUMMARY:HSG Marienheide/Müllenbach vs. SSV Nümbrecht Handball
-UID:ff4d5db1-0cae-4b33-9a3b-85b9972e5c8e@ff4d.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel: SSV Nümbrecht Handball vs. VfL Gummersbach\nOrt: Heimspiel – Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
-DURATION:PT1H30M
-LOCATION:Heimspiel – Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
-DTSTART:20250927T141500Z
-SUMMARY:SSV Nümbrecht Handball vs. VfL Gummersbach
-UID:719bfd05-053c-4af5-932c-7eaf250fa902@719b.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel: SV Frielingsdorf vs. SSV Nümbrecht Handball\nOrt: Auswärts – Carola-Lob-Weg 1 51789\n            Lindlar
-DURATION:PT1H30M
-LOCATION:Auswärts – Carola-Lob-Weg 1 51789\n            Lindlar
-DTSTART:20260228T150000Z
-SUMMARY:SV Frielingsdorf vs. SSV Nümbrecht Handball
-UID:e84631ce-6ac5-4e87-aff9-c36cd50138b2@e846.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel: CVJM Oberwiehl vs. SSV Nümbrecht Handball\nOrt: Auswärts – Hauptstr. 81 51674\n            Wiehl
-DURATION:PT1H30M
-LOCATION:Auswärts – Hauptstr. 81 51674\n            Wiehl
-DTSTART:20260207T153000Z
-SUMMARY:CVJM Oberwiehl vs. SSV Nümbrecht Handball
-UID:5bf77ba4-b202-4364-9b9e-a495df41f14c@5bf7.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel: VfL Gummersbach vs. SSV Nümbrecht Handball\nOrt: Auswärts – Steinmüllerallee 51643\n            Gummersbach
-DURATION:PT1H30M
-LOCATION:Auswärts – Steinmüllerallee 51643\n            Gummersbach
+LOCATION:Steinmüllerallee 51643\n            Gummersbach
 DTSTART:20260118T120000Z
-SUMMARY:VfL Gummersbach vs. SSV Nümbrecht Handball
-UID:cf8f4312-d82c-4a70-a5bb-eb2ec4a33529@cf8f.org
+SUMMARY:✈️ Auswärts: VfL Gummersbach vs. SSV Nümbrecht Handball
+UID:5c7e7b35-0879-4114-9906-d506c992b82b@5c7e.org
 END:VEVENT
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel: TV Wahlscheid vs. SSV Nümbrecht Handball\nOrt: Auswärts – Wahlscheider Str. 56 53797\n            Lohmar-Wahlscheid
+DESCRIPTION:Handballspiel (Auswärts)\nSSV Nümbrecht Handball vs. SV Frielingsdorf\n\nOrt: Carola-Lob-Weg 1 51789\n            Lindlar
 DURATION:PT1H30M
-LOCATION:Auswärts – Wahlscheider Str. 56 53797\n            Lohmar-Wahlscheid
+LOCATION:Carola-Lob-Weg 1 51789\n            Lindlar
+DTSTART:20260228T150000Z
+SUMMARY:✈️ Auswärts: SV Frielingsdorf vs. SSV Nümbrecht Handball
+UID:c0c348bd-4a20-43f1-b979-3f8e01434803@c0c3.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Heimspiel)\nSSV Nümbrecht Handball vs. HSG Marienheide/Müllenbach\n\nOrt: Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DURATION:PT1H30M
+LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DTSTART:20260131T113000Z
+SUMMARY:🏠 Heimspiel: SSV Nümbrecht Handball vs. HSG Marienheide/Müllenbach
+UID:1dd04b64-a5c6-471c-bad1-a27bbbc156ea@1dd0.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Auswärts)\nSSV Nümbrecht Handball vs. HSG Marienheide/Müllenbach\n\nOrt: Pestalozzistr. 51709\n            Marienheide
+DURATION:PT1H30M
+LOCATION:Pestalozzistr. 51709\n            Marienheide
+DTSTART:20251102T093000Z
+SUMMARY:✈️ Auswärts: HSG Marienheide/Müllenbach vs. SSV Nümbrecht Handball
+UID:03cbf885-6b6d-4f57-8e6c-f569e36a9198@03cb.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Auswärts)\nSSV Nümbrecht Handball vs. TV Wahlscheid\n\nOrt: Wahlscheider Str. 56 53797\n            Lohmar-Wahlscheid
+DURATION:PT1H30M
+LOCATION:Wahlscheider Str. 56 53797\n            Lohmar-Wahlscheid
 DTSTART:20251212T230000Z
-SUMMARY:TV Wahlscheid vs. SSV Nümbrecht Handball
-UID:539cedae-e5e5-4cb8-aaa6-83d4b714a505@539c.org
+SUMMARY:✈️ Auswärts: TV Wahlscheid vs. SSV Nümbrecht Handball
+UID:e79f6c57-be49-48a7-86da-3379488d236a@e79f.org
 END:VEVENT
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel: HC Gelpe/Strombach vs. SSV Nümbrecht Handball\nOrt: Auswärts – Reininghauser Str. 34 51643\n            Gummersbach
+DESCRIPTION:Handballspiel (Heimspiel)\nSSV Nümbrecht Handball vs. TV Wahlscheid\n\nOrt: Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
 DURATION:PT1H30M
-LOCATION:Auswärts – Reininghauser Str. 34 51643\n            Gummersbach
-DTSTART:20260124T143000Z
-SUMMARY:HC Gelpe/Strombach vs. SSV Nümbrecht Handball
-UID:9365ceeb-3840-492b-8079-7342e6903e08@9365.org
+LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DTSTART:20250921T120000Z
+SUMMARY:🏠 Heimspiel: SSV Nümbrecht Handball vs. TV Wahlscheid
+UID:1a2457c2-03d6-49b8-81d3-6e35f9bfbaf6@1a24.org
 END:VEVENT
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel: SSV Nümbrecht Handball vs. HC Gelpe/Strombach\nOrt: Heimspiel – Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DESCRIPTION:Handballspiel (Heimspiel)\nSSV Nümbrecht Handball vs. HC Gelpe/Strombach\n\nOrt: Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
 DURATION:PT1H30M
-LOCATION:Heimspiel – Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
 DTSTART:20251004T120000Z
-SUMMARY:SSV Nümbrecht Handball vs. HC Gelpe/Strombach
-UID:90864c3d-6985-462b-905a-ea5c4a0dadd7@9086.org
+SUMMARY:🏠 Heimspiel: SSV Nümbrecht Handball vs. HC Gelpe/Strombach
+UID:bb1a9711-bebc-44c7-9168-d1056b8a3545@bb1a.org
 END:VEVENT
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel: SSV Nümbrecht Handball vs. CVJM Oberwiehl\nOrt: Heimspiel – Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DESCRIPTION:Handballspiel (Heimspiel)\nSSV Nümbrecht Handball vs. CVJM Oberwiehl\n\nOrt: Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
 DURATION:PT1H30M
-LOCATION:Heimspiel – Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
 DTSTART:20251122T153000Z
-SUMMARY:SSV Nümbrecht Handball vs. CVJM Oberwiehl
-UID:ee86502d-38e1-425c-8926-dedf70f759be@ee86.org
+SUMMARY:🏠 Heimspiel: SSV Nümbrecht Handball vs. CVJM Oberwiehl
+UID:9f69c950-08ab-49eb-9454-83b612322c52@9f69.org
 END:VEVENT
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel: SSV Nümbrecht Handball vs. SV Frielingsdorf\nOrt: Heimspiel – Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DESCRIPTION:Handballspiel (Auswärts)\nSSV Nümbrecht Handball vs. CVJM Oberwiehl\n\nOrt: Hauptstr. 81 51674\n            Wiehl
 DURATION:PT1H30M
-LOCATION:Heimspiel – Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+LOCATION:Hauptstr. 81 51674\n            Wiehl
+DTSTART:20260207T153000Z
+SUMMARY:✈️ Auswärts: CVJM Oberwiehl vs. SSV Nümbrecht Handball
+UID:f96cfd05-c93e-444a-b9bd-64195e3f2289@f96c.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Heimspiel)\nSSV Nümbrecht Handball vs. VfL Gummersbach\n\nOrt: Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DURATION:PT1H30M
+LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DTSTART:20250927T141500Z
+SUMMARY:🏠 Heimspiel: SSV Nümbrecht Handball vs. VfL Gummersbach
+UID:6c5324b5-da0b-40bb-b244-810b57d5e6f0@6c53.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Heimspiel)\nSSV Nümbrecht Handball vs. SV Frielingsdorf\n\nOrt: Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DURATION:PT1H30M
+LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
 DTSTART:20251206T123000Z
-SUMMARY:SSV Nümbrecht Handball vs. SV Frielingsdorf
-UID:98fc3bfa-29bc-472b-aa86-7392e41a2430@98fc.org
+SUMMARY:🏠 Heimspiel: SSV Nümbrecht Handball vs. SV Frielingsdorf
+UID:f03c7e8e-ae58-45a4-a5e3-1c0c2e8d591a@f03c.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Auswärts)\nSSV Nümbrecht Handball vs. HC Gelpe/Strombach\n\nOrt: Reininghauser Str. 34 51643\n            Gummersbach
+DURATION:PT1H30M
+LOCATION:Reininghauser Str. 34 51643\n            Gummersbach
+DTSTART:20260124T143000Z
+SUMMARY:✈️ Auswärts: HC Gelpe/Strombach vs. SSV Nümbrecht Handball
+UID:aa30233b-220a-40ea-b7b9-3ad01cd46efb@aa30.org
 END:VEVENT
 END:VCALENDAR
