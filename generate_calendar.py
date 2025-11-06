@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from ics import Calendar, Event
 from datetime import datetime
 import pytz
-import sys # Importiert für exit
+import sys
 
 # --- Einstellungen ---
 URL = "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424244"
@@ -13,32 +13,54 @@ ZEITZONE = pytz.timezone("Europe/Berlin")
 # --- Webseite abrufen ---
 try:
     response = requests.get(URL)
-    response.raise_for_status()  # Löst einen Fehler bei schlechtem Statuscode aus (z.B. 404, 500)
+    response.raise_for_status()
     html = response.text
     soup = BeautifulSoup(html, "html.parser")
 except requests.exceptions.RequestException as e:
     print(f"Fehler beim Abrufen der Webseite: {e}")
-    sys.exit(1) # Beendet das Skript mit einem Fehlercode
+    sys.exit(1)
 
 # --- Spiele aus Tabelle auslesen ---
 spiele = []
-# Die Tabelle hat keine "result-set"-Klasse mehr. Wir suchen die erste Tabelle im Dokument.
 table = soup.find("table")
 
 if not table:
     print("Fehler: Keine Spieltabelle auf der Seite gefunden.")
     sys.exit(1)
 
-# Die relevanten Daten sind in <tbody>-Zeilen
+# Variable zum Speichern des aktuellen Datums (wird über Zeilen hinweg beibehalten)
+aktuelles_datum = None
+
 for row in table.select("tbody tr"):
     cols = [c.get_text(strip=True) for c in row.find_all("td")]
 
-    # Die Struktur der Tabelle hat sich geändert und hat nun mehr Spalten.
+    # Die Tabelle hat 8 Spalten
     if len(cols) < 8:
         continue
 
-    # Neue Spaltenzuordnung
-    datum_str, zeit, halle_nr, _, heim, gast, tore, ergebnis = cols[:8]
+    # Korrekte Spaltenzuordnung:
+    # 0: Tag (z.B. "Sa.")
+    # 1: Datum (z.B. "13.09.2025")
+    # 2: Zeit (z.B. "13:30" oder "11:00 v")
+    # 3: Halle (z.B. "09004")
+    # 4: Spielnummer (z.B. "433002")
+    # 5: Heimmannschaft
+    # 6: Gastmannschaft
+    # 7: Ergebnis (z.B. "33:23")
+    
+    tag, datum_str, zeit, halle_nr, spiel_nr, heim, gast, ergebnis = cols[:8]
+
+    # Datum aktualisieren, falls vorhanden
+    if datum_str:
+        aktuelles_datum = datum_str
+
+    # Wenn kein Datum verfügbar ist, Zeile überspringen
+    if not aktuelles_datum:
+        continue
+
+    # Spiele mit "spielfrei" überspringen
+    if "spielfrei" in heim.lower() or "spielfrei" in gast.lower():
+        continue
 
     # Nur Spiele mit dem gewünschten Team filtern
     if TEAM not in heim and TEAM not in gast:
@@ -52,16 +74,16 @@ for row in table.select("tbody tr"):
         gegner = heim
         ort = f"Auswärts – Halle {halle_nr}"
 
-    # Datum und Uhrzeit parsen (das Format hat sich geändert)
+    # Datum und Uhrzeit parsen
     try:
-        # Das Format ist jetzt z.B. "Sa, 05.10.25". Wir extrahieren das Datum.
-        start_datum = datum_str.split(',')[1].strip()
-        # Das Jahr ist nur zweistellig (%y statt %Y)
-        start = datetime.strptime(f"{start_datum} {zeit}", "%d.%m.%y %H:%M")
+        # Zeit von Zusätzen wie " v" bereinigen
+        zeit_bereinigt = zeit.split()[0]  # Nimmt nur den ersten Teil vor Leerzeichen
+        
+        # Datumsformat ist jetzt "DD.MM.YYYY" (vierstelliges Jahr!)
+        start = datetime.strptime(f"{aktuelles_datum} {zeit_bereinigt}", "%d.%m.%Y %H:%M")
         start = ZEITZONE.localize(start)
-    except (ValueError, IndexError):
-        # Zeilen ohne gültiges Datum werden übersprungen
-        print(f"Warnung: Ungültiges Datumsformat in Zeile gefunden: {datum_str}")
+    except (ValueError, IndexError) as e:
+        print(f"Warnung: Ungültiges Datum/Zeit-Format: {aktuelles_datum} {zeit} - {e}")
         continue
 
     spiele.append({
@@ -81,7 +103,6 @@ if spiele:
         e.begin = s["beginn"]
         e.location = s["ort"]
         e.description = f"Handballspiel: {e.name}\nOrt: {s['ort']}"
-        # Ungefähre Spieldauer
         e.duration = {"hours": 1, "minutes": 30}
         cal.events.add(e)
 
@@ -89,5 +110,8 @@ if spiele:
         f.writelines(cal)
     print("✅ handball.ics erfolgreich erstellt/aktualisiert.")
 else:
-    print("Keine Spiele gefunden, um einen Kalender zu erstellen.")
-
+    print("⚠️ Keine Spiele gefunden. Möglicherweise wurde das Team nicht gefunden oder alle Spiele sind 'spielfrei'.")
+    # Erstelle trotzdem eine leere ICS-Datei, damit der Workflow nicht abbricht
+    cal = Calendar()
+    with open("handball.ics", "w", encoding="utf-8") as f:
+        f.writelines(cal)
