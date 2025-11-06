@@ -220,11 +220,11 @@ def erstelle_kalender(team_name, url, output_datei):
             e = Event()
             # SUMMARY: Heimteam - Gastteam (immer in dieser Reihenfolge)
             if s["spieltyp"] == "Heimspiel":
-                e.name = f"{team_name} - {s['gegner']}"
-                beschreibung_teams = f"{team_name} - {s['gegner']}"
+                e.name = f"🏠 {team_name} - {s['gegner']}"
+                beschreibung_teams = f"🏠 {team_name} - {s['gegner']}"
             else:
-                e.name = f"{s['gegner']} - {team_name}"
-                beschreibung_teams = f"{s['gegner']} - {team_name}"  # KORRIGIERT: Gleiche Reihenfolge
+                e.name = f"✈️ {s['gegner']} - {team_name}"
+                beschreibung_teams = f"✈️ {s['gegner']} - {team_name}"  # KORRIGIERT: Gleiche Reihenfolge
             
             e.begin = s["beginn"]
             e.location = s["ort"]
