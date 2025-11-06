@@ -35,9 +35,7 @@ jobs:
       # Schritt 4: Das Python-Skript ausführen, um die .ics-Datei zu erstellen
       - name: Generate calendar file
         run: python generate_calendar.py
-
-      # Schritt 5: Die neue .ics-Datei committen und pushen, falls es Änderungen gab
-      # HIER NEU HINZUFÜGEN:
+      
       - name: Create .nojekyll file
         run: touch .nojekyll
       
@@ -45,10 +43,10 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add handball.ics .nojekyll
+          git add *.ics .nojekyll
           if git diff --staged --quiet; then
             echo "No changes to commit."
           else
-            git commit -m "Update handball calendar"
+            git commit -m "Update handball calendars"
             git push
           fi
