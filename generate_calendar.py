@@ -26,7 +26,13 @@ KALENDER_CONFIG = [
         "name": "SSV Nümbrecht Handball III",  # Herren III
         "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424114",
         "output": "handball_h3.ics"
+    },
+    {
+        "name": "SSV Nümbrecht Handball",  # weibliche Jugend B
+        "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424406",
+        "output": "handball_wjb.ics"
     }
+]
 ]
 
 ZEITZONE = pytz.timezone("Europe/Berlin")
