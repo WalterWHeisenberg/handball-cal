@@ -5,162 +5,165 @@ from datetime import datetime
 import pytz
 import sys
 
-# --- Einstellungen ---
-URL = "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424244"
-TEAM = "SSV Nümbrecht Handball"
+# --- Konfiguration für mehrere Kalender ---
+KALENDER_CONFIG = [
+    {
+        "name": "SSV Nümbrecht Handball", # <-- weibliche Jugend C
+        "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424244",
+        "output": "handball_wjc.ics"
+    },
+    {
+        "name": "SSV Nümbrecht Handball",  # <-- männliche Jugend D1
+        "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424217",  # <-- URL des zweiten Teams
+        "output": "handball_mjd1.ics"
+    },
+    {
+        "name": "SSV Nümbrecht Handball",  # <-- männliche Jugend D2
+        "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424113",  # <-- URL des dritten Teams
+        "output": "handball_mjd2.ics"
+    }
+    {
+        "name": "SSV Nümbrecht Handball III",  # <-- Herren III
+        "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424114",  # <-- URL des dritten Teams
+        "output": "handball_h3.ics"
+    }    
+]
+
 ZEITZONE = pytz.timezone("Europe/Berlin")
 
-print("=== HANDBALL KALENDER GENERATOR ===")
-print(f"Team: {TEAM}")
-print(f"URL: {URL}\n")
-
-# --- Webseite abrufen ---
-try:
-    print("Lade Webseite...")
-    response = requests.get(URL, timeout=10)
-    response.raise_for_status()
-    html = response.text
-    print(f"✓ Webseite geladen ({len(html)} Zeichen)\n")
-except requests.exceptions.RequestException as e:
-    print(f"✗ Fehler beim Abrufen der Webseite: {e}")
-    sys.exit(1)
-
-# --- HTML-Struktur analysieren ---
-soup = BeautifulSoup(html, "html.parser")
-
-# Alle Tabellen finden
-tables = soup.find_all("table")
-print(f"Gefundene Tabellen auf der Seite: {len(tables)}\n")
-
-if not tables:
-    print("✗ Keine Tabelle gefunden!")
-    sys.exit(1)
-
-# Die richtige Tabelle finden (oft ist es die größte oder die mit bestimmten Klassen)
-table = None
-for idx, t in enumerate(tables):
-    rows = t.select("tbody tr") if t.find("tbody") else t.find_all("tr")
-    print(f"Tabelle {idx+1}: {len(rows)} Zeilen")
+def erstelle_kalender(team_name, url, output_datei):
+    """Erstellt einen Kalender für ein Team"""
     
-    # Suche nach Tabelle mit Spielplan-Daten (enthält "Heimmannschaft" oder ähnliches)
-    headers = [th.get_text(strip=True) for th in t.find_all("th")]
-    if any("mannschaft" in h.lower() or "datum" in h.lower() for h in headers):
-        table = t
-        print(f"  → Diese Tabelle scheint der Spielplan zu sein (Header: {headers})")
-        break
-
-if not table:
-    print("\n✗ Keine Spielplan-Tabelle gefunden!")
-    print("Verwende die erste Tabelle als Fallback...\n")
-    table = tables[0]
-
-# --- Spiele aus Tabelle auslesen ---
-spiele = []
-aktuelles_datum = None
-
-tbody = table.find("tbody")
-if tbody:
-    rows = tbody.find_all("tr")
-    print(f"\nAnalysiere {len(rows)} Zeilen aus <tbody>...\n")
-else:
-    rows = table.find_all("tr")[1:]  # Erste Zeile überspringen (Header)
-    print(f"\nKein <tbody> gefunden. Analysiere {len(rows)} Zeilen...\n")
-
-zeilen_verarbeitet = 0
-zeilen_mit_team = 0
-
-for idx, row in enumerate(rows, 1):
-    cols = [c.get_text(strip=True) for c in row.find_all("td")]
+    print(f"\n{'='*60}")
+    print(f"Erstelle Kalender für: {team_name}")
+    print(f"{'='*60}")
     
-    # Debug: Erste 3 Zeilen vollständig ausgeben
-    if idx <= 3:
-        print(f"Zeile {idx}: {len(cols)} Spalten")
-        for i, col in enumerate(cols):
-            print(f"  [{i}] '{col}'")
-        print()
-    
-    if len(cols) < 8:
-        continue
-    
-    zeilen_verarbeitet += 1
-    
-    # Spaltenzuordnung
-    tag, datum_str, zeit, halle_nr, spiel_nr, heim, gast, ergebnis = cols[:8]
-    
-    # Datum aktualisieren
-    if datum_str:
-        aktuelles_datum = datum_str
-    
-    if not aktuelles_datum:
-        continue
-    
-    # spielfrei überspringen
-    if "spielfrei" in heim.lower() or "spielfrei" in gast.lower():
-        continue
-    
-    # Team-Check
-    if TEAM not in heim and TEAM not in gast:
-        continue
-    
-    zeilen_mit_team += 1
-    
-    # Gegner bestimmen
-    if TEAM in heim:
-        gegner = gast
-        ort = f"Heimspiel – Halle {halle_nr}"
-    else:
-        gegner = heim
-        ort = f"Auswärts – Halle {halle_nr}"
-    
-    # Zeit bereinigen (z.B. "11:00 v" → "11:00")
+    # Webseite abrufen
     try:
-        zeit_bereinigt = zeit.split()[0] if zeit else "00:00"
+        print("Lade Webseite...")
+        response = requests.get(url, timeout=10)
+        response.raise_for_status()
+        html = response.text
+        print(f"✓ Webseite geladen ({len(html)} Zeichen)")
+    except requests.exceptions.RequestException as e:
+        print(f"✗ Fehler beim Abrufen der Webseite: {e}")
+        return False
+    
+    # HTML parsen
+    soup = BeautifulSoup(html, "html.parser")
+    
+    # Tabelle finden
+    tables = soup.find_all("table")
+    if not tables:
+        print("✗ Keine Tabelle gefunden!")
+        return False
+    
+    # Die richtige Tabelle finden
+    table = None
+    for t in tables:
+        headers = [th.get_text(strip=True) for th in t.find_all("th")]
+        if any("mannschaft" in h.lower() or "datum" in h.lower() for h in headers):
+            table = t
+            break
+    
+    if not table:
+        table = tables[0]
+    
+    # Spiele extrahieren
+    spiele = []
+    aktuelles_datum = None
+    
+    tbody = table.find("tbody")
+    rows = tbody.find_all("tr") if tbody else table.find_all("tr")[1:]
+    
+    for row in rows:
+        cols = [c.get_text(strip=True) for c in row.find_all("td")]
+        
+        if len(cols) < 8:
+            continue
+        
+        tag, datum_str, zeit, halle_nr, spiel_nr, heim, gast, ergebnis = cols[:8]
+        
+        # Datum aktualisieren
+        if datum_str:
+            aktuelles_datum = datum_str
+        
+        if not aktuelles_datum:
+            continue
+        
+        # spielfrei überspringen
+        if "spielfrei" in heim.lower() or "spielfrei" in gast.lower():
+            continue
+        
+        # Nur Spiele mit dem gesuchten Team
+        if team_name not in heim and team_name not in gast:
+            continue
+        
+        # Gegner bestimmen
+        if team_name in heim:
+            gegner = gast
+            ort = f"Heimspiel – Halle {halle_nr}"
+        else:
+            gegner = heim
+            ort = f"Auswärts – Halle {halle_nr}"
         
         # Datum parsen
-        start = datetime.strptime(f"{aktuelles_datum} {zeit_bereinigt}", "%d.%m.%Y %H:%M")
-        start = ZEITZONE.localize(start)
-        
-        spiele.append({
-            "beginn": start,
-            "gegner": gegner,
-            "ort": ort,
-        })
-        
-    except (ValueError, IndexError) as e:
-        print(f"⚠ Zeile {idx}: Fehler beim Parsen von '{aktuelles_datum} {zeit}' - {e}")
-        continue
-
-print(f"\n=== STATISTIK ===")
-print(f"Zeilen verarbeitet: {zeilen_verarbeitet}")
-print(f"Zeilen mit Team '{TEAM}': {zeilen_mit_team}")
-print(f"Gültige Spiele gefunden: {len(spiele)}\n")
-
-if spiele:
-    print("=== GEFUNDENE SPIELE ===")
-    for i, s in enumerate(spiele, 1):
-        print(f"{i}. {s['beginn'].strftime('%d.%m.%Y %H:%M')} - {s['gegner']}")
-        print(f"   {s['ort']}")
-    print()
-
-# --- Kalenderdatei erzeugen ---
-cal = Calendar()
-
-if spiele:
-    for s in spiele:
-        e = Event()
-        e.name = f"{TEAM} vs. {s['gegner']}" if "Heimspiel" in s["ort"] else f"{s['gegner']} vs. {TEAM}"
-        e.begin = s["beginn"]
-        e.location = s["ort"]
-        e.description = f"Handballspiel: {e.name}\nOrt: {s['ort']}"
-        e.duration = {"hours": 1, "minutes": 30}
-        cal.events.add(e)
+        try:
+            zeit_bereinigt = zeit.split()[0] if zeit else "00:00"
+            start = datetime.strptime(f"{aktuelles_datum} {zeit_bereinigt}", "%d.%m.%Y %H:%M")
+            start = ZEITZONE.localize(start)
+            
+            spiele.append({
+                "beginn": start,
+                "gegner": gegner,
+                "ort": ort,
+            })
+        except (ValueError, IndexError) as e:
+            print(f"⚠ Fehler beim Parsen: {aktuelles_datum} {zeit} - {e}")
+            continue
     
-    print(f"✓ {len(spiele)} Events zum Kalender hinzugefügt")
-else:
-    print("⚠ Keine Spiele gefunden - erstelle leeren Kalender")
+    print(f"✓ {len(spiele)} Spiele gefunden")
+    
+    # Kalender erstellen
+    cal = Calendar()
+    
+    if spiele:
+        for s in spiele:
+            e = Event()
+            e.name = f"{team_name} vs. {s['gegner']}" if "Heimspiel" in s["ort"] else f"{s['gegner']} vs. {team_name}"
+            e.begin = s["beginn"]
+            e.location = s["ort"]
+            e.description = f"Handballspiel: {e.name}\nOrt: {s['ort']}"
+            e.duration = {"hours": 1, "minutes": 30}
+            cal.events.add(e)
+    
+    # Kalender speichern
+    with open(output_datei, "w", encoding="utf-8") as f:
+        f.writelines(cal)
+    
+    print(f"✓ {output_datei} erfolgreich erstellt")
+    return True
 
-# Kalender speichern
-with open("handball.ics", "w", encoding="utf-8") as f:
-    f.writelines(cal)
+# --- Hauptprogramm ---
+print("="*60)
+print("HANDBALL KALENDER GENERATOR")
+print("="*60)
 
-print("✓ handball.ics erfolgreich erstellt")
+erfolg_counter = 0
+fehler_counter = 0
+
+for config in KALENDER_CONFIG:
+    if erstelle_kalender(config["name"], config["url"], config["output"]):
+        erfolg_counter += 1
+    else:
+        fehler_counter += 1
+
+print(f"\n{'='*60}")
+print(f"ZUSAMMENFASSUNG")
+print(f"{'='*60}")
+print(f"Erfolgreich erstellt: {erfolg_counter}")
+print(f"Fehler: {fehler_counter}")
+print(f"{'='*60}\n")
+
+# Exit-Code setzen (0 = alles OK, 1 = mindestens ein Fehler)
+sys.exit(0 if fehler_counter == 0 else 1)
