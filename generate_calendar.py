@@ -1,10 +1,9 @@
-# generate_calendar.py
-
 import requests
 from bs4 import BeautifulSoup
 from ics import Calendar, Event
 from datetime import datetime
 import pytz
+import sys # Importiert für exit
 
 # --- Einstellungen ---
 URL = "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424244"
@@ -13,11 +12,13 @@ ZEITZONE = pytz.timezone("Europe/Berlin")
 
 # --- Webseite abrufen ---
 try:
-    html = requests.get(URL).text
+    response = requests.get(URL)
+    response.raise_for_status()  # Löst einen Fehler bei schlechtem Statuscode aus (z.B. 404, 500)
+    html = response.text
     soup = BeautifulSoup(html, "html.parser")
 except requests.exceptions.RequestException as e:
     print(f"Fehler beim Abrufen der Webseite: {e}")
-    exit(1)
+    sys.exit(1) # Beendet das Skript mit einem Fehlercode
 
 # --- Spiele aus Tabelle auslesen ---
 spiele = []
@@ -26,7 +27,7 @@ table = soup.find("table")
 
 if not table:
     print("Fehler: Keine Spieltabelle auf der Seite gefunden.")
-    exit(1)
+    sys.exit(1)
 
 # Die relevanten Daten sind in <tbody>-Zeilen
 for row in table.select("tbody tr"):
@@ -46,7 +47,6 @@ for row in table.select("tbody tr"):
     # Gegner und Spielort bestimmen
     if TEAM in heim:
         gegner = gast
-        # Der Hallenname ist komplexer zu parsen; wir verwenden vorerst die Hallennummer.
         ort = f"Heimspiel – Halle {halle_nr}"
     else:
         gegner = heim
@@ -61,6 +61,7 @@ for row in table.select("tbody tr"):
         start = ZEITZONE.localize(start)
     except (ValueError, IndexError):
         # Zeilen ohne gültiges Datum werden übersprungen
+        print(f"Warnung: Ungültiges Datumsformat in Zeile gefunden: {datum_str}")
         continue
 
     spiele.append({
@@ -69,7 +70,7 @@ for row in table.select("tbody tr"):
         "ort": ort,
     })
 
-print(f"{len(spiele)} Spiele für {TEAM} gefunden.")
+print(f"{len(spiele)} Spiele für '{TEAM}' gefunden.")
 
 # --- Kalenderdatei erzeugen ---
 if spiele:
@@ -86,7 +87,7 @@ if spiele:
 
     with open("handball.ics", "w", encoding="utf-8") as f:
         f.writelines(cal)
-    print("✅ handball.ics erfolgreich erstellt.")
+    print("✅ handball.ics erfolgreich erstellt/aktualisiert.")
 else:
     print("Keine Spiele gefunden, um einen Kalender zu erstellen.")
 
