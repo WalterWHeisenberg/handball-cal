@@ -111,7 +111,6 @@ def hole_hallen_info(hallen_nr, spielplan_url):
         hallen_cache[hallen_nr] = fallback
         return fallback
 
-
 def erstelle_kalender(team_name, url, output_datei):
     """Erstellt einen Kalender für ein Team"""
     
@@ -185,13 +184,15 @@ def erstelle_kalender(team_name, url, output_datei):
         # Hallen-Information abrufen (mit Cache)
         hallen_info = hole_hallen_info(hallen_nr, url)
         
-        # Gegner bestimmen
+        # Gegner und Spieltyp bestimmen
         if team_name in heim:
             gegner = gast
-            ort = f"Heimspiel – {hallen_info}"
+            spieltyp = "Heimspiel"
+            ort = hallen_info  # Nur Hallen-Info, ohne "Heimspiel –"
         else:
             gegner = heim
-            ort = f"Auswärts – {hallen_info}"
+            spieltyp = "Auswärts"
+            ort = hallen_info  # Nur Hallen-Info, ohne "Auswärts –"
         
         # Datum parsen
         try:
@@ -202,6 +203,7 @@ def erstelle_kalender(team_name, url, output_datei):
             spiele.append({
                 "beginn": start,
                 "gegner": gegner,
+                "spieltyp": spieltyp,
                 "ort": ort,
             })
         except (ValueError, IndexError) as e:
@@ -216,10 +218,15 @@ def erstelle_kalender(team_name, url, output_datei):
     if spiele:
         for s in spiele:
             e = Event()
-            e.name = f"{team_name} vs. {s['gegner']}" if "Heimspiel" in s["ort"] else f"{s['gegner']} vs. {team_name}"
+            # Spieltyp (Heim/Auswärts) im Titel
+            if s["spieltyp"] == "Heimspiel":
+                e.name = f"🏠 Heimspiel: {team_name} vs. {s['gegner']}"
+            else:
+                e.name = f"✈️ Auswärts: {s['gegner']} vs. {team_name}"
+            
             e.begin = s["beginn"]
-            e.location = s["ort"]
-            e.description = f"Handballspiel: {e.name}\nOrt: {s['ort']}"
+            e.location = s["ort"]  # Nur die Adresse, ohne Heim/Auswärts
+            e.description = f"Handballspiel ({s['spieltyp']})\n{team_name} vs. {s['gegner']}\n\nOrt: {s['ort']}"
             e.duration = {"hours": 1, "minutes": 30}
             cal.events.add(e)
     
