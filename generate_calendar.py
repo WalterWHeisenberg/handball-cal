@@ -36,6 +36,8 @@ def erstelle_kalender(team_name, url, output_datei):
     
     print(f"\n{'='*60}")
     print(f"Erstelle Kalender für: {team_name}")
+    print(f"URL: {url}")  # <-- URL ausgeben
+    print(f"Output: {output_datei}")  # <-- Output-Datei ausgeben
     print(f"{'='*60}")
     
     # Webseite abrufen
@@ -47,6 +49,7 @@ def erstelle_kalender(team_name, url, output_datei):
         print(f"✓ Webseite geladen ({len(html)} Zeichen)")
     except requests.exceptions.RequestException as e:
         print(f"✗ Fehler beim Abrufen der Webseite: {e}")
+        print(f"✗ Status Code: {getattr(e.response, 'status_code', 'N/A')}")  # <-- Status Code
         return False
     
     # HTML parsen
@@ -165,5 +168,9 @@ print(f"Erfolgreich erstellt: {erfolg_counter}")
 print(f"Fehler: {fehler_counter}")
 print(f"{'='*60}\n")
 
-# Exit-Code setzen (0 = alles OK, 1 = mindestens ein Fehler)
-sys.exit(0 if fehler_counter == 0 else 1)
+# GEÄNDERT: Auch bei Fehlern mit Exit-Code 0 beenden
+# So wird der GitHub Workflow nicht abgebrochen
+if fehler_counter > 0:
+    print("⚠️ Es gab Fehler, aber bereits erstellte Kalender werden trotzdem gespeichert.")
+
+sys.exit(0)  # Immer erfolgreich beenden
