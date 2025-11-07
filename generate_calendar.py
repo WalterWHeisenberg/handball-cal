@@ -33,12 +33,18 @@ KALENDER_CONFIG = [
         "name": "SSV Nümbrecht Handball",  # weibliche Jugend B
         "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424406",
         "output": "handball_wjb.ics"
+    },
+    {
+        "name": "HSG Siebengebirge-Thomasberg",  # weibliche Jugend C HSG Siebengebirge-Thomasberg
+        "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=HNR+25%2F26&group=423996",
+        "output": "handball_wjc-hsg.ics"
     }
 ]
+# 
 
 # --- Globale Einstellungen ---
 ZEITZONE = pytz.timezone("Europe/Berlin")
-START_ADRESSE = "Heideweg 9, 51588 Nümbrecht"
+START_ADRESSE = "Gouvieuxstraße 2, 51588 Nümbrecht"
 
 # --- Caches für Performance ---
 hallen_cache = {}
