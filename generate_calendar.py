@@ -47,7 +47,6 @@ fahrzeit_cache = {}
 def get_coords(adresse):
     """Wandelt eine Adresse in Geo-Koordinaten um."""
     try:
-        # Nominatim benötigt einen User-Agent
         headers = {'User-Agent': 'HandballKalenderSkript/1.0'}
         url = f"https://nominatim.openstreetmap.org/search?q={urllib.parse.quote(adresse)}&format=json"
         response = requests.get(url, headers=headers, timeout=10)
@@ -67,7 +66,6 @@ def hole_fahrzeit(ziel_adresse):
     start_lat, start_lon = get_coords(START_ADRESSE)
     ziel_lat, ziel_lon = get_coords(ziel_adresse)
     
-    # Kleine Pause, um die API nicht zu überlasten
     time.sleep(1) 
 
     if not all([start_lat, start_lon, ziel_lat, ziel_lon]):
@@ -75,19 +73,17 @@ def hole_fahrzeit(ziel_adresse):
         return None
 
     try:
-        # OSRM (Open Source Routing Machine) für die Routenberechnung verwenden
         url = f"http://router.project-osrm.org/route/v1/driving/{start_lon},{start_lat};{ziel_lon},{ziel_lat}?overview=false"
         response = requests.get(url, timeout=10)
         response.raise_for_status()
         data = response.json()
         if data.get('code') == 'Ok':
-            # Fahrzeit in Sekunden, umgerechnet in Minuten
             duration_minutes = int(data['routes'][0]['duration'] / 60)
             fahrzeit_cache[ziel_adresse] = duration_minutes
             print(f"  → Fahrzeit nach '{ziel_adresse.split(',')[0]}': {duration_minutes} min")
             return duration_minutes
     except Exception:
-        pass # Bei Fehler einfach None zurückgeben
+        pass
     
     return None
     
@@ -138,9 +134,10 @@ def hole_hallen_info(hallen_nr, spielplan_url):
         hallen_cache[hallen_nr] = fallback
         return fallback
 
-def erstelle_kalender(team_name, url, output_datei):
+# HIER WURDE DIE ÄNDERUNG VORGENOMMEN
+def erstelle_kalender(name, url, output):
     """Erstellt einen Kalender für ein Team"""
-    print(f"\n{'='*60}\nErstelle Kalender für: {team_name}\n{'='*60}")
+    print(f"\n{'='*60}\nErstelle Kalender für: {name}\n{'='*60}")
     
     try:
         response = requests.get(url, timeout=10)
@@ -167,10 +164,10 @@ def erstelle_kalender(team_name, url, output_datei):
         
         tag, datum_str, zeit, hallen_nr, spiel_nr, heim, gast, ergebnis = cols[:8]
         if datum_str: aktuelles_datum = datum_str
-        if not aktuelles_datum or "spielfrei" in heim.lower() or "spielfrei" in gast.lower() or team_name not in f"{heim} {gast}": continue
+        if not aktuelles_datum or "spielfrei" in heim.lower() or "spielfrei" in gast.lower() or name not in f"{heim} {gast}": continue
 
         hallen_info = hole_hallen_info(hallen_nr, url)
-        spieltyp = "Heimspiel" if team_name in heim else "Auswärts"
+        spieltyp = "Heimspiel" if name in heim else "Auswärts"
         gegner = gast if spieltyp == "Heimspiel" else heim
 
         try:
@@ -189,17 +186,16 @@ def erstelle_kalender(team_name, url, output_datei):
             e = Event()
             
             if s["spieltyp"] == "Heimspiel":
-                e.name = f"🏠 {team_name} - {s['gegner']}"
-                beschreibung_teams = f"{team_name} vs. {s['gegner']}"
+                e.name = f"🏠 {name} - {s['gegner']}"
+                beschreibung_teams = f"{name} vs. {s['gegner']}"
             else:
-                e.name = f"✈️ {s['gegner']} - {team_name}"
-                beschreibung_teams = f"{s['gegner']} vs. {team_name}"
+                e.name = f"✈️ {s['gegner']} - {name}"
+                beschreibung_teams = f"{s['gegner']} vs. {name}"
             
             e.begin = s["beginn"]
             e.location = s["ort"]
             e.duration = timedelta(hours=1, minutes=30)
             
-            # Zeitinformationen für die Beschreibung
             treffzeit_puffer = timedelta(hours=1)
             treffzeit_an_halle = s['beginn'] - treffzeit_puffer
             zeit_info = f"Treffzeit an der Halle: {treffzeit_an_halle.strftime('%H:%M Uhr')}"
@@ -216,8 +212,8 @@ def erstelle_kalender(team_name, url, output_datei):
                              f"== Ort ==\n{s['ort']}")
             cal.events.add(e)
 
-    with open(output_datei, "w", encoding="utf-8") as f: f.writelines(cal)
-    print(f"✓ {output_datei} erfolgreich erstellt")
+    with open(output, "w", encoding="utf-8") as f: f.writelines(cal)
+    print(f"✓ {output} erfolgreich erstellt")
     return True
 
 # --- Hauptprogramm ---
