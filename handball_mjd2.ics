@@ -2,44 +2,12 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:ics.py - http://git.io/lLljaA
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\n✈️ VfL Gummersbach II - SSV Nümbrecht Handball\n\nOrt: Steinmüllerallee 51643\n            Gummersbach
+DESCRIPTION:Handballspiel (Auswärts)\n✈️ TV Wahlscheid II - SSV Nümbrecht Handball\n\nOrt: Wahlscheider Str. 56 53797\n            Lohmar-Wahlscheid
 DURATION:PT1H30M
-LOCATION:Steinmüllerallee 51643\n            Gummersbach
-DTSTART:20251130T113000Z
-SUMMARY:✈️ VfL Gummersbach II - SSV Nümbrecht Handball
-UID:4d3e0175-2efd-4cca-be65-e8ee6ae6302b@4d3e.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\n✈️ HC Gelpe/Strombach II - SSV Nümbrecht Handball\n\nOrt: Reininghauser Str. 34 51643\n            Gummersbach
-DURATION:PT1H30M
-LOCATION:Reininghauser Str. 34 51643\n            Gummersbach
-DTSTART:20250920T113000Z
-SUMMARY:✈️ HC Gelpe/Strombach II - SSV Nümbrecht Handball
-UID:aa01a68b-afce-4a78-b811-f2f5e0c7455e@aa01.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\n✈️ CVJM Waldbröl - SSV Nümbrecht Handball\n\nOrt: Vennstr. 51545\n            Waldbröl
-DURATION:PT1H30M
-LOCATION:Vennstr. 51545\n            Waldbröl
-DTSTART:20251109T123000Z
-SUMMARY:✈️ CVJM Waldbröl - SSV Nümbrecht Handball
-UID:5c619a95-e8e0-40d3-be30-8ee2ed8052de@5c61.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\n✈️ SSV Overath - SSV Nümbrecht Handball\n\nOrt: Cyriax 51491\n            Overath
-DURATION:PT1H30M
-LOCATION:Cyriax 51491\n            Overath
-DTSTART:20260125T153000Z
-SUMMARY:✈️ SSV Overath - SSV Nümbrecht Handball
-UID:3b119539-8dd0-43dc-a6f1-f76860cd7274@3b11.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\n🏠 SSV Nümbrecht Handball - TV Wahlscheid II\n\nOrt: Gouvieuxstr. 2 51588\n            Nümbrecht
-DURATION:PT1H30M
-LOCATION:Gouvieuxstr. 2 51588\n            Nümbrecht
-DTSTART:20250927T120000Z
-SUMMARY:🏠 SSV Nümbrecht Handball - TV Wahlscheid II
-UID:147cd13b-eded-4a41-8889-6a69d0f0a016@147c.org
+LOCATION:Wahlscheider Str. 56 53797\n            Lohmar-Wahlscheid
+DTSTART:20260118T113000Z
+SUMMARY:✈️ TV Wahlscheid II - SSV Nümbrecht Handball
+UID:320c4301-ecb6-4e85-b284-c89fd118305f@320c.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel (Auswärts)\n✈️ SV Frielingsdorf II - SSV Nümbrecht Handball\n\nOrt: Carola-Lob-Weg 1 51789\n            Lindlar
@@ -47,7 +15,23 @@ DURATION:PT1H30M
 LOCATION:Carola-Lob-Weg 1 51789\n            Lindlar
 DTSTART:20260207T150000Z
 SUMMARY:✈️ SV Frielingsdorf II - SSV Nümbrecht Handball
-UID:65aa91c2-a8b2-4503-8563-481afdb3aba0@65aa.org
+UID:9f890e87-86c8-4046-bcc1-9e33dc0d5ff3@9f89.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Auswärts)\n✈️ HC Gelpe/Strombach II - SSV Nümbrecht Handball\n\nOrt: Reininghauser Str. 34 51643\n            Gummersbach
+DURATION:PT1H30M
+LOCATION:Reininghauser Str. 34 51643\n            Gummersbach
+DTSTART:20250920T113000Z
+SUMMARY:✈️ HC Gelpe/Strombach II - SSV Nümbrecht Handball
+UID:b9a4a823-18e4-4ba2-9009-03a0c3f7d98b@b9a4.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Auswärts)\n✈️ VfL Gummersbach II - SSV Nümbrecht Handball\n\nOrt: Steinmüllerallee 51643\n            Gummersbach
+DURATION:PT1H30M
+LOCATION:Steinmüllerallee 51643\n            Gummersbach
+DTSTART:20251130T113000Z
+SUMMARY:✈️ VfL Gummersbach II - SSV Nümbrecht Handball
+UID:de711e3c-8ceb-4797-9e8f-a7b7bd99e1c5@de71.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel (Heimspiel)\n🏠 SSV Nümbrecht Handball - VfL Gummersbach II\n\nOrt: Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
@@ -55,15 +39,15 @@ DURATION:PT1H30M
 LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
 DTSTART:20260221T140000Z
 SUMMARY:🏠 SSV Nümbrecht Handball - VfL Gummersbach II
-UID:1978dabe-6d79-4e88-879f-527a6f053713@1978.org
+UID:30138d13-0f89-4ea7-833b-9be10c7b988e@3013.org
 END:VEVENT
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\n🏠 SSV Nümbrecht Handball - HC Gelpe/Strombach II\n\nOrt: Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DESCRIPTION:Handballspiel (Auswärts)\n✈️ SSV Overath - SSV Nümbrecht Handball\n\nOrt: Cyriax 51491\n            Overath
 DURATION:PT1H30M
-LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
-DTSTART:20251213T153000Z
-SUMMARY:🏠 SSV Nümbrecht Handball - HC Gelpe/Strombach II
-UID:0b1b3418-f2a3-403a-afdf-9ac582b4276c@0b1b.org
+LOCATION:Cyriax 51491\n            Overath
+DTSTART:20260125T153000Z
+SUMMARY:✈️ SSV Overath - SSV Nümbrecht Handball
+UID:bd48c4b0-9957-4330-965e-18f271786ac1@bd48.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel (Heimspiel)\n🏠 SSV Nümbrecht Handball - CVJM Waldbröl\n\nOrt: Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
@@ -71,15 +55,7 @@ DURATION:PT1H30M
 LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
 DTSTART:20260201T113000Z
 SUMMARY:🏠 SSV Nümbrecht Handball - CVJM Waldbröl
-UID:dc69a6c6-1483-42a5-ac13-8a2a16b3dc80@dc69.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\n✈️ TV Wahlscheid II - SSV Nümbrecht Handball\n\nOrt: Wahlscheider Str. 56 53797\n            Lohmar-Wahlscheid
-DURATION:PT1H30M
-LOCATION:Wahlscheider Str. 56 53797\n            Lohmar-Wahlscheid
-DTSTART:20260118T113000Z
-SUMMARY:✈️ TV Wahlscheid II - SSV Nümbrecht Handball
-UID:0cc07575-b9d5-488d-a34e-6b52d9c4ef49@0cc0.org
+UID:dd62e2c0-2d01-4d2b-a87b-fd1bb6f77f75@dd62.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel (Heimspiel)\n🏠 SSV Nümbrecht Handball - SSV Overath\n\nOrt: Gouvieuxstr. 2 51588\n            Nümbrecht
@@ -87,7 +63,15 @@ DURATION:PT1H30M
 LOCATION:Gouvieuxstr. 2 51588\n            Nümbrecht
 DTSTART:20251005T100000Z
 SUMMARY:🏠 SSV Nümbrecht Handball - SSV Overath
-UID:e1c918b7-6495-4c62-82ca-647e4acdd476@e1c9.org
+UID:2be104b4-d2d0-44cd-96eb-0830c2057b10@2be1.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Auswärts)\n✈️ CVJM Waldbröl - SSV Nümbrecht Handball\n\nOrt: Vennstr. 51545\n            Waldbröl
+DURATION:PT1H30M
+LOCATION:Vennstr. 51545\n            Waldbröl
+DTSTART:20251109T123000Z
+SUMMARY:✈️ CVJM Waldbröl - SSV Nümbrecht Handball
+UID:e4ae66bd-6172-4c04-a56f-440a5a940b33@e4ae.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel (Heimspiel)\n🏠 SSV Nümbrecht Handball - SV Frielingsdorf II\n\nOrt: Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
@@ -95,6 +79,22 @@ DURATION:PT1H30M
 LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
 DTSTART:20251122T123000Z
 SUMMARY:🏠 SSV Nümbrecht Handball - SV Frielingsdorf II
-UID:c631949b-0f7b-4591-8e9f-ddab91dd6c77@c631.org
+UID:586ca309-00e9-4be0-bf39-75aeb8bf7542@586c.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Heimspiel)\n🏠 SSV Nümbrecht Handball - HC Gelpe/Strombach II\n\nOrt: Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DURATION:PT1H30M
+LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DTSTART:20251213T153000Z
+SUMMARY:🏠 SSV Nümbrecht Handball - HC Gelpe/Strombach II
+UID:75bca77a-f7ae-430b-bbf1-a8b6d2d119c0@75bc.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Heimspiel)\n🏠 SSV Nümbrecht Handball - TV Wahlscheid II\n\nOrt: Gouvieuxstr. 2 51588\n            Nümbrecht
+DURATION:PT1H30M
+LOCATION:Gouvieuxstr. 2 51588\n            Nümbrecht
+DTSTART:20250927T120000Z
+SUMMARY:🏠 SSV Nümbrecht Handball - TV Wahlscheid II
+UID:3122b6bb-5cc6-49b4-a0ed-8d2b8c3f6f3c@3122.org
 END:VEVENT
 END:VCALENDAR
