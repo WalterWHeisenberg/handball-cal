@@ -7,58 +7,43 @@ import sys
 import urllib.parse
 import time
 
-# --- Konfiguration für mehrere Kalender (DEINE KONFIGURATION + NEUE FEATURES) ---
+# --- Konfiguration (DEINE KONFIGURATION) ---
 KALENDER_CONFIG = [
     {
-        "name": "SSV Nümbrecht Handball",
-        "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424244",
-        "output": "handball_wjc.ics",
-        "puffer_min": 75  # Spezifischer Puffer für die weibl. Jugend C
+        "name": "SSV Nümbrecht Handball", "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424244",
+        "output": "handball_wjc.ics", "puffer_min": 75
     },
     {
-        "name": "SSV Nümbrecht Handball",
-        "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424217",
-        "output": "handball_mjd1.ics",
-        "puffer_min": 60 # Standard-Puffer
+        "name": "SSV Nümbrecht Handball", "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424217",
+        "output": "handball_mjd1.ics", "puffer_min": 60
     },
     {
-        "name": "SSV Nümbrecht Handball",
-        "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424113",
-        "output": "handball_mjd2.ics",
-        "puffer_min": 60
+        "name": "SSV Nümbrecht Handball", "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424113",
+        "output": "handball_mjd2.ics", "puffer_min": 60
     },
     {
-        "name": "SSV Nümbrecht Handball III",
-        "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424114",
-        "output": "handball_h3.ics",
-        "puffer_min": 60
+        "name": "SSV Nümbrecht Handball III", "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424114",
+        "output": "handball_h3.ics", "puffer_min": 60
     },
     {
-        "name": "SSV Nümbrecht Handball",
-        "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424406",
-        "output": "handball_wjb.ics",
-        "puffer_min": 60
+        "name": "SSV Nümbrecht Handball", "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424406",
+        "output": "handball_wjb.ics", "puffer_min": 60
     },
     {
-        "name": "HSG Siebengebirge-Thomasberg",
-        "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=HNR+25%2F26&group=423996",
-        "output": "handball_wjc-hsg.ics",
-        "puffer_min": 60,
-        "immer_fahrzeit_berechnen": True  # Erzwingt die Fahrzeitberechnung
+        "name": "HSG Siebengebirge-Thomasberg", "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=HNR+25%2F26&group=423996",
+        "output": "handball_wjc-hsg.ics", "puffer_min": 60, "immer_fahrzeit_berechnen": True
     }
 ]
 
-# --- Globale Einstellungen ---
+# --- Globale Einstellungen & Caches ---
 ZEITZONE = pytz.timezone("Europe/Berlin")
-START_ADRESSE = "Gouvieuxstraße 2, 51588 Nümbrecht" # Abfahrt von
-
-# --- Caches für Performance ---
+START_ADRESSE = "Gouvieuxstraße 2, 51588 Nümbrecht"
 hallen_cache, fahrzeit_cache = {}, {}
 
+# --- Helper-Funktionen (unverändert) ---
 def get_coords(adresse):
     try:
-        headers = {'User-Agent': 'HandballKalenderSkript/1.0'}
-        url = f"https://nominatim.openstreetmap.org/search?q={urllib.parse.quote(adresse)}&format=json"
+        headers = {'User-Agent': 'HandballKalenderSkript/1.0'}; url = f"https://nominatim.openstreetmap.org/search?q={urllib.parse.quote(adresse)}&format=json"
         data = requests.get(url, headers=headers, timeout=10).json()
         if data: return data[0]['lat'], data[0]['lon']
     except Exception: pass
@@ -66,18 +51,14 @@ def get_coords(adresse):
 
 def hole_fahrzeit(ziel_adresse):
     if ziel_adresse in fahrzeit_cache: return fahrzeit_cache[ziel_adresse]
-    start_lat, start_lon = get_coords(START_ADRESSE)
-    ziel_lat, ziel_lon = get_coords(ziel_adresse)
-    time.sleep(1) # API-Höflichkeitspause
+    start_lat, start_lon = get_coords(START_ADRESSE); ziel_lat, ziel_lon = get_coords(ziel_adresse); time.sleep(1)
     if not all([start_lat, start_lon, ziel_lat, ziel_lon]): return None
     try:
         url = f"http://router.project-osrm.org/route/v1/driving/{start_lon},{start_lat};{ziel_lon},{ziel_lat}?overview=false"
         data = requests.get(url, timeout=10).json()
         if data.get('code') == 'Ok':
             duration_minutes = int(data['routes'][0]['duration'] / 60)
-            fahrzeit_cache[ziel_adresse] = duration_minutes
-            print(f"  → Fahrzeit nach '{ziel_adresse.split(',')[0]}': {duration_minutes} min")
-            return duration_minutes
+            fahrzeit_cache[ziel_adresse] = duration_minutes; print(f"  → Fahrzeit nach '{ziel_adresse.split(',')[0]}': {duration_minutes} min"); return duration_minutes
     except Exception: pass
     return None
     
@@ -90,7 +71,6 @@ def hole_hallen_info(hallen_nr, spielplan_url):
         if not (hallen_link and hallen_link.get("href")): hallen_cache[hallen_nr] = fallback; return fallback
         hallen_url = hallen_link["href"]
         if not hallen_url.startswith("http"): hallen_url = spielplan_url.split("/cgi-bin/")[0] + hallen_url
-        
         hallen_soup = BeautifulSoup(requests.get(hallen_url, timeout=5).text, "html.parser")
         hallen_name, adresse = "", ""
         if title_tag := hallen_soup.find("title"):
@@ -99,11 +79,8 @@ def hole_hallen_info(hallen_nr, spielplan_url):
                     if "unbekannt" not in extracted_name.lower(): hallen_name = extracted_name
         if adresse_header := hallen_soup.find("h2", string=lambda t: t and "adresse" in t.lower()):
             if adresse_elem := adresse_header.find_next_sibling(): adresse = adresse_elem.get_text(separator=" ", strip=True).split("[")[0].strip()
-        
         result = ", ".join(filter(None, [hallen_name, adresse])) or fallback
-        hallen_cache[hallen_nr] = result
-        print(f"  → Halle {hallen_nr}: {result}")
-        return result
+        hallen_cache[hallen_nr] = result; print(f"  → Halle {hallen_nr}: {result}"); return result
     except Exception: hallen_cache[hallen_nr] = fallback; return fallback
 
 def erstelle_kalender(config):
@@ -111,7 +88,7 @@ def erstelle_kalender(config):
     puffer_min = config.get("puffer_min", 60)
     immer_fahrzeit = config.get("immer_fahrzeit_berechnen", False)
 
-    print(f"\n{'='*60}\nErstelle Kalender für: {name} (Puffer: {puffer_min}min)\n{'='*60}")
+    print(f"\n{'='*60}\nErstelle Kalender für: {name}\n{'='*60}")
     
     try: response = requests.get(url, timeout=10); html = response.text
     except Exception as e: print(f"✗ Fehler: {e}"); return False
@@ -123,25 +100,32 @@ def erstelle_kalender(config):
     spiele, aktuelles_datum = [], None
     print("Extrahiere Spiele...")
     
-    for row in table.select("tbody tr"):
+    for i, row in enumerate(table.select("tbody tr")):
         tds = row.find_all("td")
         cols = [c.get_text(strip=True) for c in tds]
         
-        spiel_info = None
-        if len(cols) >= 9:
-            if title := tds[3].get('title'):
-                spiel_info = title.strip()
-            # Spalten normalisieren für einheitliche Verarbeitung
-            relevant_cols = cols[:3] + cols[4:]
-        else:
-            relevant_cols = cols
-
-        if len(relevant_cols) < 8: continue
+        # --- KORRIGIERTE UND ROBUSTERE SPALTEN-LOGIK ---
+        tag, datum_str, zeit, spiel_info, hallen_nr, spiel_nr, heim, gast, ergebnis = ('',) * 9
         
-        tag, datum_str, zeit, hallen_nr, spiel_nr, heim, gast, ergebnis = relevant_cols[:8]
+        if len(cols) >= 8:
+            if len(cols) == 9:
+                # 9-Spalten-Layout
+                spiel_info = tds[3].get('title', '').strip()
+                tag, datum_str, zeit, hallen_nr, spiel_nr, heim, gast, ergebnis = cols[0], cols[1], cols[2], cols[4], cols[5], cols[6], cols[7], cols[8]
+            else: # len(cols) == 8
+                # 8-Spalten-Layout
+                tag, datum_str, zeit, hallen_nr, spiel_nr, heim, gast, ergebnis = cols
+        else:
+            continue # Zeile ignorieren, wenn sie nicht genug Spalten hat
 
         if datum_str: aktuelles_datum = datum_str
-        if not aktuelles_datum or "spielfrei" in heim.lower() or "spielfrei" in gast.lower() or name not in f"{heim} {gast}": continue
+        
+        # Wichtige Debug-Ausgabe, um zu sehen, was gelesen wird
+        is_match = name in f"{heim} {gast}"
+        print(f"DEBUG (Zeile {i+1}): Heim='{heim}', Gast='{gast}'. Team '{name}' gefunden: {is_match}")
+
+        if not aktuelles_datum or "spielfrei" in heim.lower() or "spielfrei" in gast.lower() or not is_match:
+            continue
         
         print(f"  ✓ Spiel gefunden: {heim} vs {gast}")
         hallen_info = hole_hallen_info(hallen_nr, url)
@@ -159,20 +143,14 @@ def erstelle_kalender(config):
     cal = Calendar()
     for s in spiele:
         e, beschreibung_teams = Event(), ""
-        if s["spieltyp"] == "Heimspiel":
-            e.name = f"🏠 {name} - {s['gegner']}"; beschreibung_teams = f"{name} vs. {s['gegner']}"
-        else:
-            e.name = f"✈️ {s['gegner']} - {name}"; beschreibung_teams = f"{s['gegner']} vs. {name}"
-        
+        if s["spieltyp"] == "Heimspiel": e.name = f"🏠 {name} - {s['gegner']}"; beschreibung_teams = f"{name} vs. {s['gegner']}"
+        else: e.name = f"✈️ {s['gegner']} - {name}"; beschreibung_teams = f"{s['gegner']} vs. {name}"
         e.begin, e.location, e.duration = s["beginn"], s["ort"], timedelta(hours=1, minutes=30)
-        
         treffzeit_an_halle = s['beginn'] - timedelta(minutes=s['puffer_min'])
         zeit_info = f"Treffzeit Halle: {treffzeit_an_halle.strftime('%H:%M Uhr')} ({s['puffer_min']} min vorher)"
-        
         if s.get('fahrzeit'):
             abfahrtszeit = treffzeit_an_halle - timedelta(minutes=s['fahrzeit'])
             zeit_info = f"Abfahrt von Nümbrecht: {abfahrtszeit.strftime('%H:%M Uhr')}\nFahrzeit: ca. {s['fahrzeit']} min\n{zeit_info}"
-        
         beschreibung = f"Handballspiel ({s['spieltyp']})\n{beschreibung_teams}\n\n== Zeiten ==\n{zeit_info}\n\n== Ort ==\n{s['ort']}"
         if s.get('spiel_info'): beschreibung += f"\n\n== Info ==\n{s['spiel_info']}"
         e.description = beschreibung
@@ -184,6 +162,6 @@ def erstelle_kalender(config):
 
 if __name__ == "__main__":
     print("="*60 + "\nHANDBALL KALENDER GENERATOR\n" + "="*60)
-    results = [erstelle_kalender(config) for config in KALENDER_CONFIG] # Korrekter Aufruf
+    results = [erstelle_kalender(config) for config in KALENDER_CONFIG]
     print(f"\n{'='*60}\nZUSAMMENFASSUNG\n{'='*60}\nErfolgreich: {sum(1 for r in results if r)} | Fehler: {sum(1 for r in results if not r)}")
     sys.exit(0)
