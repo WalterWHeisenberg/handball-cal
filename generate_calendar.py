@@ -78,6 +78,7 @@ def bereinige_adresse(adresse):
     adresse = re.sub(r'\s+', ' ', adresse).strip()
     
     # 5. Erkenne und korrigiere PLZ-Ort-Trennung
+    # Pattern: "Straße 12345 Ort" oder "Straße 12345\n Ort"
     match = re.search(r'([^\d]+)\s*(\d{5})\s+([A-ZÄÖÜ][a-zäöüß\-]+(?:\s+[A-ZÄÖÜ][a-zäöüß\-]+)?)', adresse)
     if match:
         strasse, plz, ort = match.groups()
@@ -87,6 +88,7 @@ def bereinige_adresse(adresse):
     if ',' in adresse:
         teile = adresse.split(',', 1)
         erster_teil = teile[0].strip().lower()
+        # Wenn der erste Teil weder Straße noch Hausnummer enthält, entfernen
         if not any(char.isdigit() for char in teile[0]) and \
            not any(keyword in erster_teil for keyword in ['straße', 'str.', 'weg', 'platz', 'allee', 'gasse']):
             adresse = teile[1].strip()
@@ -97,12 +99,14 @@ def bereinige_adresse(adresse):
     
     # Debug-Ausgabe bei signifikanten Änderungen
     if len(original) - len(adresse) > 20:
-        print(f"  🔧 Adresse bereinigt: '{original[:40]}...' → '{adresse[:40]}...'")
+        print(f"  🔧 Adresse bereinigt von: '{original[:50]}...'")
+        print(f"     zu: '{adresse[:50]}...'")
     
     return adresse
 
 def get_coords_strukturiert(adresse):
     """Versucht strukturierte Abfrage bei Nominatim"""
+    # Extrahiere Komponenten mit Regex
     strasse_match = re.search(r'([A-ZÄÖÜa-zäöüß\.\-]+(?:straße|str\.|weg|platz|allee))\s*(\d+[a-z]?)', adresse, re.IGNORECASE)
     plz_match = re.search(r'\b(\d{5})\b', adresse)
     ort_match = re.search(r'(\d{5})\s+([A-ZÄÖÜ][a-zäöüß\-]+(?:\s+[A-ZÄÖÜ][a-zäöüß\-]+)?)', adresse)
@@ -116,13 +120,13 @@ def get_coords_strukturiert(adresse):
     if ort_match:
         params['city'] = ort_match.group(2)
     
-    if len(params) > 3:
+    if len(params) > 3:  # Mehr als nur die Basis-Parameter
         try:
             headers = {'User-Agent': 'HandballKalenderSkript/1.0'}
             response = requests.get('https://nominatim.openstreetmap.org/search', params=params, headers=headers, timeout=10)
             data = response.json()
             if data:
-                print(f"  ✓ Strukturierte Suche erfolgreich")
+                print(f"  ✓ Strukturierte Suche: {params.get('street', '')} {params.get('postalcode', '')} {params.get('city', '')}")
                 return data[0]['lat'], data[0]['lon']
         except Exception:
             pass
@@ -131,16 +135,17 @@ def get_coords_strukturiert(adresse):
 
 def get_coords(adresse):
     """Wandelt eine Adresse in Geo-Koordinaten um - mit mehreren Strategien"""
+    # Cache prüfen
     if adresse in koordinaten_cache:
         return koordinaten_cache[adresse]
     
-    # Strategie 1: Strukturierte Suche
+    # Strategie 1: Strukturierte Suche (beste Erfolgsrate bei problematischen Adressen)
     lat, lon = get_coords_strukturiert(adresse)
     if lat and lon:
         koordinaten_cache[adresse] = (lat, lon)
         return lat, lon
     
-    time.sleep(0.5)
+    time.sleep(0.5)  # Kurze Pause zwischen Strategien
     
     # Strategie 2: Bereinigte Adresse mit Nominatim
     adresse_bereinigt = bereinige_adresse(adresse)
@@ -153,7 +158,7 @@ def get_coords(adresse):
         if data:
             lat, lon = data[0]['lat'], data[0]['lon']
             koordinaten_cache[adresse] = (lat, lon)
-            print(f"  ✓ Nominatim: Koordinaten gefunden")
+            print(f"  ✓ Nominatim (bereinigte Adresse): Koordinaten gefunden")
             return lat, lon
     except Exception as e:
         print(f"  ⚠ Nominatim fehlgeschlagen: {e}")
@@ -170,12 +175,12 @@ def get_coords(adresse):
             coords = data['features'][0]['geometry']['coordinates']
             lat, lon = str(coords[1]), str(coords[0])
             koordinaten_cache[adresse] = (lat, lon)
-            print(f"  ✓ Photon: Koordinaten gefunden")
+            print(f"  ✓ Photon (Fallback): Koordinaten gefunden")
             return lat, lon
     except Exception as e:
         print(f"  ⚠ Photon fehlgeschlagen: {e}")
     
-    print(f"  ✗ Keine Koordinaten für: {adresse[:40]}...")
+    print(f"  ✗ Keine Koordinaten gefunden für: {adresse[:60]}...")
     koordinaten_cache[adresse] = (None, None)
     return None, None
 
@@ -190,7 +195,7 @@ def hole_fahrzeit(ziel_adresse):
     time.sleep(1) 
 
     if not all([start_lat, start_lon, ziel_lat, ziel_lon]):
-        print(f"  ⚠ Koordinaten für Fahrzeit fehlen")
+        print(f"  ⚠ Koordinaten für Fahrzeit konnten nicht ermittelt werden.")
         fahrzeit_cache[ziel_adresse] = None
         return None
 
@@ -282,33 +287,17 @@ def erstelle_kalender(name, url, output, puffer_min=60, immer_fahrzeit_berechnen
     
     for row in rows:
         tds = row.find_all("td")
+        cols = [c.get_text(strip=True) for c in tds]
         
-        if len(tds) < 8: 
+        if len(cols) < 8: 
             continue
         
-        # NEU: Extrahiere Spiel-Info aus dem Kürzel (4. Spalte, Index 3)
-        # Das Kürzel hat ein title-Attribut mit dem Hover-Text
+        # Versuche Spiel-Info aus Spalte 3 zu holen (falls vorhanden)
         spiel_info = None
-        if len(tds) > 3:
-            kuerzel_td = tds[3]
-            # Prüfe, ob die Zelle ein title-Attribut hat (Hover-Text)
-            if kuerzel_td.has_attr('title') and kuerzel_td.get('title').strip():
-                spiel_info = kuerzel_td.get('title').strip()
-                kuerzel_text = kuerzel_td.get_text(strip=True)
-                if kuerzel_text:
-                    print(f"  📋 Kürzel gefunden: '{kuerzel_text}' = {spiel_info}")
+        if len(tds) >= 4 and tds[3].has_attr('title'):
+            spiel_info = tds[3].get('title', '').strip()
         
-        # Extrahiere die Standard-Spalten (Text-Inhalte)
-        cols = [td.get_text(strip=True) for td in tds]
-        
-        # Bei 9 Spalten (mit Kürzel): Tag, Datum, Zeit, Kürzel, Halle, Nr, Heim, Gast, Erg
-        # Bei 8 Spalten (ohne Kürzel): Tag, Datum, Zeit, Halle, Nr, Heim, Gast, Erg
-        if len(cols) >= 9:
-            tag, datum_str, zeit, _, hallen_nr, spiel_nr, heim, gast, ergebnis = cols[:9]
-        elif len(cols) >= 8:
-            tag, datum_str, zeit, hallen_nr, spiel_nr, heim, gast, ergebnis = cols[:8]
-        else:
-            continue
+        tag, datum_str, zeit, hallen_nr, spiel_nr, heim, gast, ergebnis = cols[:8]
         
         if datum_str: aktuelles_datum = datum_str
         if not aktuelles_datum or "spielfrei" in heim.lower() or "spielfrei" in gast.lower() or name not in f"{heim} {gast}": 
@@ -362,9 +351,8 @@ def erstelle_kalender(name, url, output, puffer_min=60, immer_fahrzeit_berechnen
                            f"== Zeiten ==\n{zeit_info}\n\n"
                            f"== Ort ==\n{s['ort']}")
             
-            # NEU: Spiel-Info im Infobereich anhängen
             if s.get('spiel_info'):
-                beschreibung += f"\n\n== Hinweis ==\n{s['spiel_info']}"
+                beschreibung += f"\n\n== Info ==\n{s['spiel_info']}"
             
             e.description = beschreibung
             cal.events.add(e)
