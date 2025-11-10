@@ -2,51 +2,75 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:ics.py - http://git.io/lLljaA
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nSSV Nümbrecht Handball vs. \n\n== Zeiten ==\nTreffzeit an der Halle: 22:45 Uhr\n\n== Ort ==\nHalle 433035
+DESCRIPTION:Handballspiel (Auswärts)\nVTV Freier Grund 2016 e.V. vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 09:55 Uhr\nVoraussichtliche Fahrzeit: ca. 50 Minuten\nTreffzeit an der Halle: 10:45 Uhr\n\n== Ort ==\nKopernikusring 102 57290\n            Neunkirchen
 DURATION:PT1H30M
-LOCATION:Halle 433035
-DTSTART:20251107T230000Z
-SUMMARY:🏠 SSV Nümbrecht Handball - 
-UID:7fa4f477-4f21-4dc7-a12c-00756a8fc88e@7fa4.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nSSV Nümbrecht Handball vs. 12:41\n\n== Zeiten ==\nTreffzeit an der Halle: 15:15 Uhr\n\n== Ort ==\nHalle 433022
-DURATION:PT1H30M
-LOCATION:Halle 433022
-DTSTART:20251108T153000Z
-SUMMARY:🏠 SSV Nümbrecht Handball - 12:41
-UID:bba9ae75-24f3-419f-9776-a14a5b03105b@bba9.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nSSV Nümbrecht Handball vs. Runk./Thön.\n\n== Zeiten ==\nTreffzeit an der Halle: 11:45 Uhr\n\n== Ort ==\nHalle 433055
-DURATION:PT1H30M
-LOCATION:Halle 433055
-DTSTART:20251214T120000Z
-SUMMARY:🏠 SSV Nümbrecht Handball - Runk./Thön.
-UID:9ad9086f-a5a2-4793-9c7f-6c4015d0d1c2@9ad9.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nSSV Nümbrecht Handball vs. Juer./Wund.\n\n== Zeiten ==\nTreffzeit an der Halle: 10:45 Uhr\n\n== Ort ==\nHalle 433048
-DURATION:PT1H30M
-LOCATION:Halle 433048
-DTSTART:20251130T110000Z
-SUMMARY:🏠 SSV Nümbrecht Handball - Juer./Wund.
-UID:1ff11809-58db-4251-8e27-e8c4f7ecdac4@1ff1.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nSSV Nümbrecht Handball vs. 0:0\n\n== Zeiten ==\nTreffzeit an der Halle: 10:45 Uhr\n\n== Ort ==\nHalle 433009
-DURATION:PT1H30M
-LOCATION:Halle 433009
+LOCATION:Kopernikusring 102 57290\n            Neunkirchen
 DTSTART:20250921T100000Z
-SUMMARY:🏠 SSV Nümbrecht Handball - 0:0
-UID:17ef51e7-3fb6-4927-a34b-2ea667f475f3@17ef.org
+SUMMARY:✈️ VTV Freier Grund 2016 e.V. - SSV Nümbrecht Handball
+UID:e1c18139-934c-4447-89f0-a79763c06a6b@e1c1.org
 END:VEVENT
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nSSV Nümbrecht Handball vs. \n\n== Zeiten ==\nTreffzeit an der Halle: 22:45 Uhr\n\n== Ort ==\nHalle 433062
+DESCRIPTION:Handballspiel (Heimspiel)\nSSV Nümbrecht Handball vs. SSV Overath\n\n== Zeiten ==\nTreffzeit an der Halle: 11:00 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
 DURATION:PT1H30M
-LOCATION:Halle 433062
-DTSTART:20260109T230000Z
-SUMMARY:🏠 SSV Nümbrecht Handball - 
-UID:3e5d6470-ec50-420c-8c57-8be79d52e677@3e5d.org
+LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DTSTART:20251102T111500Z
+SUMMARY:🏠 SSV Nümbrecht Handball - SSV Overath
+UID:e267e145-ee67-43b4-843c-1b2a844c54c6@e267.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Heimspiel)\nSSV Nümbrecht Handball vs. TVE Netphen\n\n== Zeiten ==\nTreffzeit an der Halle: 14:45 Uhr\n\n== Ort ==\nGouvieuxstr. 2 51588\n            Nümbrecht
+DURATION:PT1H30M
+LOCATION:Gouvieuxstr. 2 51588\n            Nümbrecht
+DTSTART:20250927T140000Z
+SUMMARY:🏠 SSV Nümbrecht Handball - TVE Netphen
+UID:511b37b3-aa5a-407a-9070-72a878310f4b@511b.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Heimspiel)\nSSV Nümbrecht Handball vs. HBD Löwen Oberberg\n\n== Zeiten ==\nTreffzeit an der Halle: 12:15 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DURATION:PT1H30M
+LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DTSTART:20250913T113000Z
+SUMMARY:🏠 SSV Nümbrecht Handball - HBD Löwen Oberberg
+UID:dde7bae8-725a-477e-aac5-89cb9430f708@dde7.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Auswärts)\nTV Wahlscheid vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 10:07 Uhr\nVoraussichtliche Fahrzeit: ca. 38 Minuten\nTreffzeit an der Halle: 10:45 Uhr\n\n== Ort ==\nWahlscheider Str. 56 53797\n            Lohmar-Wahlscheid
+DURATION:PT1H30M
+LOCATION:Wahlscheider Str. 56 53797\n            Lohmar-Wahlscheid
+DTSTART:20251130T110000Z
+SUMMARY:✈️ TV Wahlscheid - SSV Nümbrecht Handball
+UID:bc7612ce-cee6-4dc1-af5b-a0d47fabd309@bc76.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Heimspiel)\nSSV Nümbrecht Handball vs. TuS 09 Drolshagen e.V.\n\n== Zeiten ==\nTreffzeit an der Halle: 16:00 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DURATION:PT1H30M
+LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DTSTART:20251208T161500Z
+SUMMARY:🏠 SSV Nümbrecht Handball - TuS 09 Drolshagen e.V.
+UID:d9203817-88ae-4a1f-b4a1-6612d43594d8@d920.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Heimspiel)\nSSV Nümbrecht Handball vs. CVJM Oberwiehl\n\n== Zeiten ==\nTreffzeit an der Halle: 16:30 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DURATION:PT1H30M
+LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DTSTART:20251117T164500Z
+SUMMARY:🏠 SSV Nümbrecht Handball - CVJM Oberwiehl
+UID:60e209f4-e462-4f64-8931-22275cf3878a@60e2.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Auswärts)\nSV Frielingsdorf vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 14:46 Uhr\nVoraussichtliche Fahrzeit: ca. 29 Minuten\nTreffzeit an der Halle: 15:15 Uhr\n\n== Ort ==\nCarola-Lob-Weg 1 51789\n            Lindlar
+DURATION:PT1H30M
+LOCATION:Carola-Lob-Weg 1 51789\n            Lindlar
+DTSTART:20251108T153000Z
+SUMMARY:✈️ SV Frielingsdorf - SSV Nümbrecht Handball
+UID:9a65c7ef-ec4f-4afa-af78-8d3bf4f93de5@9a65.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Auswärts)\nHSG Marienheide/Müllenbach vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 11:13 Uhr\nVoraussichtliche Fahrzeit: ca. 32 Minuten\nTreffzeit an der Halle: 11:45 Uhr\n\n== Ort ==\nPestalozzistr. 51709\n            Marienheide
+DURATION:PT1H30M
+LOCATION:Pestalozzistr. 51709\n            Marienheide
+DTSTART:20251214T120000Z
+SUMMARY:✈️ HSG Marienheide/Müllenbach - SSV Nümbrecht Handball
+UID:d49ee678-4202-4bec-8de2-d87822695c10@d49e.org
 END:VEVENT
 END:VCALENDAR
