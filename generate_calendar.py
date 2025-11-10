@@ -13,7 +13,7 @@ KALENDER_CONFIG = [
         "name": "SSV Nümbrecht Handball",
         "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424244",
         "output": "handball_wjc.ics",
-        "puffer_min": 75  # NEU: Individueller Puffer
+        "puffer_min": 75
     },
     {
         "name": "SSV Nümbrecht Handball",
@@ -44,7 +44,7 @@ KALENDER_CONFIG = [
         "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=HNR+25%2F26&group=423996",
         "output": "handball_wjc-hsg.ics",
         "puffer_min": 60,
-        "immer_fahrzeit_berechnen": True  # NEU: Fahrzeitberechnung erzwingen
+        "immer_fahrzeit_berechnen": True
     }
 ]
 
@@ -55,19 +55,70 @@ START_ADRESSE = "Gouvieuxstraße 2, 51588 Nümbrecht"
 # --- Caches für Performance ---
 hallen_cache = {}
 fahrzeit_cache = {}
+koordinaten_cache = {}  # NEU: Separater Cache für Koordinaten
+
+def bereinige_adresse(adresse):
+    """Entfernt störende Zeichen und formatiert die Adresse für besseres Geocoding"""
+    # Entferne Hallennamen am Anfang (z.B. "Sporthalle Nümbrecht, Straße...")
+    if ',' in adresse:
+        teile = adresse.split(',', 1)
+        # Wenn der erste Teil kein "Straße" oder Zahl enthält, ist es vermutlich der Hallenname
+        erster_teil = teile[0].lower()
+        if not any(char.isdigit() for char in teile[0]) and 'straße' not in erster_teil and 'str.' not in erster_teil and 'weg' not in erster_teil:
+            adresse = teile[1].strip()
+    
+    # Normalisiere Leerzeichen
+    adresse = ' '.join(adresse.split())
+    
+    # Stelle sicher, dass Deutschland dabei ist
+    if 'deutschland' not in adresse.lower() and 'germany' not in adresse.lower():
+        adresse += ', Deutschland'
+    
+    return adresse
 
 def get_coords(adresse):
-    """Wandelt eine Adresse in Geo-Koordinaten um."""
+    """Wandelt eine Adresse in Geo-Koordinaten um - mit Fallback auf Photon"""
+    # Cache prüfen
+    if adresse in koordinaten_cache:
+        return koordinaten_cache[adresse]
+    
+    adresse_bereinigt = bereinige_adresse(adresse)
+    
+    # Versuch 1: Nominatim (OpenStreetMap)
     try:
         headers = {'User-Agent': 'HandballKalenderSkript/1.0'}
-        url = f"https://nominatim.openstreetmap.org/search?q={urllib.parse.quote(adresse)}&format=json"
+        url = f"https://nominatim.openstreetmap.org/search?q={urllib.parse.quote(adresse_bereinigt)}&format=json&countrycodes=de&limit=1"
         response = requests.get(url, headers=headers, timeout=10)
         response.raise_for_status()
         data = response.json()
         if data:
-            return data[0]['lat'], data[0]['lon']
-    except Exception:
-        return None, None
+            lat, lon = data[0]['lat'], data[0]['lon']
+            koordinaten_cache[adresse] = (lat, lon)
+            print(f"  ✓ Nominatim: Koordinaten für '{adresse_bereinigt[:40]}...'")
+            return lat, lon
+    except Exception as e:
+        print(f"  ⚠ Nominatim fehlgeschlagen: {e}")
+    
+    # Kleine Pause vor dem Fallback
+    time.sleep(0.5)
+    
+    # Versuch 2: Photon (Fallback)
+    try:
+        url = f"https://photon.komoot.io/api/?q={urllib.parse.quote(adresse_bereinigt)}&limit=1"
+        response = requests.get(url, timeout=10)
+        response.raise_for_status()
+        data = response.json()
+        if data.get('features'):
+            coords = data['features'][0]['geometry']['coordinates']
+            lat, lon = str(coords[1]), str(coords[0])  # Photon gibt [lon, lat] zurück
+            koordinaten_cache[adresse] = (lat, lon)
+            print(f"  ✓ Photon (Fallback): Koordinaten für '{adresse_bereinigt[:40]}...'")
+            return lat, lon
+    except Exception as e:
+        print(f"  ⚠ Photon fehlgeschlagen: {e}")
+    
+    print(f"  ✗ Keine Koordinaten gefunden für: {adresse_bereinigt}")
+    koordinaten_cache[adresse] = (None, None)
     return None, None
 
 def hole_fahrzeit(ziel_adresse):
@@ -82,6 +133,7 @@ def hole_fahrzeit(ziel_adresse):
 
     if not all([start_lat, start_lon, ziel_lat, ziel_lon]):
         print(f"  ⚠ Koordinaten für Fahrzeit konnten nicht ermittelt werden.")
+        fahrzeit_cache[ziel_adresse] = None
         return None
 
     try:
@@ -92,11 +144,12 @@ def hole_fahrzeit(ziel_adresse):
         if data.get('code') == 'Ok':
             duration_minutes = int(data['routes'][0]['duration'] / 60)
             fahrzeit_cache[ziel_adresse] = duration_minutes
-            print(f"  → Fahrzeit nach '{ziel_adresse.split(',')[0]}': {duration_minutes} min")
+            print(f"  → Fahrzeit: {duration_minutes} min")
             return duration_minutes
-    except Exception:
-        pass
+    except Exception as e:
+        print(f"  ⚠ OSRM-Routing fehlgeschlagen: {e}")
     
+    fahrzeit_cache[ziel_adresse] = None
     return None
     
 def hole_hallen_info(hallen_nr, spielplan_url):
@@ -176,12 +229,11 @@ def erstelle_kalender(name, url, output, puffer_min=60, immer_fahrzeit_berechnen
         if len(cols) < 8: 
             continue
         
-        # NEU: Versuche Spiel-Info aus Spalte 3 zu holen (falls vorhanden)
+        # Versuche Spiel-Info aus Spalte 3 zu holen (falls vorhanden)
         spiel_info = None
         if len(tds) >= 4 and tds[3].has_attr('title'):
             spiel_info = tds[3].get('title', '').strip()
         
-        # Verwende die BEWÄHRTE Logik aus deinem funktionierenden Code
         tag, datum_str, zeit, hallen_nr, spiel_nr, heim, gast, ergebnis = cols[:8]
         
         if datum_str: aktuelles_datum = datum_str
@@ -194,12 +246,11 @@ def erstelle_kalender(name, url, output, puffer_min=60, immer_fahrzeit_berechnen
 
         try:
             start = ZEITZONE.localize(datetime.strptime(f"{aktuelles_datum} {zeit.split()[0]}", "%d.%m.%Y %H:%M"))
-            # NEU: Fahrzeit auch bei Heimspielen berechnen, wenn gewünscht
             fahrzeit = hole_fahrzeit(hallen_info.split(',')[-1].strip()) if (spieltyp == "Auswärts" or immer_fahrzeit_berechnen) else 0
             
             spiele.append({
                 "beginn": start, "gegner": gegner, "spieltyp": spieltyp, "ort": hallen_info,
-                "fahrzeit": fahrzeit, "puffer_min": puffer_min, "spiel_info": spiel_info  # NEU
+                "fahrzeit": fahrzeit, "puffer_min": puffer_min, "spiel_info": spiel_info
             })
         except (ValueError, IndexError):
             continue
@@ -222,7 +273,6 @@ def erstelle_kalender(name, url, output, puffer_min=60, immer_fahrzeit_berechnen
             e.location = s["ort"]
             e.duration = timedelta(hours=1, minutes=30)
             
-            # NEU: Individueller Puffer
             treffzeit_puffer = timedelta(minutes=s['puffer_min'])
             treffzeit_an_halle = s['beginn'] - treffzeit_puffer
             zeit_info = f"Treffzeit an der Halle: {treffzeit_an_halle.strftime('%H:%M Uhr')}"
@@ -238,7 +288,6 @@ def erstelle_kalender(name, url, output, puffer_min=60, immer_fahrzeit_berechnen
                            f"== Zeiten ==\n{zeit_info}\n\n"
                            f"== Ort ==\n{s['ort']}")
             
-            # NEU: Spiel-Info anhängen, falls vorhanden
             if s.get('spiel_info'):
                 beschreibung += f"\n\n== Info ==\n{s['spiel_info']}"
             
