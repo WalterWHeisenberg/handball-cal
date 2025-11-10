@@ -6,6 +6,7 @@ import pytz
 import sys
 import urllib.parse
 import time
+import re
 
 # --- Konfiguration für mehrere Kalender ---
 KALENDER_CONFIG = [
@@ -55,36 +56,99 @@ START_ADRESSE = "Gouvieuxstraße 2, 51588 Nümbrecht"
 # --- Caches für Performance ---
 hallen_cache = {}
 fahrzeit_cache = {}
-koordinaten_cache = {}  # NEU: Separater Cache für Koordinaten
+koordinaten_cache = {}
 
 def bereinige_adresse(adresse):
-    """Entfernt störende Zeichen und formatiert die Adresse für besseres Geocoding"""
-    # Entferne Hallennamen am Anfang (z.B. "Sporthalle Nümbrecht, Straße...")
+    """Intelligente Adressbereinigung mit Regex-Parsing"""
+    original = adresse
+    
+    # 1. Entferne Telefonnummern (verschiedene Formate)
+    adresse = re.sub(r'Tel\.?:?\s*[\d\s/\-()]+', '', adresse, flags=re.IGNORECASE)
+    adresse = re.sub(r'Telefon:?\s*[\d\s/\-()]+', '', adresse, flags=re.IGNORECASE)
+    adresse = re.sub(r'Fax:?\s*[\d\s/\-()]+', '', adresse, flags=re.IGNORECASE)
+    
+    # 2. Entferne Email-Adressen
+    adresse = re.sub(r'[\w\.-]+@[\w\.-]+\.\w+', '', adresse)
+    
+    # 3. Entferne URLs
+    adresse = re.sub(r'http[s]?://\S+', '', adresse)
+    
+    # 4. Normalisiere Zeilenumbrüche und mehrfache Leerzeichen
+    adresse = adresse.replace('\n', ' ').replace('\r', ' ')
+    adresse = re.sub(r'\s+', ' ', adresse).strip()
+    
+    # 5. Erkenne und korrigiere PLZ-Ort-Trennung
+    # Pattern: "Straße 12345 Ort" oder "Straße 12345\n Ort"
+    match = re.search(r'([^\d]+)\s*(\d{5})\s+([A-ZÄÖÜ][a-zäöüß\-]+(?:\s+[A-ZÄÖÜ][a-zäöüß\-]+)?)', adresse)
+    if match:
+        strasse, plz, ort = match.groups()
+        adresse = f"{strasse.strip()}, {plz} {ort}"
+    
+    # 6. Entferne Hallennamen am Anfang (falls kein Teil der Adresse)
     if ',' in adresse:
         teile = adresse.split(',', 1)
-        # Wenn der erste Teil kein "Straße" oder Zahl enthält, ist es vermutlich der Hallenname
-        erster_teil = teile[0].lower()
-        if not any(char.isdigit() for char in teile[0]) and 'straße' not in erster_teil and 'str.' not in erster_teil and 'weg' not in erster_teil:
+        erster_teil = teile[0].strip().lower()
+        # Wenn der erste Teil weder Straße noch Hausnummer enthält, entfernen
+        if not any(char.isdigit() for char in teile[0]) and \
+           not any(keyword in erster_teil for keyword in ['straße', 'str.', 'weg', 'platz', 'allee', 'gasse']):
             adresse = teile[1].strip()
     
-    # Normalisiere Leerzeichen
-    adresse = ' '.join(adresse.split())
-    
-    # Stelle sicher, dass Deutschland dabei ist
+    # 7. Füge Deutschland hinzu, falls nicht vorhanden
     if 'deutschland' not in adresse.lower() and 'germany' not in adresse.lower():
         adresse += ', Deutschland'
     
+    # Debug-Ausgabe bei signifikanten Änderungen
+    if len(original) - len(adresse) > 20:
+        print(f"  🔧 Adresse bereinigt von: '{original[:50]}...'")
+        print(f"     zu: '{adresse[:50]}...'")
+    
     return adresse
 
+def get_coords_strukturiert(adresse):
+    """Versucht strukturierte Abfrage bei Nominatim"""
+    # Extrahiere Komponenten mit Regex
+    strasse_match = re.search(r'([A-ZÄÖÜa-zäöüß\.\-]+(?:straße|str\.|weg|platz|allee))\s*(\d+[a-z]?)', adresse, re.IGNORECASE)
+    plz_match = re.search(r'\b(\d{5})\b', adresse)
+    ort_match = re.search(r'(\d{5})\s+([A-ZÄÖÜ][a-zäöüß\-]+(?:\s+[A-ZÄÖÜ][a-zäöüß\-]+)?)', adresse)
+    
+    params = {'format': 'json', 'countrycodes': 'de', 'limit': 1}
+    
+    if strasse_match:
+        params['street'] = f"{strasse_match.group(1)} {strasse_match.group(2)}"
+    if plz_match:
+        params['postalcode'] = plz_match.group(1)
+    if ort_match:
+        params['city'] = ort_match.group(2)
+    
+    if len(params) > 3:  # Mehr als nur die Basis-Parameter
+        try:
+            headers = {'User-Agent': 'HandballKalenderSkript/1.0'}
+            response = requests.get('https://nominatim.openstreetmap.org/search', params=params, headers=headers, timeout=10)
+            data = response.json()
+            if data:
+                print(f"  ✓ Strukturierte Suche: {params.get('street', '')} {params.get('postalcode', '')} {params.get('city', '')}")
+                return data[0]['lat'], data[0]['lon']
+        except Exception:
+            pass
+    
+    return None, None
+
 def get_coords(adresse):
-    """Wandelt eine Adresse in Geo-Koordinaten um - mit Fallback auf Photon"""
+    """Wandelt eine Adresse in Geo-Koordinaten um - mit mehreren Strategien"""
     # Cache prüfen
     if adresse in koordinaten_cache:
         return koordinaten_cache[adresse]
     
-    adresse_bereinigt = bereinige_adresse(adresse)
+    # Strategie 1: Strukturierte Suche (beste Erfolgsrate bei problematischen Adressen)
+    lat, lon = get_coords_strukturiert(adresse)
+    if lat and lon:
+        koordinaten_cache[adresse] = (lat, lon)
+        return lat, lon
     
-    # Versuch 1: Nominatim (OpenStreetMap)
+    time.sleep(0.5)  # Kurze Pause zwischen Strategien
+    
+    # Strategie 2: Bereinigte Adresse mit Nominatim
+    adresse_bereinigt = bereinige_adresse(adresse)
     try:
         headers = {'User-Agent': 'HandballKalenderSkript/1.0'}
         url = f"https://nominatim.openstreetmap.org/search?q={urllib.parse.quote(adresse_bereinigt)}&format=json&countrycodes=de&limit=1"
@@ -94,15 +158,14 @@ def get_coords(adresse):
         if data:
             lat, lon = data[0]['lat'], data[0]['lon']
             koordinaten_cache[adresse] = (lat, lon)
-            print(f"  ✓ Nominatim: Koordinaten für '{adresse_bereinigt[:40]}...'")
+            print(f"  ✓ Nominatim (bereinigte Adresse): Koordinaten gefunden")
             return lat, lon
     except Exception as e:
         print(f"  ⚠ Nominatim fehlgeschlagen: {e}")
     
-    # Kleine Pause vor dem Fallback
     time.sleep(0.5)
     
-    # Versuch 2: Photon (Fallback)
+    # Strategie 3: Photon (Fallback)
     try:
         url = f"https://photon.komoot.io/api/?q={urllib.parse.quote(adresse_bereinigt)}&limit=1"
         response = requests.get(url, timeout=10)
@@ -110,14 +173,14 @@ def get_coords(adresse):
         data = response.json()
         if data.get('features'):
             coords = data['features'][0]['geometry']['coordinates']
-            lat, lon = str(coords[1]), str(coords[0])  # Photon gibt [lon, lat] zurück
+            lat, lon = str(coords[1]), str(coords[0])
             koordinaten_cache[adresse] = (lat, lon)
-            print(f"  ✓ Photon (Fallback): Koordinaten für '{adresse_bereinigt[:40]}...'")
+            print(f"  ✓ Photon (Fallback): Koordinaten gefunden")
             return lat, lon
     except Exception as e:
         print(f"  ⚠ Photon fehlgeschlagen: {e}")
     
-    print(f"  ✗ Keine Koordinaten gefunden für: {adresse_bereinigt}")
+    print(f"  ✗ Keine Koordinaten gefunden für: {adresse[:60]}...")
     koordinaten_cache[adresse] = (None, None)
     return None, None
 
