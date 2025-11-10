@@ -7,226 +7,183 @@ import sys
 import urllib.parse
 import time
 
-# --- Konfiguration für mehrere Kalender ---
+# --- Konfiguration für mehrere Kalender (DEINE KONFIGURATION + NEUE FEATURES) ---
 KALENDER_CONFIG = [
     {
-        "name": "SSV Nümbrecht Handball",  # weibliche Jugend C
+        "name": "SSV Nümbrecht Handball",
         "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424244",
-        "output": "handball_wjc.ics"
+        "output": "handball_wjc.ics",
+        "puffer_min": 75  # Spezifischer Puffer für die weibl. Jugend C
     },
     {
-        "name": "SSV Nümbrecht Handball",  # männliche Jugend D1
+        "name": "SSV Nümbrecht Handball",
         "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424217",
-        "output": "handball_mjd1.ics"
+        "output": "handball_mjd1.ics",
+        "puffer_min": 60 # Standard-Puffer
     },
     {
-        "name": "SSV Nümbrecht Handball",  # männliche Jugend D2
+        "name": "SSV Nümbrecht Handball",
         "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424113",
-        "output": "handball_mjd2.ics"
+        "output": "handball_mjd2.ics",
+        "puffer_min": 60
     },
     {
-        "name": "SSV Nümbrecht Handball III",  # Herren III
+        "name": "SSV Nümbrecht Handball III",
         "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424114",
-        "output": "handball_h3.ics"
+        "output": "handball_h3.ics",
+        "puffer_min": 60
     },
     {
-        "name": "SSV Nümbrecht Handball",  # weibliche Jugend B
+        "name": "SSV Nümbrecht Handball",
         "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424406",
-        "output": "handball_wjb.ics"
+        "output": "handball_wjb.ics",
+        "puffer_min": 60
     },
     {
-        "name": "HSG Siebengebirge-Thomasberg",  # weibliche Jugend C HSG Siebengebirge-Thomasberg
+        "name": "HSG Siebengebirge-Thomasberg",
         "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=HNR+25%2F26&group=423996",
-        "output": "handball_wjc-hsg.ics"
+        "output": "handball_wjc-hsg.ics",
+        "puffer_min": 60,
+        "immer_fahrzeit_berechnen": True  # Erzwingt die Fahrzeitberechnung
     }
 ]
-# 
 
 # --- Globale Einstellungen ---
 ZEITZONE = pytz.timezone("Europe/Berlin")
-START_ADRESSE = "Gouvieuxstraße 2, 51588 Nümbrecht"
+START_ADRESSE = "Gouvieuxstraße 2, 51588 Nümbrecht" # Abfahrt von
 
 # --- Caches für Performance ---
-hallen_cache = {}
-fahrzeit_cache = {}
+hallen_cache, fahrzeit_cache = {}, {}
 
 def get_coords(adresse):
-    """Wandelt eine Adresse in Geo-Koordinaten um."""
     try:
         headers = {'User-Agent': 'HandballKalenderSkript/1.0'}
         url = f"https://nominatim.openstreetmap.org/search?q={urllib.parse.quote(adresse)}&format=json"
-        response = requests.get(url, headers=headers, timeout=10)
-        response.raise_for_status()
-        data = response.json()
-        if data:
-            return data[0]['lat'], data[0]['lon']
-    except Exception:
-        return None, None
+        data = requests.get(url, headers=headers, timeout=10).json()
+        if data: return data[0]['lat'], data[0]['lon']
+    except Exception: pass
     return None, None
 
 def hole_fahrzeit(ziel_adresse):
-    """Berechnet die Fahrzeit von der Startadresse zum Ziel in Minuten."""
-    if ziel_adresse in fahrzeit_cache:
-        return fahrzeit_cache[ziel_adresse]
-
+    if ziel_adresse in fahrzeit_cache: return fahrzeit_cache[ziel_adresse]
     start_lat, start_lon = get_coords(START_ADRESSE)
     ziel_lat, ziel_lon = get_coords(ziel_adresse)
-    
-    time.sleep(1) 
-
-    if not all([start_lat, start_lon, ziel_lat, ziel_lon]):
-        print(f"  ⚠ Koordinaten für Fahrzeit konnten nicht ermittelt werden.")
-        return None
-
+    time.sleep(1) # API-Höflichkeitspause
+    if not all([start_lat, start_lon, ziel_lat, ziel_lon]): return None
     try:
         url = f"http://router.project-osrm.org/route/v1/driving/{start_lon},{start_lat};{ziel_lon},{ziel_lat}?overview=false"
-        response = requests.get(url, timeout=10)
-        response.raise_for_status()
-        data = response.json()
+        data = requests.get(url, timeout=10).json()
         if data.get('code') == 'Ok':
             duration_minutes = int(data['routes'][0]['duration'] / 60)
             fahrzeit_cache[ziel_adresse] = duration_minutes
             print(f"  → Fahrzeit nach '{ziel_adresse.split(',')[0]}': {duration_minutes} min")
             return duration_minutes
-    except Exception:
-        pass
-    
+    except Exception: pass
     return None
     
 def hole_hallen_info(hallen_nr, spielplan_url):
-    """Holt die Halleninformationen (Name + Adresse) von liga.nu."""
-    if hallen_nr in hallen_cache:
-        return hallen_cache[hallen_nr]
-    
+    if hallen_nr in hallen_cache: return hallen_cache[hallen_nr]
     fallback = f"Halle {hallen_nr}"
     try:
-        response = requests.get(spielplan_url, timeout=5)
-        soup = BeautifulSoup(response.text, "html.parser")
-        
+        soup = BeautifulSoup(requests.get(spielplan_url, timeout=5).text, "html.parser")
         hallen_link = soup.find("a", string=hallen_nr)
-        if not hallen_link or not hallen_link.get("href"):
-            hallen_cache[hallen_nr] = fallback
-            return fallback
-        
+        if not (hallen_link and hallen_link.get("href")): hallen_cache[hallen_nr] = fallback; return fallback
         hallen_url = hallen_link["href"]
-        if not hallen_url.startswith("http"):
-            base_url = spielplan_url.split("/cgi-bin/")[0]
-            hallen_url = base_url + hallen_url
+        if not hallen_url.startswith("http"): hallen_url = spielplan_url.split("/cgi-bin/")[0] + hallen_url
         
-        hallen_response = requests.get(hallen_url, timeout=5)
-        hallen_soup = BeautifulSoup(hallen_response.text, "html.parser")
-        
+        hallen_soup = BeautifulSoup(requests.get(hallen_url, timeout=5).text, "html.parser")
         hallen_name, adresse = "", ""
-        title_tag = hallen_soup.find("title")
-        if title_tag:
-            title_text = title_tag.get_text()
-            if "(" in title_text:
-                extracted_name = title_text.split("(")[0].strip()
-                if extracted_name and "unbekannt" not in extracted_name.lower():
-                    hallen_name = extracted_name
-        
-        adresse_header = hallen_soup.find("h2", string=lambda t: t and "adresse" in t.lower())
-        if adresse_header:
-            adresse_elem = adresse_header.find_next_sibling()
-            if adresse_elem:
-                adresse = adresse_elem.get_text(separator=" ", strip=True).split("[")[0].strip()
+        if title_tag := hallen_soup.find("title"):
+            if "(" in (title_text := title_tag.get_text()):
+                if extracted_name := title_text.split("(")[0].strip():
+                    if "unbekannt" not in extracted_name.lower(): hallen_name = extracted_name
+        if adresse_header := hallen_soup.find("h2", string=lambda t: t and "adresse" in t.lower()):
+            if adresse_elem := adresse_header.find_next_sibling(): adresse = adresse_elem.get_text(separator=" ", strip=True).split("[")[0].strip()
         
         result = ", ".join(filter(None, [hallen_name, adresse])) or fallback
         hallen_cache[hallen_nr] = result
         print(f"  → Halle {hallen_nr}: {result}")
         return result
-        
-    except Exception:
-        hallen_cache[hallen_nr] = fallback
-        return fallback
+    except Exception: hallen_cache[hallen_nr] = fallback; return fallback
 
-# HIER WURDE DIE ÄNDERUNG VORGENOMMEN
-def erstelle_kalender(name, url, output):
-    """Erstellt einen Kalender für ein Team"""
-    print(f"\n{'='*60}\nErstelle Kalender für: {name}\n{'='*60}")
+def erstelle_kalender(config):
+    name, url, output = config["name"], config["url"], config["output"]
+    puffer_min = config.get("puffer_min", 60)
+    immer_fahrzeit = config.get("immer_fahrzeit_berechnen", False)
+
+    print(f"\n{'='*60}\nErstelle Kalender für: {name} (Puffer: {puffer_min}min)\n{'='*60}")
     
-    try:
-        response = requests.get(url, timeout=10)
-        response.raise_for_status()
-        html = response.text
-    except requests.exceptions.RequestException as e:
-        print(f"✗ Fehler beim Abrufen: {e}")
-        return False
+    try: response = requests.get(url, timeout=10); html = response.text
+    except Exception as e: print(f"✗ Fehler: {e}"); return False
     
-    soup = BeautifulSoup(html, "html.parser")
-    tables = soup.find_all("table")
-    if not tables: return False
-    
-    table = next((t for t in tables if any("mannschaft" in h.get_text(strip=True).lower() for h in t.find_all("th"))), tables[0])
+    tables = BeautifulSoup(html, "html.parser").find_all("table")
+    if not tables: print("✗ Keine Tabellen gefunden."); return False
+    table = next((t for t in tables if any("mannschaft" in h.text.lower() for h in t.find_all("th"))), tables[0])
     
     spiele, aktuelles_datum = [], None
-    rows = table.select("tbody tr") if table.find("tbody") else table.select("tr")
+    print("Extrahiere Spiele...")
     
-    print("Extrahiere Spiele und berechne Zeiten...")
-    
-    for row in rows:
-        cols = [c.get_text(strip=True) for c in row.find_all("td")]
-        if len(cols) < 8: continue
+    for row in table.select("tbody tr"):
+        tds = row.find_all("td")
+        cols = [c.get_text(strip=True) for c in tds]
         
-        tag, datum_str, zeit, hallen_nr, spiel_nr, heim, gast, ergebnis = cols[:8]
+        spiel_info = None
+        if len(cols) >= 9:
+            if title := tds[3].get('title'):
+                spiel_info = title.strip()
+            # Spalten normalisieren für einheitliche Verarbeitung
+            relevant_cols = cols[:3] + cols[4:]
+        else:
+            relevant_cols = cols
+
+        if len(relevant_cols) < 8: continue
+        
+        tag, datum_str, zeit, hallen_nr, spiel_nr, heim, gast, ergebnis = relevant_cols[:8]
+
         if datum_str: aktuelles_datum = datum_str
         if not aktuelles_datum or "spielfrei" in heim.lower() or "spielfrei" in gast.lower() or name not in f"{heim} {gast}": continue
-
+        
+        print(f"  ✓ Spiel gefunden: {heim} vs {gast}")
         hallen_info = hole_hallen_info(hallen_nr, url)
         spieltyp = "Heimspiel" if name in heim else "Auswärts"
         gegner = gast if spieltyp == "Heimspiel" else heim
 
         try:
             start = ZEITZONE.localize(datetime.strptime(f"{aktuelles_datum} {zeit.split()[0]}", "%d.%m.%Y %H:%M"))
-            fahrzeit = hole_fahrzeit(hallen_info.split(',')[-1].strip()) if spieltyp == "Auswärts" else 0
-            
-            spiele.append({"beginn": start, "gegner": gegner, "spieltyp": spieltyp, "ort": hallen_info, "fahrzeit": fahrzeit})
-        except (ValueError, IndexError):
-            continue
+            fahrzeit = hole_fahrzeit(hallen_info.split(',')[-1].strip()) if spieltyp == "Auswärts" or immer_fahrzeit else 0
+            spiele.append({"beginn": start, "gegner": gegner, "spieltyp": spieltyp, "ort": hallen_info, "fahrzeit": fahrzeit, "puffer_min": puffer_min, "spiel_info": spiel_info})
+        except (ValueError, IndexError): continue
     
-    print(f"✓ {len(spiele)} Spiele gefunden")
+    print(f"\n✓ Verarbeitung abgeschlossen. {len(spiele)} gültige Spiele zur Kalendererstellung gefunden.")
     
     cal = Calendar()
-    if spiele:
-        for s in spiele:
-            e = Event()
-            
-            if s["spieltyp"] == "Heimspiel":
-                e.name = f"🏠 {name} - {s['gegner']}"
-                beschreibung_teams = f"{name} vs. {s['gegner']}"
-            else:
-                e.name = f"✈️ {s['gegner']} - {name}"
-                beschreibung_teams = f"{s['gegner']} vs. {name}"
-            
-            e.begin = s["beginn"]
-            e.location = s["ort"]
-            e.duration = timedelta(hours=1, minutes=30)
-            
-            treffzeit_puffer = timedelta(hours=1)
-            treffzeit_an_halle = s['beginn'] - treffzeit_puffer
-            zeit_info = f"Treffzeit an der Halle: {treffzeit_an_halle.strftime('%H:%M Uhr')}"
-            
-            if s['spieltyp'] == 'Auswärts' and s.get('fahrzeit'):
-                fahrzeit_delta = timedelta(minutes=s['fahrzeit'])
-                abfahrtszeit = treffzeit_an_halle - fahrzeit_delta
-                zeit_info = (f"Abfahrt von Nümbrecht: {abfahrtszeit.strftime('%H:%M Uhr')}\n"
-                             f"Voraussichtliche Fahrzeit: ca. {s['fahrzeit']} Minuten\n"
-                             f"{zeit_info}")
-
-            e.description = (f"Handballspiel ({s['spieltyp']})\n{beschreibung_teams}\n\n"
-                             f"== Zeiten ==\n{zeit_info}\n\n"
-                             f"== Ort ==\n{s['ort']}")
-            cal.events.add(e)
+    for s in spiele:
+        e, beschreibung_teams = Event(), ""
+        if s["spieltyp"] == "Heimspiel":
+            e.name = f"🏠 {name} - {s['gegner']}"; beschreibung_teams = f"{name} vs. {s['gegner']}"
+        else:
+            e.name = f"✈️ {s['gegner']} - {name}"; beschreibung_teams = f"{s['gegner']} vs. {name}"
+        
+        e.begin, e.location, e.duration = s["beginn"], s["ort"], timedelta(hours=1, minutes=30)
+        
+        treffzeit_an_halle = s['beginn'] - timedelta(minutes=s['puffer_min'])
+        zeit_info = f"Treffzeit Halle: {treffzeit_an_halle.strftime('%H:%M Uhr')} ({s['puffer_min']} min vorher)"
+        
+        if s.get('fahrzeit'):
+            abfahrtszeit = treffzeit_an_halle - timedelta(minutes=s['fahrzeit'])
+            zeit_info = f"Abfahrt von Nümbrecht: {abfahrtszeit.strftime('%H:%M Uhr')}\nFahrzeit: ca. {s['fahrzeit']} min\n{zeit_info}"
+        
+        beschreibung = f"Handballspiel ({s['spieltyp']})\n{beschreibung_teams}\n\n== Zeiten ==\n{zeit_info}\n\n== Ort ==\n{s['ort']}"
+        if s.get('spiel_info'): beschreibung += f"\n\n== Info ==\n{s['spiel_info']}"
+        e.description = beschreibung
+        cal.events.add(e)
 
     with open(output, "w", encoding="utf-8") as f: f.writelines(cal)
-    print(f"✓ {output} erfolgreich erstellt")
+    print(f"✓ {output} erfolgreich erstellt mit {len(cal.events)} Einträgen.")
     return True
 
-# --- Hauptprogramm ---
 if __name__ == "__main__":
     print("="*60 + "\nHANDBALL KALENDER GENERATOR\n" + "="*60)
-    results = [erstelle_kalender(**config) for config in KALENDER_CONFIG]
-    print(f"\n{'='*60}\nZUSAMMENFASSUNG\n{'='*60}")
-    print(f"Erfolgreich: {sum(1 for r in results if r)} | Fehler: {sum(1 for r in results if not r)}")
-    print(f"Hallen im Cache: {len(hallen_cache)} | Fahrzeiten im Cache: {len(fahrzeit_cache)}\n{'='*60}\n")
+    results = [erstelle_kalender(config) for config in KALENDER_CONFIG] # Korrekter Aufruf
+    print(f"\n{'='*60}\nZUSAMMENFASSUNG\n{'='*60}\nErfolgreich: {sum(1 for r in results if r)} | Fehler: {sum(1 for r in results if not r)}")
     sys.exit(0)
