@@ -268,7 +268,7 @@ def hole_hallen_info(hallen_nr, spielplan_url):
         hallen_cache[hallen_nr] = fallback
         return fallback
 
-def erstelle_kalender(name, url, output, puffer_min=60, immer_fahrzeit_berechnen=False):
+def erstelle_kalender(name, team, url, output, puffer_min=60, immer_fahrzeit_berechnen=False):
     """Erstellt einen Kalender für ein Team"""
     print(f"\n{'='*60}\nErstelle Kalender für: {name}\n{'='*60}")
     
@@ -375,6 +375,7 @@ if __name__ == "__main__":
     for config in KALENDER_CONFIG:
         result = erstelle_kalender(
             name=config["name"],
+            team=config["team"],
             url=config["url"],
             output=config["output"],
             puffer_min=config.get("puffer_min", 60),
