@@ -14,36 +14,42 @@ KALENDER_CONFIG = [
         "name": "SSV Nümbrecht Handball",
         "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424244",
         "output": "handball_wjc.ics",
+        "team": "wJC",
         "puffer_min": 75
     },
     {
         "name": "SSV Nümbrecht Handball",
         "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424217",
         "output": "handball_mjd1.ics",
+        "team": "mJD1",
         "puffer_min": 60
     },
     {
         "name": "SSV Nümbrecht Handball",
         "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424113",
         "output": "handball_mjd2.ics",
+        "team": "mJD2",
         "puffer_min": 60
     },
     {
         "name": "SSV Nümbrecht Handball III",
         "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424114",
         "output": "handball_h3.ics",
+        "team": "H3",
         "puffer_min": 60
     },
     {
         "name": "SSV Nümbrecht Handball",
         "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424406",
         "output": "handball_wjb.ics",
+        "team": "wJB",
         "puffer_min": 60
     },
     {
         "name": "HSG Siebengebirge-Thomasberg",
         "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=HNR+25%2F26&group=423996",
         "output": "handball_wjc-hsg.ics",
+        "team": "wJC",
         "puffer_min": 60,
         "immer_fahrzeit_berechnen": True
     }
@@ -327,10 +333,10 @@ def erstelle_kalender(name, url, output, puffer_min=60, immer_fahrzeit_berechnen
             
             if s["spieltyp"] == "Heimspiel":
                 e.name = f"🏠 {name} - {s['gegner']}"
-                beschreibung_teams = f"{name} vs. {s['gegner']}"
+                beschreibung_teams = f"{team} {name} vs. {s['gegner']}"
             else:
                 e.name = f"✈️ {s['gegner']} - {name}"
-                beschreibung_teams = f"{s['gegner']} vs. {name}"
+                beschreibung_teams = f"{team} {s['gegner']} vs. {name}"
             
             e.begin = s["beginn"]
             e.location = s["ort"]
