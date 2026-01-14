@@ -2,12 +2,12 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:ics.py - http://git.io/lLljaA
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nwJC SSV Nümbrecht Handball vs. HBD Löwen Oberberg\n\n== Zeiten ==\nTreffzeit an der Halle: 12:15 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DESCRIPTION:Handballspiel (Heimspiel)\nwJC SSV Nümbrecht Handball vs. TVE Netphen\n\n== Zeiten ==\nTreffzeit an der Halle: 14:45 Uhr\n\n== Ort ==\nGouvieuxstr. 2 51588\n            Nümbrecht
 DURATION:PT1H30M
-LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
-DTSTART:20250913T113000Z
-SUMMARY:🏠 SSV Nümbrecht Handball - HBD Löwen Oberberg
-UID:f549ef98-c61c-4750-af16-e71df165cbdd@f549.org
+LOCATION:Gouvieuxstr. 2 51588\n            Nümbrecht
+DTSTART:20250927T140000Z
+SUMMARY:🏠 SSV Nümbrecht Handball - TVE Netphen
+UID:ba44d927-bbda-4d0c-b27c-fa6ce1c9c27f@ba44.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel (Heimspiel)\nwJC SSV Nümbrecht Handball vs. SSV Overath\n\n== Zeiten ==\nTreffzeit an der Halle: 11:00 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
@@ -15,15 +15,7 @@ DURATION:PT1H30M
 LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
 DTSTART:20251102T111500Z
 SUMMARY:🏠 SSV Nümbrecht Handball - SSV Overath
-UID:914b4223-5166-4c90-8c12-373c70ef6c57@914b.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\nwJC HSG Marienheide/Müllenbach vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 11:13 Uhr\nVoraussichtliche Fahrzeit: ca. 32 Minuten\nTreffzeit an der Halle: 11:45 Uhr\n\n== Ort ==\nPestalozzistr. 51709\n            Marienheide
-DURATION:PT1H30M
-LOCATION:Pestalozzistr. 51709\n            Marienheide
-DTSTART:20251214T120000Z
-SUMMARY:✈️ HSG Marienheide/Müllenbach - SSV Nümbrecht Handball
-UID:4decc65a-f89e-472e-8e8b-ce19bf5d4c93@4dec.org
+UID:0e4e6836-d97b-4b7f-9980-fc0d8a9e5506@0e4e.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel (Auswärts)\nwJC SV Frielingsdorf vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 14:46 Uhr\nVoraussichtliche Fahrzeit: ca. 29 Minuten\nTreffzeit an der Halle: 15:15 Uhr\n\n== Ort ==\nCarola-Lob-Weg 1 51789\n            Lindlar
@@ -31,23 +23,15 @@ DURATION:PT1H30M
 LOCATION:Carola-Lob-Weg 1 51789\n            Lindlar
 DTSTART:20251108T153000Z
 SUMMARY:✈️ SV Frielingsdorf - SSV Nümbrecht Handball
-UID:f62b5bf4-15df-4d0a-8ad2-0c34524863ea@f62b.org
+UID:79dc093b-4fa0-424b-afe2-e2a9ca2727a0@79dc.org
 END:VEVENT
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nwJC SSV Nümbrecht Handball vs. TVE Netphen\n\n== Zeiten ==\nTreffzeit an der Halle: 14:45 Uhr\n\n== Ort ==\nGouvieuxstr. 2 51588\n            Nümbrecht
-DURATION:PT1H30M
-LOCATION:Gouvieuxstr. 2 51588\n            Nümbrecht
-DTSTART:20250927T140000Z
-SUMMARY:🏠 SSV Nümbrecht Handball - TVE Netphen
-UID:d350e909-8042-4255-ab57-1f5a56ff54bd@d350.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nwJC SSV Nümbrecht Handball vs. CVJM Oberwiehl\n\n== Zeiten ==\nTreffzeit an der Halle: 16:30 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DESCRIPTION:Handballspiel (Heimspiel)\nwJC SSV Nümbrecht Handball vs. HBD Löwen Oberberg\n\n== Zeiten ==\nTreffzeit an der Halle: 12:15 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
 DURATION:PT1H30M
 LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
-DTSTART:20251117T164500Z
-SUMMARY:🏠 SSV Nümbrecht Handball - CVJM Oberwiehl
-UID:e8588174-1e92-4522-95ed-8aeb3dbfe8cd@e858.org
+DTSTART:20250913T113000Z
+SUMMARY:🏠 SSV Nümbrecht Handball - HBD Löwen Oberberg
+UID:98ac2ad7-4cdb-4143-9253-3f9fd40b896b@98ac.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel (Auswärts)\nwJC TV Wahlscheid vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 10:07 Uhr\nVoraussichtliche Fahrzeit: ca. 38 Minuten\nTreffzeit an der Halle: 10:45 Uhr\n\n== Ort ==\nWahlscheider Str. 56 53797\n            Lohmar-Wahlscheid
@@ -55,15 +39,7 @@ DURATION:PT1H30M
 LOCATION:Wahlscheider Str. 56 53797\n            Lohmar-Wahlscheid
 DTSTART:20251130T110000Z
 SUMMARY:✈️ TV Wahlscheid - SSV Nümbrecht Handball
-UID:efc5afc6-3ffa-41a6-9a04-f85dc4abb9db@efc5.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\nwJC VTV Freier Grund 2016 e.V. vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 09:55 Uhr\nVoraussichtliche Fahrzeit: ca. 50 Minuten\nTreffzeit an der Halle: 10:45 Uhr\n\n== Ort ==\nKopernikusring 102 57290\n            Neunkirchen
-DURATION:PT1H30M
-LOCATION:Kopernikusring 102 57290\n            Neunkirchen
-DTSTART:20250921T100000Z
-SUMMARY:✈️ VTV Freier Grund 2016 e.V. - SSV Nümbrecht Handball
-UID:17a42b09-d61d-4c9a-9a0a-55f81b442c4f@17a4.org
+UID:21690989-fae0-4e1a-9235-b4a7c719f89e@2169.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel (Heimspiel)\nwJC SSV Nümbrecht Handball vs. TuS 09 Drolshagen e.V.\n\n== Zeiten ==\nTreffzeit an der Halle: 16:00 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
@@ -71,6 +47,30 @@ DURATION:PT1H30M
 LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
 DTSTART:20251208T161500Z
 SUMMARY:🏠 SSV Nümbrecht Handball - TuS 09 Drolshagen e.V.
-UID:904b283a-42e7-40ac-b564-197bd2aee667@904b.org
+UID:b888bd9d-93c7-4192-8ad8-6eb9f7f528c8@b888.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Auswärts)\nwJC VTV Freier Grund 2016 e.V. vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 09:55 Uhr\nVoraussichtliche Fahrzeit: ca. 50 Minuten\nTreffzeit an der Halle: 10:45 Uhr\n\n== Ort ==\nKopernikusring 102 57290\n            Neunkirchen
+DURATION:PT1H30M
+LOCATION:Kopernikusring 102 57290\n            Neunkirchen
+DTSTART:20250921T100000Z
+SUMMARY:✈️ VTV Freier Grund 2016 e.V. - SSV Nümbrecht Handball
+UID:93150955-2b9a-4d9a-b0dd-42809fb16e9b@9315.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Heimspiel)\nwJC SSV Nümbrecht Handball vs. CVJM Oberwiehl\n\n== Zeiten ==\nTreffzeit an der Halle: 16:30 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DURATION:PT1H30M
+LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DTSTART:20251117T164500Z
+SUMMARY:🏠 SSV Nümbrecht Handball - CVJM Oberwiehl
+UID:57fcbee7-db52-4fb1-8d1f-c2c8b99f49b9@57fc.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Auswärts)\nwJC HSG Marienheide/Müllenbach vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 11:13 Uhr\nVoraussichtliche Fahrzeit: ca. 32 Minuten\nTreffzeit an der Halle: 11:45 Uhr\n\n== Ort ==\nPestalozzistr. 51709\n            Marienheide
+DURATION:PT1H30M
+LOCATION:Pestalozzistr. 51709\n            Marienheide
+DTSTART:20251214T120000Z
+SUMMARY:✈️ HSG Marienheide/Müllenbach - SSV Nümbrecht Handball
+UID:51c10c63-9180-4ae7-a198-7a930dd0e11e@51c1.org
 END:VEVENT
 END:VCALENDAR
