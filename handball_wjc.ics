@@ -2,12 +2,12 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:ics.py - http://git.io/lLljaA
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nwJC SSV Nümbrecht Handball vs. VTV Freier Grund 2016 e.V.\n\n== Zeiten ==\nTreffzeit an der Halle: 22:45 Uhr\n\n== Ort ==\nHalle 
+DESCRIPTION:Handballspiel (Auswärts)\nwJC TVE Netphen vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 18:06 Uhr\nVoraussichtliche Fahrzeit: ca. 279 Minuten\nTreffzeit an der Halle: 22:45 Uhr\n\n== Ort ==\nHalle 
 DURATION:PT1H30M
 LOCATION:Halle 
-DTSTART:20260313T230000Z
-SUMMARY:🏠 SSV Nümbrecht Handball - VTV Freier Grund 2016 e.V.
-UID:6c749a3b-0738-444a-a86f-89f88389eb02@6c74.org
+DTSTART:20260130T230000Z
+SUMMARY:✈️ TVE Netphen - SSV Nümbrecht Handball
+UID:480a91e2-65fa-49a4-afa9-98b2f399844d@480a.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel (Auswärts)\nwJC TuS 09 Drolshagen e.V. vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 18:06 Uhr\nVoraussichtliche Fahrzeit: ca. 279 Minuten\nTreffzeit an der Halle: 22:45 Uhr\n\n== Ort ==\nHalle 
@@ -15,7 +15,15 @@ DURATION:PT1H30M
 LOCATION:Halle 
 DTSTART:20260220T230000Z
 SUMMARY:✈️ TuS 09 Drolshagen e.V. - SSV Nümbrecht Handball
-UID:5f6110ff-4f88-4c33-848f-d6aaccb9af35@5f61.org
+UID:4a460953-bb7f-43cf-80d6-1a43603a5934@4a46.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Heimspiel)\nwJC SSV Nümbrecht Handball vs. VTV Freier Grund 2016 e.V.\n\n== Zeiten ==\nTreffzeit an der Halle: 22:45 Uhr\n\n== Ort ==\nHalle 
+DURATION:PT1H30M
+LOCATION:Halle 
+DTSTART:20260313T230000Z
+SUMMARY:🏠 SSV Nümbrecht Handball - VTV Freier Grund 2016 e.V.
+UID:644a64f2-5b14-4c4e-8f50-d269634ac255@644a.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel (Heimspiel)\nwJC SSV Nümbrecht Handball vs. HSG Marienheide/Müllenbach\n\n== Zeiten ==\nTreffzeit an der Halle: 22:45 Uhr\n\n== Ort ==\nHalle 
@@ -23,14 +31,6 @@ DURATION:PT1H30M
 LOCATION:Halle 
 DTSTART:20260306T230000Z
 SUMMARY:🏠 SSV Nümbrecht Handball - HSG Marienheide/Müllenbach
-UID:7ea62cab-c175-49dc-b5f6-f5e23f0de918@7ea6.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\nwJC TVE Netphen vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 18:06 Uhr\nVoraussichtliche Fahrzeit: ca. 279 Minuten\nTreffzeit an der Halle: 22:45 Uhr\n\n== Ort ==\nHalle 
-DURATION:PT1H30M
-LOCATION:Halle 
-DTSTART:20260130T230000Z
-SUMMARY:✈️ TVE Netphen - SSV Nümbrecht Handball
-UID:bb51917a-4246-4b38-ab57-af033d053f66@bb51.org
+UID:f1a6eebc-b30e-42a0-a2b9-78d01c0c02e1@f1a6.org
 END:VEVENT
 END:VCALENDAR
