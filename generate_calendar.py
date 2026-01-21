@@ -12,7 +12,7 @@ import re
 KALENDER_CONFIG = [
     {
         "name": "SSV Nümbrecht Handball",
-        "url": "https://hvnb-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424244",
+        "url": "https://hnr-handball.liga.nu/cgi-bin/WebObjects/nuLigaHBDE.woa/wa/groupPage?displayTyp=vorrunde&displayDetail=meetings&championship=OB+25%2F26&group=424255",
         "output": "handball_wjc.ics",
         "team": "wJC",
         "puffer_min": 75
