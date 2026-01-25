@@ -2,68 +2,12 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:ics.py - http://git.io/lLljaA
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\nmJD1 TV Wahlscheid vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 22:23 Uhr\nVoraussichtliche Fahrzeit: ca. 38 Minuten\nTreffzeit an der Halle: 23:01 Uhr\n\n== Ort ==\nWahlscheider Str. 56 53797\n            Lohmar-Wahlscheid
+DESCRIPTION:Handballspiel (Auswärts)\nmJD1 SV Frielingsdorf vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 14:31 Uhr\nVoraussichtliche Fahrzeit: ca. 29 Minuten\nTreffzeit an der Halle: 15:00 Uhr\n\n== Ort ==\nCarola-Lob-Weg 1 51789\n            Lindlar
 DURATION:PT1H30M
-LOCATION:Wahlscheider Str. 56 53797\n            Lohmar-Wahlscheid
-DTSTART:20251230T230100Z
-SUMMARY:✈️ TV Wahlscheid - SSV Nümbrecht Handball
-UID:01c6cfa3-6a38-4685-979f-6225e33faf22@01c6.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\nmJD1 HC Gelpe/Strombach vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 14:09 Uhr\nVoraussichtliche Fahrzeit: ca. 21 Minuten\nTreffzeit an der Halle: 14:30 Uhr\n\n== Ort ==\nReininghauser Str. 34 51643\n            Gummersbach
-DURATION:PT1H30M
-LOCATION:Reininghauser Str. 34 51643\n            Gummersbach
-DTSTART:20260124T143000Z
-SUMMARY:✈️ HC Gelpe/Strombach - SSV Nümbrecht Handball
-UID:a3471858-1fca-483e-b0ad-1b14ea0a772b@a347.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nmJD1 SSV Nümbrecht Handball vs. TV Wahlscheid\n\n== Zeiten ==\nTreffzeit an der Halle: 13:00 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
-DURATION:PT1H30M
-LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
-DTSTART:20250921T120000Z
-SUMMARY:🏠 SSV Nümbrecht Handball - TV Wahlscheid
-UID:2838f1b2-0a67-4e6c-844f-4b85aa21a9b6@2838.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\nmJD1 VfL Gummersbach vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 11:39 Uhr\nVoraussichtliche Fahrzeit: ca. 21 Minuten\nTreffzeit an der Halle: 12:00 Uhr\n\n== Ort ==\nSteinmüllerallee 51643\n            Gummersbach
-DURATION:PT1H30M
-LOCATION:Steinmüllerallee 51643\n            Gummersbach
-DTSTART:20260118T120000Z
-SUMMARY:✈️ VfL Gummersbach - SSV Nümbrecht Handball
-UID:0b5f663f-bf5b-4690-9e7b-71a6f8114049@0b5f.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nmJD1 SSV Nümbrecht Handball vs. SV Frielingsdorf\n\n== Zeiten ==\nTreffzeit an der Halle: 12:30 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
-DURATION:PT1H30M
-LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
-DTSTART:20251206T123000Z
-SUMMARY:🏠 SSV Nümbrecht Handball - SV Frielingsdorf
-UID:95ce79fa-7a10-44f7-aeb3-39da36a0649e@95ce.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nmJD1 SSV Nümbrecht Handball vs. VfL Gummersbach\n\n== Zeiten ==\nTreffzeit an der Halle: 15:15 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
-DURATION:PT1H30M
-LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
-DTSTART:20250927T141500Z
-SUMMARY:🏠 SSV Nümbrecht Handball - VfL Gummersbach
-UID:86e65e6f-fada-4a2a-8ca8-130b2a816f61@86e6.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\nmJD1 HSG Marienheide/Müllenbach vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 08:58 Uhr\nVoraussichtliche Fahrzeit: ca. 32 Minuten\nTreffzeit an der Halle: 09:30 Uhr\n\n== Ort ==\nPestalozzistr. 51709\n            Marienheide
-DURATION:PT1H30M
-LOCATION:Pestalozzistr. 51709\n            Marienheide
-DTSTART:20251102T093000Z
-SUMMARY:✈️ HSG Marienheide/Müllenbach - SSV Nümbrecht Handball
-UID:d93de343-0e31-4056-8037-dbb56ccffbc2@d93d.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nmJD1 SSV Nümbrecht Handball vs. HC Gelpe/Strombach\n\n== Zeiten ==\nTreffzeit an der Halle: 13:00 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
-DURATION:PT1H30M
-LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
-DTSTART:20251004T120000Z
-SUMMARY:🏠 SSV Nümbrecht Handball - HC Gelpe/Strombach
-UID:399d897a-58bb-4c5e-9816-b12f00789bbc@399d.org
+LOCATION:Carola-Lob-Weg 1 51789\n            Lindlar
+DTSTART:20260228T150000Z
+SUMMARY:✈️ SV Frielingsdorf - SSV Nümbrecht Handball
+UID:84b2148e-8920-4508-85c3-91c3052028c9@84b2.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel (Heimspiel)\nmJD1 SSV Nümbrecht Handball vs. HSG Marienheide/Müllenbach\n\n== Zeiten ==\nTreffzeit an der Halle: 11:30 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
@@ -71,7 +15,39 @@ DURATION:PT1H30M
 LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
 DTSTART:20260131T113000Z
 SUMMARY:🏠 SSV Nümbrecht Handball - HSG Marienheide/Müllenbach
-UID:7b446067-f04a-4278-ad95-63313fad55d1@7b44.org
+UID:f7361a9b-5576-4d8d-9177-dabb7d34ef8b@f736.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Auswärts)\nmJD1 HC Gelpe/Strombach vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 14:09 Uhr\nVoraussichtliche Fahrzeit: ca. 21 Minuten\nTreffzeit an der Halle: 14:30 Uhr\n\n== Ort ==\nReininghauser Str. 34 51643\n            Gummersbach
+DURATION:PT1H30M
+LOCATION:Reininghauser Str. 34 51643\n            Gummersbach
+DTSTART:20260124T143000Z
+SUMMARY:✈️ HC Gelpe/Strombach - SSV Nümbrecht Handball
+UID:5c318cee-6b38-4eb9-a834-c6edcca417b6@5c31.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Heimspiel)\nmJD1 SSV Nümbrecht Handball vs. VfL Gummersbach\n\n== Zeiten ==\nTreffzeit an der Halle: 15:15 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DURATION:PT1H30M
+LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DTSTART:20250927T141500Z
+SUMMARY:🏠 SSV Nümbrecht Handball - VfL Gummersbach
+UID:02893ffe-a784-4d09-a35e-0d0f22199d0c@0289.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Auswärts)\nmJD1 TV Wahlscheid vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 22:23 Uhr\nVoraussichtliche Fahrzeit: ca. 38 Minuten\nTreffzeit an der Halle: 23:01 Uhr\n\n== Ort ==\nWahlscheider Str. 56 53797\n            Lohmar-Wahlscheid
+DURATION:PT1H30M
+LOCATION:Wahlscheider Str. 56 53797\n            Lohmar-Wahlscheid
+DTSTART:20251230T230100Z
+SUMMARY:✈️ TV Wahlscheid - SSV Nümbrecht Handball
+UID:0f84364f-50b7-4ccb-ad8f-2afb0443a46a@0f84.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Auswärts)\nmJD1 VfL Gummersbach vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 11:39 Uhr\nVoraussichtliche Fahrzeit: ca. 21 Minuten\nTreffzeit an der Halle: 12:00 Uhr\n\n== Ort ==\nSteinmüllerallee 51643\n            Gummersbach
+DURATION:PT1H30M
+LOCATION:Steinmüllerallee 51643\n            Gummersbach
+DTSTART:20260118T120000Z
+SUMMARY:✈️ VfL Gummersbach - SSV Nümbrecht Handball
+UID:68cb76b2-fdf1-4bb3-98a3-694c4a330a22@68cb.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel (Auswärts)\nmJD1 CVJM Oberwiehl vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 11:05 Uhr\nVoraussichtliche Fahrzeit: ca. 10 Minuten\nTreffzeit an der Halle: 11:15 Uhr\n\n== Ort ==\nHauptstr. 81 51674\n            Wiehl
@@ -79,7 +55,15 @@ DURATION:PT1H30M
 LOCATION:Hauptstr. 81 51674\n            Wiehl
 DTSTART:20260207T111500Z
 SUMMARY:✈️ CVJM Oberwiehl - SSV Nümbrecht Handball
-UID:9e530238-cb27-4a21-a8c7-dd3b8b37f71e@9e53.org
+UID:c4b85de0-a59f-412a-9784-e64caccd989e@c4b8.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Auswärts)\nmJD1 HSG Marienheide/Müllenbach vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 08:58 Uhr\nVoraussichtliche Fahrzeit: ca. 32 Minuten\nTreffzeit an der Halle: 09:30 Uhr\n\n== Ort ==\nPestalozzistr. 51709\n            Marienheide
+DURATION:PT1H30M
+LOCATION:Pestalozzistr. 51709\n            Marienheide
+DTSTART:20251102T093000Z
+SUMMARY:✈️ HSG Marienheide/Müllenbach - SSV Nümbrecht Handball
+UID:08f6c575-35c2-44c4-83f0-eec9a99f2b6a@08f6.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel (Heimspiel)\nmJD1 SSV Nümbrecht Handball vs. CVJM Oberwiehl\n\n== Zeiten ==\nTreffzeit an der Halle: 15:30 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
@@ -87,14 +71,30 @@ DURATION:PT1H30M
 LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
 DTSTART:20251122T153000Z
 SUMMARY:🏠 SSV Nümbrecht Handball - CVJM Oberwiehl
-UID:95a930c9-a9b7-4484-b8fb-b41e9fca6676@95a9.org
+UID:6f97f086-d48e-4a0c-8c75-6e9e3a6c7203@6f97.org
 END:VEVENT
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\nmJD1 SV Frielingsdorf vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 14:31 Uhr\nVoraussichtliche Fahrzeit: ca. 29 Minuten\nTreffzeit an der Halle: 15:00 Uhr\n\n== Ort ==\nCarola-Lob-Weg 1 51789\n            Lindlar
+DESCRIPTION:Handballspiel (Heimspiel)\nmJD1 SSV Nümbrecht Handball vs. HC Gelpe/Strombach\n\n== Zeiten ==\nTreffzeit an der Halle: 13:00 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
 DURATION:PT1H30M
-LOCATION:Carola-Lob-Weg 1 51789\n            Lindlar
-DTSTART:20260228T150000Z
-SUMMARY:✈️ SV Frielingsdorf - SSV Nümbrecht Handball
-UID:614e818c-f607-4af0-9e35-18ec1fe4c79e@614e.org
+LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DTSTART:20251004T120000Z
+SUMMARY:🏠 SSV Nümbrecht Handball - HC Gelpe/Strombach
+UID:9b85e773-120e-4e38-9bdd-0d94654acc11@9b85.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Heimspiel)\nmJD1 SSV Nümbrecht Handball vs. SV Frielingsdorf\n\n== Zeiten ==\nTreffzeit an der Halle: 12:30 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DURATION:PT1H30M
+LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DTSTART:20251206T123000Z
+SUMMARY:🏠 SSV Nümbrecht Handball - SV Frielingsdorf
+UID:892a9749-3aa8-4bb1-aff3-a5418142ce16@892a.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Heimspiel)\nmJD1 SSV Nümbrecht Handball vs. TV Wahlscheid\n\n== Zeiten ==\nTreffzeit an der Halle: 13:00 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DURATION:PT1H30M
+LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DTSTART:20250921T120000Z
+SUMMARY:🏠 SSV Nümbrecht Handball - TV Wahlscheid
+UID:17279c5d-7719-4108-99f0-de094a9742ba@1727.org
 END:VEVENT
 END:VCALENDAR

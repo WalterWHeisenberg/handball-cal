@@ -2,20 +2,12 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:ics.py - http://git.io/lLljaA
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nwJC SSV Nümbrecht Handball vs. HSG Marienheide/Müllenbach\n\n== Zeiten ==\nTreffzeit an der Halle: 16:15 Uhr\n\n== Ort ==\nGouvieuxstr. 2 51588\n            Nümbrecht
-DURATION:PT1H30M
-LOCATION:Gouvieuxstr. 2 51588\n            Nümbrecht
-DTSTART:20260308T163000Z
-SUMMARY:🏠 SSV Nümbrecht Handball - HSG Marienheide/Müllenbach
-UID:30b61809-7449-4b28-b640-dfc307c2d2d9@30b6.org
-END:VEVENT
-BEGIN:VEVENT
 DESCRIPTION:Handballspiel (Auswärts)\nwJC TuS 09 Drolshagen e.V. vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 18:06 Uhr\nVoraussichtliche Fahrzeit: ca. 279 Minuten\nTreffzeit an der Halle: 22:45 Uhr\n\n== Ort ==\nHalle 
 DURATION:PT1H30M
 LOCATION:Halle 
 DTSTART:20260220T230000Z
 SUMMARY:✈️ TuS 09 Drolshagen e.V. - SSV Nümbrecht Handball
-UID:393d232c-b44f-4ff1-9263-117ac89f0e60@393d.org
+UID:03d81c0f-8e83-4d73-899e-0282a5dfa072@03d8.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel (Heimspiel)\nwJC SSV Nümbrecht Handball vs. VTV Freier Grund 2016 e.V.\n\n== Zeiten ==\nTreffzeit an der Halle: 16:45 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
@@ -23,7 +15,15 @@ DURATION:PT1H30M
 LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
 DTSTART:20260314T170000Z
 SUMMARY:🏠 SSV Nümbrecht Handball - VTV Freier Grund 2016 e.V.
-UID:0b5abb58-3d83-4c26-9eb8-55da9c16239d@0b5a.org
+UID:48a39ce2-edad-468c-9f3a-c40ced0a34be@48a3.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Heimspiel)\nwJC SSV Nümbrecht Handball vs. HSG Marienheide/Müllenbach\n\n== Zeiten ==\nTreffzeit an der Halle: 16:15 Uhr\n\n== Ort ==\nGouvieuxstr. 2 51588\n            Nümbrecht
+DURATION:PT1H30M
+LOCATION:Gouvieuxstr. 2 51588\n            Nümbrecht
+DTSTART:20260308T163000Z
+SUMMARY:🏠 SSV Nümbrecht Handball - HSG Marienheide/Müllenbach
+UID:db2d7400-2501-407a-8fe0-0b629579ade2@db2d.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel (Auswärts)\nwJC TVE Netphen vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 18:06 Uhr\nVoraussichtliche Fahrzeit: ca. 279 Minuten\nTreffzeit an der Halle: 22:45 Uhr\n\n== Ort ==\nHalle 
@@ -31,6 +31,6 @@ DURATION:PT1H30M
 LOCATION:Halle 
 DTSTART:20260130T230000Z
 SUMMARY:✈️ TVE Netphen - SSV Nümbrecht Handball
-UID:9d339028-2c5c-4574-afda-0d0bbb625777@9d33.org
+UID:9a25ac1c-2771-47e6-bd15-39f1e43d5d71@9a25.org
 END:VEVENT
 END:VCALENDAR
