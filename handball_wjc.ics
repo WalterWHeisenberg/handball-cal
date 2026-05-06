@@ -2,28 +2,12 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:ics.py - http://git.io/lLljaA
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nwJC SSV Nümbrecht Handball vs. VTV Freier Grund 2016 e.V.\n\n== Zeiten ==\nTreffzeit an der Halle: 16:45 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
-DURATION:PT1H30M
-LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
-DTSTART:20260314T170000Z
-SUMMARY:🏠 SSV Nümbrecht Handball - VTV Freier Grund 2016 e.V.
-UID:cf65b206-1ddf-4270-900a-9704027de0fb@cf65.org
-END:VEVENT
-BEGIN:VEVENT
 DESCRIPTION:Handballspiel (Heimspiel)\nwJC SSV Nümbrecht Handball vs. HSG Marienheide/Müllenbach\n\n== Zeiten ==\nTreffzeit an der Halle: 16:15 Uhr\n\n== Ort ==\nGouvieuxstr. 2 51588\n            Nümbrecht
 DURATION:PT1H30M
 LOCATION:Gouvieuxstr. 2 51588\n            Nümbrecht
 DTSTART:20260308T163000Z
 SUMMARY:🏠 SSV Nümbrecht Handball - HSG Marienheide/Müllenbach
-UID:3a3f4bc1-546e-479e-b9e2-aea8881a736b@3a3f.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\nwJC TuS 09 Drolshagen e.V. vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 09:13 Uhr\nVoraussichtliche Fahrzeit: ca. 32 Minuten\nTreffzeit an der Halle: 09:45 Uhr\n\n== Ort ==\nIn der Wünne 1 57489\n            Drolshagen
-DURATION:PT1H30M
-LOCATION:In der Wünne 1 57489\n            Drolshagen
-DTSTART:20260222T100000Z
-SUMMARY:✈️ TuS 09 Drolshagen e.V. - SSV Nümbrecht Handball
-UID:a3b53ead-a045-40d1-a879-16d8e01e5961@a3b5.org
+UID:a1be87ea-b769-4c57-9852-eb44abe049ca@a1be.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel (Auswärts)\nwJC TVE Netphen vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 11:58 Uhr\nVoraussichtliche Fahrzeit: ca. 47 Minuten\nTreffzeit an der Halle: 12:45 Uhr\n\n== Ort ==\nHaardtstraße 62 57250\n            Netphen
@@ -31,6 +15,22 @@ DURATION:PT1H30M
 LOCATION:Haardtstraße 62 57250\n            Netphen
 DTSTART:20260228T130000Z
 SUMMARY:✈️ TVE Netphen - SSV Nümbrecht Handball
-UID:ef15828e-dcbc-42be-b022-b42612e4ae33@ef15.org
+UID:b488e473-b85b-48e9-b765-52fbc6e788f4@b488.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Auswärts)\nwJC TuS 09 Drolshagen e.V. vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 09:13 Uhr\nVoraussichtliche Fahrzeit: ca. 32 Minuten\nTreffzeit an der Halle: 09:45 Uhr\n\n== Ort ==\nIn der Wünne 1 57489\n            Drolshagen
+DURATION:PT1H30M
+LOCATION:In der Wünne 1 57489\n            Drolshagen
+DTSTART:20260222T100000Z
+SUMMARY:✈️ TuS 09 Drolshagen e.V. - SSV Nümbrecht Handball
+UID:cbd38c6c-98eb-46af-b9fc-9298829d3f48@cbd3.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Heimspiel)\nwJC SSV Nümbrecht Handball vs. VTV Freier Grund 2016 e.V.\n\n== Zeiten ==\nTreffzeit an der Halle: 16:45 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DURATION:PT1H30M
+LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DTSTART:20260314T170000Z
+SUMMARY:🏠 SSV Nümbrecht Handball - VTV Freier Grund 2016 e.V.
+UID:0ffbc05a-629f-48f9-ae2e-93dd5161b6c4@0ffb.org
 END:VEVENT
 END:VCALENDAR
