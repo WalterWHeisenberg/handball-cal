@@ -2,12 +2,12 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:ics.py - http://git.io/lLljaA
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nmJD2 SSV Nümbrecht Handball vs. SSV Overath\n\n== Zeiten ==\nTreffzeit an der Halle: 11:00 Uhr\n\n== Ort ==\nGouvieuxstr. 2 51588\n            Nümbrecht
+DESCRIPTION:Handballspiel (Auswärts)\nmJD2 HC Gelpe/Strombach II vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 12:10 Uhr\nVoraussichtliche Fahrzeit: ca. 20 Minuten\nTreffzeit an der Halle: 12:30 Uhr\n\n== Ort ==\nReininghauser Str. 34 51643\n            Gummersbach
 DURATION:PT1H30M
-LOCATION:Gouvieuxstr. 2 51588\n            Nümbrecht
-DTSTART:20251005T100000Z
-SUMMARY:🏠 SSV Nümbrecht Handball - SSV Overath
-UID:bcb1540f-71e4-486e-b51f-985baedad229@bcb1.org
+LOCATION:Reininghauser Str. 34 51643\n            Gummersbach
+DTSTART:20250920T113000Z
+SUMMARY:✈️ HC Gelpe/Strombach II - SSV Nümbrecht Handball
+UID:7e2352ed-c45f-4a0d-91b8-ff570d650acb@7e23.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel (Auswärts)\nmJD2 VfL Gummersbach II vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 10:41 Uhr\nVoraussichtliche Fahrzeit: ca. 19 Minuten\nTreffzeit an der Halle: 11:00 Uhr\n\n== Ort ==\nSteinmüllerallee 51643\n            Gummersbach
@@ -15,15 +15,7 @@ DURATION:PT1H30M
 LOCATION:Steinmüllerallee 51643\n            Gummersbach
 DTSTART:20251130T110000Z
 SUMMARY:✈️ VfL Gummersbach II - SSV Nümbrecht Handball
-UID:d818e5f0-1903-4377-a1a3-6e034d1dbbdd@d818.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nmJD2 SSV Nümbrecht Handball vs. CVJM Waldbröl\n\n== Zeiten ==\nTreffzeit an der Halle: 11:30 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
-DURATION:PT1H30M
-LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
-DTSTART:20260201T113000Z
-SUMMARY:🏠 SSV Nümbrecht Handball - CVJM Waldbröl
-UID:8e4174ff-3da3-4b6a-8e1a-fd562757ed7a@8e41.org
+UID:edcfd33a-4b02-44bc-a7ba-4160cb304a73@edcf.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel (Heimspiel)\nmJD2 SSV Nümbrecht Handball vs. TV Wahlscheid II\n\n== Zeiten ==\nTreffzeit an der Halle: 13:00 Uhr\n\n== Ort ==\nGouvieuxstr. 2 51588\n            Nümbrecht
@@ -31,55 +23,15 @@ DURATION:PT1H30M
 LOCATION:Gouvieuxstr. 2 51588\n            Nümbrecht
 DTSTART:20250927T120000Z
 SUMMARY:🏠 SSV Nümbrecht Handball - TV Wahlscheid II
-UID:56384cfc-e3bd-4aa4-b4a9-927c9f2591c7@5638.org
+UID:2ad12b9e-3204-4d6f-893a-7e8f29b22fe1@2ad1.org
 END:VEVENT
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nmJD2 SSV Nümbrecht Handball vs. HC Gelpe/Strombach II\n\n== Zeiten ==\nTreffzeit an der Halle: 15:30 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DESCRIPTION:Handballspiel (Auswärts)\nmJD2 CVJM Waldbröl vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 12:17 Uhr\nVoraussichtliche Fahrzeit: ca. 13 Minuten\nTreffzeit an der Halle: 12:30 Uhr\n\n== Ort ==\nVennstr. 51545\n            Waldbröl
 DURATION:PT1H30M
-LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
-DTSTART:20251213T153000Z
-SUMMARY:🏠 SSV Nümbrecht Handball - HC Gelpe/Strombach II
-UID:873de3d0-4ca5-4d37-899a-9b621fd23f46@873d.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\nmJD2 TV Wahlscheid II vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 10:53 Uhr\nVoraussichtliche Fahrzeit: ca. 37 Minuten\nTreffzeit an der Halle: 11:30 Uhr\n\n== Ort ==\nWahlscheider Str. 56 53797\n            Lohmar-Wahlscheid
-DURATION:PT1H30M
-LOCATION:Wahlscheider Str. 56 53797\n            Lohmar-Wahlscheid
-DTSTART:20260118T113000Z
-SUMMARY:✈️ TV Wahlscheid II - SSV Nümbrecht Handball
-UID:83721dc3-b0df-4074-976b-265f59b1ed7b@8372.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nmJD2 SSV Nümbrecht Handball vs. VfL Gummersbach II\n\n== Zeiten ==\nTreffzeit an der Halle: 14:30 Uhr\n\n== Ort ==\nGouvieuxstr. 2 51588\n            Nümbrecht
-DURATION:PT1H30M
-LOCATION:Gouvieuxstr. 2 51588\n            Nümbrecht
-DTSTART:20260308T143000Z
-SUMMARY:🏠 SSV Nümbrecht Handball - VfL Gummersbach II
-UID:de6a29f4-1647-418d-92a9-7e1fa3f973c2@de6a.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\nmJD2 HC Gelpe/Strombach II vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 12:10 Uhr\nVoraussichtliche Fahrzeit: ca. 20 Minuten\nTreffzeit an der Halle: 12:30 Uhr\n\n== Ort ==\nReininghauser Str. 34 51643\n            Gummersbach
-DURATION:PT1H30M
-LOCATION:Reininghauser Str. 34 51643\n            Gummersbach
-DTSTART:20250920T113000Z
-SUMMARY:✈️ HC Gelpe/Strombach II - SSV Nümbrecht Handball
-UID:c99bd280-58a6-4795-9103-a556c2d1f95c@c99b.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\nmJD2 SSV Overath vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 15:05 Uhr\nVoraussichtliche Fahrzeit: ca. 25 Minuten\nTreffzeit an der Halle: 15:30 Uhr\n\n== Ort ==\nCyriax 51491\n            Overath
-DURATION:PT1H30M
-LOCATION:Cyriax 51491\n            Overath
-DTSTART:20260125T153000Z
-SUMMARY:✈️ SSV Overath - SSV Nümbrecht Handball
-UID:8c266946-6388-48a3-bd7c-bef0efb3919e@8c26.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\nmJD2 SV Frielingsdorf II vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 12:31 Uhr\nVoraussichtliche Fahrzeit: ca. 29 Minuten\nTreffzeit an der Halle: 13:00 Uhr\n\n== Ort ==\nCarola-Lob-Weg 1 51789\n            Lindlar
-DURATION:PT1H30M
-LOCATION:Carola-Lob-Weg 1 51789\n            Lindlar
-DTSTART:20260307T130000Z
-SUMMARY:✈️ SV Frielingsdorf II - SSV Nümbrecht Handball
-UID:58d4632d-48db-434f-852a-dd54253c3459@58d4.org
+LOCATION:Vennstr. 51545\n            Waldbröl
+DTSTART:20251109T123000Z
+SUMMARY:✈️ CVJM Waldbröl - SSV Nümbrecht Handball
+UID:f2be80c3-22cd-4549-b2ad-5dd59ce88969@f2be.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel (Heimspiel)\nmJD2 SSV Nümbrecht Handball vs. SV Frielingsdorf II\n\n== Zeiten ==\nTreffzeit an der Halle: 12:30 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
@@ -87,14 +39,62 @@ DURATION:PT1H30M
 LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
 DTSTART:20251122T123000Z
 SUMMARY:🏠 SSV Nümbrecht Handball - SV Frielingsdorf II
-UID:ffe973fc-388a-4292-8784-09cf21fe4018@ffe9.org
+UID:400d906b-346d-46bb-8d33-97c1ecab9a9d@400d.org
 END:VEVENT
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\nmJD2 CVJM Waldbröl vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 12:18 Uhr\nVoraussichtliche Fahrzeit: ca. 12 Minuten\nTreffzeit an der Halle: 12:30 Uhr\n\n== Ort ==\nVennstr. 51545\n            Waldbröl
+DESCRIPTION:Handballspiel (Auswärts)\nmJD2 SV Frielingsdorf II vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 08:23 Uhr\nVoraussichtliche Fahrzeit: ca. 277 Minuten\nTreffzeit an der Halle: 13:00 Uhr\n\n== Ort ==\nHalle 09022
 DURATION:PT1H30M
-LOCATION:Vennstr. 51545\n            Waldbröl
-DTSTART:20251109T123000Z
-SUMMARY:✈️ CVJM Waldbröl - SSV Nümbrecht Handball
-UID:e80a96c7-2bcb-4110-b028-d8e363e3d6e9@e80a.org
+LOCATION:Halle 09022
+DTSTART:20260307T130000Z
+SUMMARY:✈️ SV Frielingsdorf II - SSV Nümbrecht Handball
+UID:968ca47f-6230-4d7b-9311-53e534b8b4fb@968c.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Auswärts)\nmJD2 SSV Overath vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 15:05 Uhr\nVoraussichtliche Fahrzeit: ca. 25 Minuten\nTreffzeit an der Halle: 15:30 Uhr\n\n== Ort ==\nCyriax 51491\n            Overath
+DURATION:PT1H30M
+LOCATION:Cyriax 51491\n            Overath
+DTSTART:20260125T153000Z
+SUMMARY:✈️ SSV Overath - SSV Nümbrecht Handball
+UID:2b5f22a9-c9ca-430c-8119-231184814fe3@2b5f.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Auswärts)\nmJD2 TV Wahlscheid II vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 10:53 Uhr\nVoraussichtliche Fahrzeit: ca. 37 Minuten\nTreffzeit an der Halle: 11:30 Uhr\n\n== Ort ==\nWahlscheider Str. 56 53797\n            Lohmar-Wahlscheid
+DURATION:PT1H30M
+LOCATION:Wahlscheider Str. 56 53797\n            Lohmar-Wahlscheid
+DTSTART:20260118T113000Z
+SUMMARY:✈️ TV Wahlscheid II - SSV Nümbrecht Handball
+UID:9ea3d2aa-c52e-4142-b79f-1291b1cd1d32@9ea3.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Heimspiel)\nmJD2 SSV Nümbrecht Handball vs. CVJM Waldbröl\n\n== Zeiten ==\nTreffzeit an der Halle: 11:30 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DURATION:PT1H30M
+LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DTSTART:20260201T113000Z
+SUMMARY:🏠 SSV Nümbrecht Handball - CVJM Waldbröl
+UID:27c595d5-1066-4984-b670-d56635da0adf@27c5.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Heimspiel)\nmJD2 SSV Nümbrecht Handball vs. VfL Gummersbach II\n\n== Zeiten ==\nTreffzeit an der Halle: 14:30 Uhr\n\n== Ort ==\nGouvieuxstr. 2 51588\n            Nümbrecht
+DURATION:PT1H30M
+LOCATION:Gouvieuxstr. 2 51588\n            Nümbrecht
+DTSTART:20260308T143000Z
+SUMMARY:🏠 SSV Nümbrecht Handball - VfL Gummersbach II
+UID:e3dafb6c-8fce-43a4-aa92-0c5f951eceec@e3da.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Heimspiel)\nmJD2 SSV Nümbrecht Handball vs. SSV Overath\n\n== Zeiten ==\nTreffzeit an der Halle: 11:00 Uhr\n\n== Ort ==\nGouvieuxstr. 2 51588\n            Nümbrecht
+DURATION:PT1H30M
+LOCATION:Gouvieuxstr. 2 51588\n            Nümbrecht
+DTSTART:20251005T100000Z
+SUMMARY:🏠 SSV Nümbrecht Handball - SSV Overath
+UID:0a17d55e-995d-44cd-83bb-b842d7adb7c7@0a17.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Heimspiel)\nmJD2 SSV Nümbrecht Handball vs. HC Gelpe/Strombach II\n\n== Zeiten ==\nTreffzeit an der Halle: 15:30 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DURATION:PT1H30M
+LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DTSTART:20251213T153000Z
+SUMMARY:🏠 SSV Nümbrecht Handball - HC Gelpe/Strombach II
+UID:7f55d277-8f0b-4a9e-9653-03ad1d15e8b0@7f55.org
 END:VEVENT
 END:VCALENDAR
