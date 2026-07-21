@@ -2,60 +2,20 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:ics.py - http://git.io/lLljaA
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nwJC HSG Siebengebirge-Thomasberg vs. Wermelskirchener TV\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 06:23 Uhr\nVoraussichtliche Fahrzeit: ca. 412 Minuten\nTreffzeit an der Halle: 13:15 Uhr\n\n== Ort ==\nHalle 03054
+DESCRIPTION:Handballspiel (Heimspiel)\nwJC HSG Siebengebirge-Thomasberg vs. Solinger TB\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 12:09 Uhr\nVoraussichtliche Fahrzeit: ca. 51 Minuten\nTreffzeit an der Halle: 13:00 Uhr\n\n== Ort ==\nSchulzentrum\, Dollendorfer Str. 53639\n            Königswinter-Oberpleis
 DURATION:PT1H30M
-LOCATION:Halle 03054
-DTSTART:20260301T131500Z
-SUMMARY:🏠 HSG Siebengebirge-Thomasberg - Wermelskirchener TV
-UID:c4b60795-0c72-4712-afd1-79e8cc1e84d9@c4b6.org
+LOCATION:Schulzentrum\, Dollendorfer Str. 53639\n            Königswinter-Oberpleis
+DTSTART:20251116T130000Z
+SUMMARY:🏠 HSG Siebengebirge-Thomasberg - Solinger TB
+UID:f82d1839-5fa4-4ef6-b2a4-0c2f2bee3490@f82d.org
 END:VEVENT
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nwJC HSG Siebengebirge-Thomasberg vs. TV Aldekerk II\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 06:23 Uhr\nVoraussichtliche Fahrzeit: ca. 412 Minuten\nTreffzeit an der Halle: 13:15 Uhr\n\n== Ort ==\nHalle 03054
+DESCRIPTION:Handballspiel (Heimspiel)\nwJC HSG Siebengebirge-Thomasberg vs. HC Weiden 2018\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 09:39 Uhr\nVoraussichtliche Fahrzeit: ca. 51 Minuten\nTreffzeit an der Halle: 10:30 Uhr\n\n== Ort ==\nHumboldtstrasse 3 53639\n            Königswinter-Oberpleis
 DURATION:PT1H30M
-LOCATION:Halle 03054
-DTSTART:20250928T121500Z
-SUMMARY:🏠 HSG Siebengebirge-Thomasberg - TV Aldekerk II
-UID:ba7e5b9c-5244-4107-a206-e27fb42bd0dd@ba7e.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\nwJC TV Aldekerk II vs. HSG Siebengebirge-Thomasberg\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 13:03 Uhr\nVoraussichtliche Fahrzeit: ca. 132 Minuten\nTreffzeit an der Halle: 15:15 Uhr\n\n== Ort ==\nHalle 07064
-DURATION:PT1H30M
-LOCATION:Halle 07064
-DTSTART:20260125T151500Z
-SUMMARY:✈️ TV Aldekerk II - HSG Siebengebirge-Thomasberg
-UID:9c52e3f4-1ab5-42f6-a5e3-dc629e413e37@9c52.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\nwJC Solinger TB vs. HSG Siebengebirge-Thomasberg\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 08:45 Uhr\nVoraussichtliche Fahrzeit: ca. 285 Minuten\nTreffzeit an der Halle: 13:30 Uhr\n\n== Ort ==\nHalle 01028
-DURATION:PT1H30M
-LOCATION:Halle 01028
-DTSTART:20260221T133000Z
-SUMMARY:✈️ Solinger TB - HSG Siebengebirge-Thomasberg
-UID:119c804f-bda0-4735-b002-fa9fd0d84bf3@119c.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nwJC HSG Siebengebirge-Thomasberg vs. Bergischer HC\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 06:08 Uhr\nVoraussichtliche Fahrzeit: ca. 412 Minuten\nTreffzeit an der Halle: 13:00 Uhr\n\n== Ort ==\nHalle 03054
-DURATION:PT1H30M
-LOCATION:Halle 03054
-DTSTART:20251207T130000Z
-SUMMARY:🏠 HSG Siebengebirge-Thomasberg - Bergischer HC
-UID:f52e1405-7355-41e2-803a-3306077b7248@f52e.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\nwJC Tschft. St. Tönis II vs. HSG Siebengebirge-Thomasberg\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 09:07 Uhr\nVoraussichtliche Fahrzeit: ca. 278 Minuten\nTreffzeit an der Halle: 13:45 Uhr\n\n== Ort ==\nHalle 07050
-DURATION:PT1H30M
-LOCATION:Halle 07050
-DTSTART:20260307T134500Z
-SUMMARY:✈️ Tschft. St. Tönis II - HSG Siebengebirge-Thomasberg
-UID:ecc73eb8-bd79-4986-a098-be7d814fd9fd@ecc7.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\nwJC Wermelskirchener TV vs. HSG Siebengebirge-Thomasberg\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 13:36 Uhr\nVoraussichtliche Fahrzeit: ca. 54 Minuten\nTreffzeit an der Halle: 14:30 Uhr\n\n== Ort ==\nStettiner Str. / Am Schwanen 42929\n            Wermelskirchen Tel.: 02196-91400
-DURATION:PT1H30M
-LOCATION:Stettiner Str. / Am Schwanen 42929\n            Wermelskirchen Tel.: 02196-91400
-DTSTART:20251122T143000Z
-SUMMARY:✈️ Wermelskirchener TV - HSG Siebengebirge-Thomasberg
-UID:29f94857-5cd3-4d6c-abd9-3ffddd9643aa@29f9.org
+LOCATION:Humboldtstrasse 3 53639\n            Königswinter-Oberpleis
+DTSTART:20260208T103000Z
+SUMMARY:🏠 HSG Siebengebirge-Thomasberg - HC Weiden 2018
+UID:dedf3f27-fac1-49d5-acc3-e3c29379059b@dedf.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel (Auswärts)\nwJC Bergischer HC vs. HSG Siebengebirge-Thomasberg\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 11:00 Uhr\nVoraussichtliche Fahrzeit: ca. 60 Minuten\nTreffzeit an der Halle: 12:00 Uhr\n\n== Ort ==\nKanalstr. 30 42657\n            Solingen
@@ -63,15 +23,31 @@ DURATION:PT1H30M
 LOCATION:Kanalstr. 30 42657\n            Solingen
 DTSTART:20260315T120000Z
 SUMMARY:✈️ Bergischer HC - HSG Siebengebirge-Thomasberg
-UID:3b4ed3da-d5af-47e3-ab98-38ea43e48aba@3b4e.org
+UID:0aebf300-6c43-476d-8920-ac0b7f4cae2f@0aeb.org
 END:VEVENT
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nwJC HSG Siebengebirge-Thomasberg vs. TV Borken\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 06:38 Uhr\nVoraussichtliche Fahrzeit: ca. 412 Minuten\nTreffzeit an der Halle: 13:30 Uhr\n\n== Ort ==\nHalle 03054
+DESCRIPTION:Handballspiel (Heimspiel)\nwJC HSG Siebengebirge-Thomasberg vs. Wermelskirchener TV\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 12:24 Uhr\nVoraussichtliche Fahrzeit: ca. 51 Minuten\nTreffzeit an der Halle: 13:15 Uhr\n\n== Ort ==\nHumboldtstrasse 3 53639\n            Königswinter-Oberpleis
 DURATION:PT1H30M
-LOCATION:Halle 03054
-DTSTART:20260118T133000Z
-SUMMARY:🏠 HSG Siebengebirge-Thomasberg - TV Borken
-UID:275ba1cb-7326-4e1f-bf19-a4eb0fd335eb@275b.org
+LOCATION:Humboldtstrasse 3 53639\n            Königswinter-Oberpleis
+DTSTART:20260301T131500Z
+SUMMARY:🏠 HSG Siebengebirge-Thomasberg - Wermelskirchener TV
+UID:7c5376b1-2512-4aa4-90b7-e93f46b11670@7c53.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Auswärts)\nwJC Solinger TB vs. HSG Siebengebirge-Thomasberg\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 12:24 Uhr\nVoraussichtliche Fahrzeit: ca. 66 Minuten\nTreffzeit an der Halle: 13:30 Uhr\n\n== Ort ==\nSchützenstrasse 44 42659\n            Solingen Tel.: 0212/45857
+DURATION:PT1H30M
+LOCATION:Schützenstrasse 44 42659\n            Solingen Tel.: 0212/45857
+DTSTART:20260221T133000Z
+SUMMARY:✈️ Solinger TB - HSG Siebengebirge-Thomasberg
+UID:e24a07ca-3252-41b7-8ee2-6cf383b8536c@e24a.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Heimspiel)\nwJC HSG Siebengebirge-Thomasberg vs. DJK Unitas Haan e.V.\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 11:54 Uhr\nVoraussichtliche Fahrzeit: ca. 51 Minuten\nTreffzeit an der Halle: 12:45 Uhr\n\n== Ort ==\nHumboldtstrasse 3 53639\n            Königswinter-Oberpleis
+DURATION:PT1H30M
+LOCATION:Humboldtstrasse 3 53639\n            Königswinter-Oberpleis
+DTSTART:20260214T124500Z
+SUMMARY:🏠 HSG Siebengebirge-Thomasberg - DJK Unitas Haan e.V.
+UID:c22d9282-c249-4576-9a22-9f61e46cb2be@c22d.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel (Auswärts)\nwJC Turnverein Biefang vs. HSG Siebengebirge-Thomasberg\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 09:21 Uhr\nVoraussichtliche Fahrzeit: ca. 84 Minuten\nTreffzeit an der Halle: 10:45 Uhr\n\n== Ort ==\nBiefangstr. 56 46149\n            Oberhausen Tel.: 0208-664227
@@ -79,31 +55,39 @@ DURATION:PT1H30M
 LOCATION:Biefangstr. 56 46149\n            Oberhausen Tel.: 0208-664227
 DTSTART:20260111T104500Z
 SUMMARY:✈️ Turnverein Biefang - HSG Siebengebirge-Thomasberg
-UID:6fc0dd0e-8d86-4104-bc06-b53efe2e1f5f@6fc0.org
+UID:043c5e14-8af7-4cf2-999d-154fa98b86d7@043c.org
 END:VEVENT
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nwJC HSG Siebengebirge-Thomasberg vs. HC Weiden 2018\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 03:38 Uhr\nVoraussichtliche Fahrzeit: ca. 412 Minuten\nTreffzeit an der Halle: 10:30 Uhr\n\n== Ort ==\nHalle 03054
+DESCRIPTION:Handballspiel (Heimspiel)\nwJC HSG Siebengebirge-Thomasberg vs. Tschft. St. Tönis II\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 12:39 Uhr\nVoraussichtliche Fahrzeit: ca. 51 Minuten\nTreffzeit an der Halle: 13:30 Uhr\n\n== Ort ==\nHumboldtstrasse 3 53639\n            Königswinter-Oberpleis
 DURATION:PT1H30M
-LOCATION:Halle 03054
-DTSTART:20260208T103000Z
-SUMMARY:🏠 HSG Siebengebirge-Thomasberg - HC Weiden 2018
-UID:b4d97025-adca-48fb-a366-089336514c35@b4d9.org
+LOCATION:Humboldtstrasse 3 53639\n            Königswinter-Oberpleis
+DTSTART:20251129T133000Z
+SUMMARY:🏠 HSG Siebengebirge-Thomasberg - Tschft. St. Tönis II
+UID:1c588ab3-4766-4600-8fc0-3b30f4f921f3@1c58.org
 END:VEVENT
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nwJC HSG Siebengebirge-Thomasberg vs. Turnverein Biefang\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 05:38 Uhr\nVoraussichtliche Fahrzeit: ca. 412 Minuten\nTreffzeit an der Halle: 12:30 Uhr\n\n== Ort ==\nHalle 03054
+DESCRIPTION:Handballspiel (Heimspiel)\nwJC HSG Siebengebirge-Thomasberg vs. HC TV Rhede\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 14:24 Uhr\nVoraussichtliche Fahrzeit: ca. 51 Minuten\nTreffzeit an der Halle: 15:15 Uhr\n\n== Ort ==\nHumboldtstrasse 3 53639\n            Königswinter-Oberpleis
 DURATION:PT1H30M
-LOCATION:Halle 03054
+LOCATION:Humboldtstrasse 3 53639\n            Königswinter-Oberpleis
+DTSTART:20260201T151500Z
+SUMMARY:🏠 HSG Siebengebirge-Thomasberg - HC TV Rhede
+UID:fb11ed24-7481-42dc-987a-ebeb95a0e105@fb11.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Heimspiel)\nwJC HSG Siebengebirge-Thomasberg vs. Turnverein Biefang\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 11:39 Uhr\nVoraussichtliche Fahrzeit: ca. 51 Minuten\nTreffzeit an der Halle: 12:30 Uhr\n\n== Ort ==\nHumboldtstrasse 3 53639\n            Königswinter-Oberpleis
+DURATION:PT1H30M
+LOCATION:Humboldtstrasse 3 53639\n            Königswinter-Oberpleis
 DTSTART:20250913T113000Z
 SUMMARY:🏠 HSG Siebengebirge-Thomasberg - Turnverein Biefang
-UID:48a1afdc-2ca9-491d-a703-0e3755bad1ac@48a1.org
+UID:08aa8ae7-5e2d-439c-8950-d5f7f8b07cab@08aa.org
 END:VEVENT
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\nwJC HC TV Rhede vs. HSG Siebengebirge-Thomasberg\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 09:00 Uhr\nVoraussichtliche Fahrzeit: ca. 285 Minuten\nTreffzeit an der Halle: 13:45 Uhr\n\n== Ort ==\nHalle 11027
+DESCRIPTION:Handballspiel (Heimspiel)\nwJC HSG Siebengebirge-Thomasberg vs. TV Aldekerk II\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 12:24 Uhr\nVoraussichtliche Fahrzeit: ca. 51 Minuten\nTreffzeit an der Halle: 13:15 Uhr\n\n== Ort ==\nHumboldtstrasse 3 53639\n            Königswinter-Oberpleis
 DURATION:PT1H30M
-LOCATION:Halle 11027
-DTSTART:20251004T124500Z
-SUMMARY:✈️ HC TV Rhede - HSG Siebengebirge-Thomasberg
-UID:158888fe-7b57-45c1-9fa4-5f3d716c4c0d@1588.org
+LOCATION:Humboldtstrasse 3 53639\n            Königswinter-Oberpleis
+DTSTART:20250928T121500Z
+SUMMARY:🏠 HSG Siebengebirge-Thomasberg - TV Aldekerk II
+UID:6bd10fbe-2973-476a-8f25-33d7d615c18a@6bd1.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel (Auswärts)\nwJC DJK Unitas Haan e.V. vs. HSG Siebengebirge-Thomasberg\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 12:00 Uhr\nVoraussichtliche Fahrzeit: ca. 60 Minuten\nTreffzeit an der Halle: 13:00 Uhr\n\n== Ort ==\nAdlerstrasse 3 42781\n            Haan Tel.: 02129/50021
@@ -111,39 +95,31 @@ DURATION:PT1H30M
 LOCATION:Adlerstrasse 3 42781\n            Haan Tel.: 02129/50021
 DTSTART:20251108T130000Z
 SUMMARY:✈️ DJK Unitas Haan e.V. - HSG Siebengebirge-Thomasberg
-UID:e5c7fa31-7389-4818-a2f6-b66a20a90913@e5c7.org
+UID:c2b76f64-259f-4145-991a-79bda0a0d8f4@c2b7.org
 END:VEVENT
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nwJC HSG Siebengebirge-Thomasberg vs. Fortuna Düsseldorf 1895 e.V.\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 02:38 Uhr\nVoraussichtliche Fahrzeit: ca. 412 Minuten\nTreffzeit an der Halle: 09:30 Uhr\n\n== Ort ==\nHalle 03054
+DESCRIPTION:Handballspiel (Auswärts)\nwJC Tschft. St. Tönis II vs. HSG Siebengebirge-Thomasberg\n\n== Zeiten ==\nTreffzeit an der Halle: 13:45 Uhr\n\n== Ort ==\nCorneliusstraße 25 47918\n            Tönisvorst Tel.: 02151-792643 (Regieraum) / 792642 (Sanit‰tsraum)
 DURATION:PT1H30M
-LOCATION:Halle 03054
-DTSTART:20260322T093000Z
-SUMMARY:🏠 HSG Siebengebirge-Thomasberg - Fortuna Düsseldorf 1895 e.V.
-UID:cebede76-5037-4de3-b34f-4292d8067885@cebe.org
+LOCATION:Corneliusstraße 25 47918\n            Tönisvorst Tel.: 02151-792643 (Regieraum) / 792642 (Sanit‰tsraum)
+DTSTART:20260307T134500Z
+SUMMARY:✈️ Tschft. St. Tönis II - HSG Siebengebirge-Thomasberg
+UID:a53b6447-2788-41be-8b6a-49c99dad9d4f@a53b.org
 END:VEVENT
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nwJC HSG Siebengebirge-Thomasberg vs. HC TV Rhede\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 08:23 Uhr\nVoraussichtliche Fahrzeit: ca. 412 Minuten\nTreffzeit an der Halle: 15:15 Uhr\n\n== Ort ==\nHalle 03054
+DESCRIPTION:Handballspiel (Auswärts)\nwJC Wermelskirchener TV vs. HSG Siebengebirge-Thomasberg\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 13:36 Uhr\nVoraussichtliche Fahrzeit: ca. 54 Minuten\nTreffzeit an der Halle: 14:30 Uhr\n\n== Ort ==\nStettiner Str. / Am Schwanen 42929\n            Wermelskirchen Tel.: 02196-91400
 DURATION:PT1H30M
-LOCATION:Halle 03054
-DTSTART:20260201T151500Z
-SUMMARY:🏠 HSG Siebengebirge-Thomasberg - HC TV Rhede
-UID:82c7772f-8f58-4cf5-86f7-e18fbea9300e@82c7.org
+LOCATION:Stettiner Str. / Am Schwanen 42929\n            Wermelskirchen Tel.: 02196-91400
+DTSTART:20251122T143000Z
+SUMMARY:✈️ Wermelskirchener TV - HSG Siebengebirge-Thomasberg
+UID:3b991ec3-ed02-4544-a8db-deb9ea480c44@3b99.org
 END:VEVENT
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\nwJC HC Weiden 2018 vs. HSG Siebengebirge-Thomasberg\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 14:34 Uhr\nVoraussichtliche Fahrzeit: ca. 86 Minuten\nTreffzeit an der Halle: 16:00 Uhr\n\n== Ort ==\nParkstrasse 52146\n            Würselen
+DESCRIPTION:Handballspiel (Auswärts)\nwJC TV Aldekerk II vs. HSG Siebengebirge-Thomasberg\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 13:42 Uhr\nVoraussichtliche Fahrzeit: ca. 93 Minuten\nTreffzeit an der Halle: 15:15 Uhr\n\n== Ort ==\nRahmer Kirchweg 19a 47647\n            Kerken
 DURATION:PT1H30M
-LOCATION:Parkstrasse 52146\n            Würselen
-DTSTART:20251102T160000Z
-SUMMARY:✈️ HC Weiden 2018 - HSG Siebengebirge-Thomasberg
-UID:f9f92465-d7d1-4493-be08-8adc9def6dac@f9f9.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\nwJC TV Borken vs. HSG Siebengebirge-Thomasberg\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 12:11 Uhr\nVoraussichtliche Fahrzeit: ca. 109 Minuten\nTreffzeit an der Halle: 14:00 Uhr\n\n== Ort ==\nJosefstr. 10 46325\n            Borken
-DURATION:PT1H30M
-LOCATION:Josefstr. 10 46325\n            Borken
-DTSTART:20250921T130000Z
-SUMMARY:✈️ TV Borken - HSG Siebengebirge-Thomasberg
-UID:bdc2d139-a88d-4814-9a4f-6549da9e1e4b@bdc2.org
+LOCATION:Rahmer Kirchweg 19a 47647\n            Kerken
+DTSTART:20260125T151500Z
+SUMMARY:✈️ TV Aldekerk II - HSG Siebengebirge-Thomasberg
+UID:9777ec00-e14a-4e06-907a-df856596e114@9777.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel (Auswärts)\nwJC Fortuna Düsseldorf 1895 e.V. vs. HSG Siebengebirge-Thomasberg\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 14:17 Uhr\nVoraussichtliche Fahrzeit: ca. 73 Minuten\nTreffzeit an der Halle: 15:30 Uhr\n\n== Ort ==\nKlapheckstraße 31 40474\n            Düsseldorf
@@ -151,30 +127,54 @@ DURATION:PT1H30M
 LOCATION:Klapheckstraße 31 40474\n            Düsseldorf
 DTSTART:20251213T153000Z
 SUMMARY:✈️ Fortuna Düsseldorf 1895 e.V. - HSG Siebengebirge-Thomasberg
-UID:dc081ad4-cbf7-4121-aae1-4c6711beaa17@dc08.org
+UID:8bd06d0c-d8c1-4675-a481-770900b1329b@8bd0.org
 END:VEVENT
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nwJC HSG Siebengebirge-Thomasberg vs. Tschft. St. Tönis II\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 06:38 Uhr\nVoraussichtliche Fahrzeit: ca. 412 Minuten\nTreffzeit an der Halle: 13:30 Uhr\n\n== Ort ==\nHalle 03054
+DESCRIPTION:Handballspiel (Auswärts)\nwJC HC Weiden 2018 vs. HSG Siebengebirge-Thomasberg\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 14:34 Uhr\nVoraussichtliche Fahrzeit: ca. 86 Minuten\nTreffzeit an der Halle: 16:00 Uhr\n\n== Ort ==\nParkstrasse 52146\n            Würselen
 DURATION:PT1H30M
-LOCATION:Halle 03054
-DTSTART:20251129T133000Z
-SUMMARY:🏠 HSG Siebengebirge-Thomasberg - Tschft. St. Tönis II
-UID:ee83c200-8733-4180-af4e-965f39397f6c@ee83.org
+LOCATION:Parkstrasse 52146\n            Würselen
+DTSTART:20251102T160000Z
+SUMMARY:✈️ HC Weiden 2018 - HSG Siebengebirge-Thomasberg
+UID:fe26c243-95fa-43f9-8407-52a8259d56bb@fe26.org
 END:VEVENT
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nwJC HSG Siebengebirge-Thomasberg vs. DJK Unitas Haan e.V.\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 05:53 Uhr\nVoraussichtliche Fahrzeit: ca. 412 Minuten\nTreffzeit an der Halle: 12:45 Uhr\n\n== Ort ==\nHalle 03054
+DESCRIPTION:Handballspiel (Heimspiel)\nwJC HSG Siebengebirge-Thomasberg vs. TV Borken\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 12:39 Uhr\nVoraussichtliche Fahrzeit: ca. 51 Minuten\nTreffzeit an der Halle: 13:30 Uhr\n\n== Ort ==\nHumboldtstrasse 3 53639\n            Königswinter-Oberpleis
 DURATION:PT1H30M
-LOCATION:Halle 03054
-DTSTART:20260214T124500Z
-SUMMARY:🏠 HSG Siebengebirge-Thomasberg - DJK Unitas Haan e.V.
-UID:a1b2e8d8-afd4-464a-89f0-cd0fe484dde4@a1b2.org
+LOCATION:Humboldtstrasse 3 53639\n            Königswinter-Oberpleis
+DTSTART:20260118T133000Z
+SUMMARY:🏠 HSG Siebengebirge-Thomasberg - TV Borken
+UID:2d2e5f68-75f3-47ab-b4e7-421bbcfb1736@2d2e.org
 END:VEVENT
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nwJC HSG Siebengebirge-Thomasberg vs. Solinger TB\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 08:22 Uhr\nVoraussichtliche Fahrzeit: ca. 278 Minuten\nTreffzeit an der Halle: 13:00 Uhr\n\n== Ort ==\nHalle 03017
+DESCRIPTION:Handballspiel (Auswärts)\nwJC TV Borken vs. HSG Siebengebirge-Thomasberg\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 12:11 Uhr\nVoraussichtliche Fahrzeit: ca. 109 Minuten\nTreffzeit an der Halle: 14:00 Uhr\n\n== Ort ==\nJosefstr. 10 46325\n            Borken
 DURATION:PT1H30M
-LOCATION:Halle 03017
-DTSTART:20251116T130000Z
-SUMMARY:🏠 HSG Siebengebirge-Thomasberg - Solinger TB
-UID:79499b29-a671-4b6f-a117-9dd6d1a5f71b@7949.org
+LOCATION:Josefstr. 10 46325\n            Borken
+DTSTART:20250921T130000Z
+SUMMARY:✈️ TV Borken - HSG Siebengebirge-Thomasberg
+UID:57e04a00-3c03-4601-ac9b-0df1eeb802c0@57e0.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Heimspiel)\nwJC HSG Siebengebirge-Thomasberg vs. Bergischer HC\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 12:09 Uhr\nVoraussichtliche Fahrzeit: ca. 51 Minuten\nTreffzeit an der Halle: 13:00 Uhr\n\n== Ort ==\nHumboldtstrasse 3 53639\n            Königswinter-Oberpleis
+DURATION:PT1H30M
+LOCATION:Humboldtstrasse 3 53639\n            Königswinter-Oberpleis
+DTSTART:20251207T130000Z
+SUMMARY:🏠 HSG Siebengebirge-Thomasberg - Bergischer HC
+UID:abd1e9bd-acad-4f16-b75f-bcfeb6830fbe@abd1.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Auswärts)\nwJC HC TV Rhede vs. HSG Siebengebirge-Thomasberg\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 11:55 Uhr\nVoraussichtliche Fahrzeit: ca. 110 Minuten\nTreffzeit an der Halle: 13:45 Uhr\n\n== Ort ==\nMittelmannstr. 46414\n            Rhede Tel.: 02872/926744
+DURATION:PT1H30M
+LOCATION:Mittelmannstr. 46414\n            Rhede Tel.: 02872/926744
+DTSTART:20251004T124500Z
+SUMMARY:✈️ HC TV Rhede - HSG Siebengebirge-Thomasberg
+UID:95d1ec0f-6e27-4636-af50-cdf26702f0ac@95d1.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Heimspiel)\nwJC HSG Siebengebirge-Thomasberg vs. Fortuna Düsseldorf 1895 e.V.\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 08:39 Uhr\nVoraussichtliche Fahrzeit: ca. 51 Minuten\nTreffzeit an der Halle: 09:30 Uhr\n\n== Ort ==\nHumboldtstrasse 3 53639\n            Königswinter-Oberpleis
+DURATION:PT1H30M
+LOCATION:Humboldtstrasse 3 53639\n            Königswinter-Oberpleis
+DTSTART:20260322T093000Z
+SUMMARY:🏠 HSG Siebengebirge-Thomasberg - Fortuna Düsseldorf 1895 e.V.
+UID:142556c4-437f-45e8-9f14-dfa2928d977f@1425.org
 END:VEVENT
 END:VCALENDAR
