@@ -2,44 +2,12 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:ics.py - http://git.io/lLljaA
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\nwJB SG Engelskirchen/Loope vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 16:10 Uhr\nVoraussichtliche Fahrzeit: ca. 20 Minuten\nTreffzeit an der Halle: 16:30 Uhr\n\n== Ort ==\nWalbach 51766\n            Engelskirchen-Ründeroth
+DESCRIPTION:Handballspiel (Heimspiel)\nwJB SSV Nümbrecht Handball vs. HBD Löwen Oberberg\n\n== Zeiten ==\nTreffzeit an der Halle: 15:30 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
 DURATION:PT1H30M
-LOCATION:Walbach 51766\n            Engelskirchen-Ründeroth
-DTSTART:20251129T163000Z
-SUMMARY:✈️ SG Engelskirchen/Loope - SSV Nümbrecht Handball
-UID:799ed46c-008a-4e3d-b664-02a5871f710c@799e.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\nwJB TVE Netphen vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 16:43 Uhr\nVoraussichtliche Fahrzeit: ca. 47 Minuten\nTreffzeit an der Halle: 17:30 Uhr\n\n== Ort ==\nHaardtstraße 62 57250\n            Netphen
-DURATION:PT1H30M
-LOCATION:Haardtstraße 62 57250\n            Netphen
-DTSTART:20260320T173000Z
-SUMMARY:✈️ TVE Netphen - SSV Nümbrecht Handball
-UID:903bbdce-68dc-4422-b056-75da6a46fe8b@903b.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\nwJB HSG Marienheide/Müllenbach vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 15:29 Uhr\nVoraussichtliche Fahrzeit: ca. 31 Minuten\nTreffzeit an der Halle: 16:00 Uhr\n\n== Ort ==\nPestalozzistr. 51709\n            Marienheide
-DURATION:PT1H30M
-LOCATION:Pestalozzistr. 51709\n            Marienheide
-DTSTART:20251102T160000Z
-SUMMARY:✈️ HSG Marienheide/Müllenbach - SSV Nümbrecht Handball
-UID:62b89f16-5e5d-4116-9184-806bd7167c82@62b8.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\nwJB SG Kierspe-Meinerzhagen vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 11:22 Uhr\nVoraussichtliche Fahrzeit: ca. 38 Minuten\nTreffzeit an der Halle: 12:00 Uhr\n\n== Ort ==\nOtto-Ruhe-Straße 2 58566\n            Kierspe
-DURATION:PT1H30M
-LOCATION:Otto-Ruhe-Straße 2 58566\n            Kierspe
-DTSTART:20260124T120000Z
-SUMMARY:✈️ SG Kierspe-Meinerzhagen - SSV Nümbrecht Handball
-UID:12bc284c-e494-429a-92b6-41eff2720f9e@12bc.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\nwJB HBD Löwen Oberberg vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 09:40 Uhr\nVoraussichtliche Fahrzeit: ca. 20 Minuten\nTreffzeit an der Halle: 10:00 Uhr\n\n== Ort ==\nGoethestrasse 51702\n            Bergneustadt
-DURATION:PT1H30M
-LOCATION:Goethestrasse 51702\n            Bergneustadt
-DTSTART:20260308T100000Z
-SUMMARY:✈️ HBD Löwen Oberberg - SSV Nümbrecht Handball
-UID:0d90de17-4dac-4e24-b55b-30a8c8ce80d9@0d90.org
+LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DTSTART:20251206T153000Z
+SUMMARY:🏠 SSV Nümbrecht Handball - HBD Löwen Oberberg
+UID:3d1abd5f-fb38-4bd7-a21c-928525afa5b8@3d1a.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel (Heimspiel)\nwJB SSV Nümbrecht Handball vs. HSG Marienheide/Müllenbach\n\n== Zeiten ==\nTreffzeit an der Halle: 17:00 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
@@ -47,55 +15,7 @@ DURATION:PT1H30M
 LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
 DTSTART:20260131T170000Z
 SUMMARY:🏠 SSV Nümbrecht Handball - HSG Marienheide/Müllenbach
-UID:1b7d89ab-ca14-4bc3-89cb-af527d3d24a7@1b7d.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\nwJB VfL Gummersbach vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 14:40 Uhr\nVoraussichtliche Fahrzeit: ca. 20 Minuten\nTreffzeit an der Halle: 15:00 Uhr\n\n== Ort ==\nSteinmüllerallee 51643\n            Gummersbach
-DURATION:PT1H30M
-LOCATION:Steinmüllerallee 51643\n            Gummersbach
-DTSTART:20260221T150000Z
-SUMMARY:✈️ VfL Gummersbach - SSV Nümbrecht Handball
-UID:a869c851-a2f5-4552-9def-1f606511e4fc@a869.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nwJB SSV Nümbrecht Handball vs. HSG Siebengebirge-Thomasberg II\n\n== Zeiten ==\nTreffzeit an der Halle: 12:45 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
-DURATION:PT1H30M
-LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
-DTSTART:20260207T124500Z
-SUMMARY:🏠 SSV Nümbrecht Handball - HSG Siebengebirge-Thomasberg II
-UID:595af079-46e0-408c-be0a-1daebf99d4c8@595a.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nwJB SSV Nümbrecht Handball vs. TVE Netphen\n\n== Zeiten ==\nTreffzeit an der Halle: 15:30 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
-DURATION:PT1H30M
-LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
-DTSTART:20250913T143000Z
-SUMMARY:🏠 SSV Nümbrecht Handball - TVE Netphen
-UID:a63cd6a4-5a41-4b14-aa72-33d77a77dda1@a63c.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nwJB SSV Nümbrecht Handball vs. VfL Gummersbach\n\n== Zeiten ==\nTreffzeit an der Halle: 17:00 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
-DURATION:PT1H30M
-LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
-DTSTART:20251122T170000Z
-SUMMARY:🏠 SSV Nümbrecht Handball - VfL Gummersbach
-UID:2f2cd376-fee6-46e7-a62c-459e0d570230@2f2c.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\nwJB TV Wahlscheid vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 14:53 Uhr\nVoraussichtliche Fahrzeit: ca. 37 Minuten\nTreffzeit an der Halle: 15:30 Uhr\n\n== Ort ==\nWahlscheider Str. 56 53797\n            Lohmar-Wahlscheid
-DURATION:PT1H30M
-LOCATION:Wahlscheider Str. 56 53797\n            Lohmar-Wahlscheid
-DTSTART:20250920T143000Z
-SUMMARY:✈️ TV Wahlscheid - SSV Nümbrecht Handball
-UID:dff77506-9b4d-4ea6-91e1-0421450c1281@dff7.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nwJB SSV Nümbrecht Handball vs. SG Kierspe-Meinerzhagen\n\n== Zeiten ==\nTreffzeit an der Halle: 15:00 Uhr\n\n== Ort ==\nGouvieuxstr. 2 51588\n            Nümbrecht
-DURATION:PT1H30M
-LOCATION:Gouvieuxstr. 2 51588\n            Nümbrecht
-DTSTART:20260314T150000Z
-SUMMARY:🏠 SSV Nümbrecht Handball - SG Kierspe-Meinerzhagen
-UID:e41309b5-4a97-4cba-84a7-e836639e8070@e413.org
+UID:79431865-76e2-4bd5-bbdb-15d41ed6a4a9@7943.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel (Heimspiel)\nwJB SSV Nümbrecht Handball vs. SG Engelskirchen/Loope\n\n== Zeiten ==\nTreffzeit an der Halle: 13:00 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
@@ -103,15 +23,47 @@ DURATION:PT1H30M
 LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
 DTSTART:20260228T130000Z
 SUMMARY:🏠 SSV Nümbrecht Handball - SG Engelskirchen/Loope
-UID:ac9a3cdb-bf93-41e9-b9f5-e8fe740d9db7@ac9a.org
+UID:3eacfbca-0fa9-482f-bc30-0bb517dc0008@3eac.org
 END:VEVENT
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nwJB SSV Nümbrecht Handball vs. TV Wahlscheid\n\n== Zeiten ==\nTreffzeit an der Halle: 16:00 Uhr\n\n== Ort ==\nGouvieuxstr. 2 51588\n            Nümbrecht
+DESCRIPTION:Handballspiel (Auswärts)\nwJB SG Engelskirchen/Loope vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 16:10 Uhr\nVoraussichtliche Fahrzeit: ca. 20 Minuten\nTreffzeit an der Halle: 16:30 Uhr\n\n== Ort ==\nWalbach 51766\n            Engelskirchen-Ründeroth
 DURATION:PT1H30M
-LOCATION:Gouvieuxstr. 2 51588\n            Nümbrecht
-DTSTART:20260118T160000Z
-SUMMARY:🏠 SSV Nümbrecht Handball - TV Wahlscheid
-UID:2926a7c4-ac9e-4c5c-b41f-cf9a1858f436@2926.org
+LOCATION:Walbach 51766\n            Engelskirchen-Ründeroth
+DTSTART:20251129T163000Z
+SUMMARY:✈️ SG Engelskirchen/Loope - SSV Nümbrecht Handball
+UID:8ef50fdb-0426-409d-99ba-4d40b939f64b@8ef5.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Heimspiel)\nwJB SSV Nümbrecht Handball vs. TVE Netphen\n\n== Zeiten ==\nTreffzeit an der Halle: 15:30 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DURATION:PT1H30M
+LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DTSTART:20250913T143000Z
+SUMMARY:🏠 SSV Nümbrecht Handball - TVE Netphen
+UID:7d681a08-35c5-4f75-a36c-3a4943f3a3b2@7d68.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Heimspiel)\nwJB SSV Nümbrecht Handball vs. HSG Siebengebirge-Thomasberg II\n\n== Zeiten ==\nTreffzeit an der Halle: 12:45 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DURATION:PT1H30M
+LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DTSTART:20260207T124500Z
+SUMMARY:🏠 SSV Nümbrecht Handball - HSG Siebengebirge-Thomasberg II
+UID:f56efcd0-191b-457b-b804-46d8303a1395@f56e.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Heimspiel)\nwJB SSV Nümbrecht Handball vs. VfL Gummersbach\n\n== Zeiten ==\nTreffzeit an der Halle: 17:00 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DURATION:PT1H30M
+LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DTSTART:20251122T170000Z
+SUMMARY:🏠 SSV Nümbrecht Handball - VfL Gummersbach
+UID:160640fc-a4fe-497d-9f8f-afd9ca9e17f0@1606.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Auswärts)\nwJB SG Kierspe-Meinerzhagen vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 11:22 Uhr\nVoraussichtliche Fahrzeit: ca. 38 Minuten\nTreffzeit an der Halle: 12:00 Uhr\n\n== Ort ==\nOtto-Ruhe-Straße 2 58566\n            Kierspe
+DURATION:PT1H30M
+LOCATION:Otto-Ruhe-Straße 2 58566\n            Kierspe
+DTSTART:20260124T120000Z
+SUMMARY:✈️ SG Kierspe-Meinerzhagen - SSV Nümbrecht Handball
+UID:4b67eeb0-9504-4a3a-b356-6ec53a750a3e@4b67.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel (Auswärts)\nwJB HSG Siebengebirge-Thomasberg II vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 14:10 Uhr\nVoraussichtliche Fahrzeit: ca. 50 Minuten\nTreffzeit an der Halle: 15:00 Uhr\n\n== Ort ==\nSchulzentrum\, Dollendorfer Str. 53639\n            Königswinter-Oberpleis
@@ -119,14 +71,62 @@ DURATION:PT1H30M
 LOCATION:Schulzentrum\, Dollendorfer Str. 53639\n            Königswinter-Oberpleis
 DTSTART:20251109T150000Z
 SUMMARY:✈️ HSG Siebengebirge-Thomasberg II - SSV Nümbrecht Handball
-UID:04b89d47-72ff-479e-bddb-1a1a0ee10da9@04b8.org
+UID:94c23697-8285-45c9-a5c7-363046a64fa2@94c2.org
 END:VEVENT
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nwJB SSV Nümbrecht Handball vs. HBD Löwen Oberberg\n\n== Zeiten ==\nTreffzeit an der Halle: 15:30 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DESCRIPTION:Handballspiel (Auswärts)\nwJB VfL Gummersbach vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 14:40 Uhr\nVoraussichtliche Fahrzeit: ca. 20 Minuten\nTreffzeit an der Halle: 15:00 Uhr\n\n== Ort ==\nSteinmüllerallee 51643\n            Gummersbach
 DURATION:PT1H30M
-LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
-DTSTART:20251206T153000Z
-SUMMARY:🏠 SSV Nümbrecht Handball - HBD Löwen Oberberg
-UID:0170feab-6e3e-407e-887f-b7f5df87194f@0170.org
+LOCATION:Steinmüllerallee 51643\n            Gummersbach
+DTSTART:20260221T150000Z
+SUMMARY:✈️ VfL Gummersbach - SSV Nümbrecht Handball
+UID:efa93650-f6df-4923-ab0e-488089172714@efa9.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Auswärts)\nwJB HSG Marienheide/Müllenbach vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 15:29 Uhr\nVoraussichtliche Fahrzeit: ca. 31 Minuten\nTreffzeit an der Halle: 16:00 Uhr\n\n== Ort ==\nPestalozzistr. 51709\n            Marienheide
+DURATION:PT1H30M
+LOCATION:Pestalozzistr. 51709\n            Marienheide
+DTSTART:20251102T160000Z
+SUMMARY:✈️ HSG Marienheide/Müllenbach - SSV Nümbrecht Handball
+UID:bb13d6cd-a154-4414-9b28-ba210302c640@bb13.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Auswärts)\nwJB TVE Netphen vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 16:43 Uhr\nVoraussichtliche Fahrzeit: ca. 47 Minuten\nTreffzeit an der Halle: 17:30 Uhr\n\n== Ort ==\nHaardtstraße 62 57250\n            Netphen
+DURATION:PT1H30M
+LOCATION:Haardtstraße 62 57250\n            Netphen
+DTSTART:20260320T173000Z
+SUMMARY:✈️ TVE Netphen - SSV Nümbrecht Handball
+UID:1b6fee89-e4f7-4d0b-8ead-23891ddbabb0@1b6f.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Heimspiel)\nwJB SSV Nümbrecht Handball vs. TV Wahlscheid\n\n== Zeiten ==\nTreffzeit an der Halle: 16:00 Uhr\n\n== Ort ==\nGouvieuxstr. 2 51588\n            Nümbrecht
+DURATION:PT1H30M
+LOCATION:Gouvieuxstr. 2 51588\n            Nümbrecht
+DTSTART:20260118T160000Z
+SUMMARY:🏠 SSV Nümbrecht Handball - TV Wahlscheid
+UID:be47964f-9291-45a5-aabd-9a6645f7579e@be47.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Auswärts)\nwJB TV Wahlscheid vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 14:53 Uhr\nVoraussichtliche Fahrzeit: ca. 37 Minuten\nTreffzeit an der Halle: 15:30 Uhr\n\n== Ort ==\nWahlscheider Str. 56 53797\n            Lohmar-Wahlscheid
+DURATION:PT1H30M
+LOCATION:Wahlscheider Str. 56 53797\n            Lohmar-Wahlscheid
+DTSTART:20250920T143000Z
+SUMMARY:✈️ TV Wahlscheid - SSV Nümbrecht Handball
+UID:77712f03-f036-4294-9f06-a605fc136a56@7771.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Heimspiel)\nwJB SSV Nümbrecht Handball vs. SG Kierspe-Meinerzhagen\n\n== Zeiten ==\nTreffzeit an der Halle: 15:00 Uhr\n\n== Ort ==\nGouvieuxstr. 2 51588\n            Nümbrecht
+DURATION:PT1H30M
+LOCATION:Gouvieuxstr. 2 51588\n            Nümbrecht
+DTSTART:20260314T150000Z
+SUMMARY:🏠 SSV Nümbrecht Handball - SG Kierspe-Meinerzhagen
+UID:c353daa4-59d3-47d0-8f47-66d3b3170f95@c353.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Auswärts)\nwJB HBD Löwen Oberberg vs. SSV Nümbrecht Handball\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 09:40 Uhr\nVoraussichtliche Fahrzeit: ca. 20 Minuten\nTreffzeit an der Halle: 10:00 Uhr\n\n== Ort ==\nGoethestrasse 51702\n            Bergneustadt
+DURATION:PT1H30M
+LOCATION:Goethestrasse 51702\n            Bergneustadt
+DTSTART:20260308T100000Z
+SUMMARY:✈️ HBD Löwen Oberberg - SSV Nümbrecht Handball
+UID:c3f3ece8-e409-44be-95a4-508f98358ad5@c3f3.org
 END:VEVENT
 END:VCALENDAR
