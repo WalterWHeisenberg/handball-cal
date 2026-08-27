@@ -2,28 +2,12 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:ics.py - http://git.io/lLljaA
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\nH3 SV Frielingsdorf vs. SSV Nümbrecht Handball III\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 12:32 Uhr\nVoraussichtliche Fahrzeit: ca. 28 Minuten\nTreffzeit an der Halle: 13:00 Uhr\n\n== Ort ==\nCarola-Lob-Weg 1 51789\n            Lindlar
-DURATION:PT1H30M
-LOCATION:Carola-Lob-Weg 1 51789\n            Lindlar
-DTSTART:20260411T120000Z
-SUMMARY:✈️ SV Frielingsdorf - SSV Nümbrecht Handball III
-UID:3753eede-1927-4149-b962-65aae435c56c@3753.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\nH3 TV Wahlscheid II vs. SSV Nümbrecht Handball III\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 18:23 Uhr\nVoraussichtliche Fahrzeit: ca. 37 Minuten\nTreffzeit an der Halle: 19:00 Uhr\n\n== Ort ==\nWahlscheider Str. 56 53797\n            Lohmar-Wahlscheid
-DURATION:PT1H30M
-LOCATION:Wahlscheider Str. 56 53797\n            Lohmar-Wahlscheid
-DTSTART:20260304T190000Z
-SUMMARY:✈️ TV Wahlscheid II - SSV Nümbrecht Handball III
-UID:1e8833aa-dd6e-46b0-b9de-389af1a29043@1e88.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nH3 SSV Nümbrecht Handball III vs. SV Frielingsdorf\n\n== Zeiten ==\nTreffzeit an der Halle: 17:00 Uhr\n\n== Ort ==\nGouvieuxstr. 2 51588\n            Nümbrecht
+DESCRIPTION:Handballspiel (Heimspiel)\nH3 SSV Nümbrecht Handball III vs. HBD Löwen Oberberg III\n\n== Zeiten ==\nTreffzeit an der Halle: 17:00 Uhr\n\n== Ort ==\nGouvieuxstr. 2 51588\n            Nümbrecht
 DURATION:PT1H30M
 LOCATION:Gouvieuxstr. 2 51588\n            Nümbrecht
-DTSTART:20260314T170000Z
-SUMMARY:🏠 SSV Nümbrecht Handball III - SV Frielingsdorf
-UID:534d4ce1-9cf3-4aee-b759-46ac7f615a3d@534d.org
+DTSTART:20251130T170000Z
+SUMMARY:🏠 SSV Nümbrecht Handball III - HBD Löwen Oberberg III
+UID:7d18f369-a5bf-4d31-9250-ad2fa1018dfb@7d18.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel (Heimspiel)\nH3 SSV Nümbrecht Handball III vs. TV Wahlscheid II\n\n== Zeiten ==\nTreffzeit an der Halle: 17:00 Uhr\n\n== Ort ==\nGouvieuxstr. 2 51588\n            Nümbrecht
@@ -31,7 +15,7 @@ DURATION:PT1H30M
 LOCATION:Gouvieuxstr. 2 51588\n            Nümbrecht
 DTSTART:20251109T170000Z
 SUMMARY:🏠 SSV Nümbrecht Handball III - TV Wahlscheid II
-UID:bb930b5b-be69-4323-8110-e52ecf693ea3@bb93.org
+UID:5a18cc22-1e65-458e-8aeb-293c71af939c@5a18.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel (Auswärts)\nH3 Blue-White-Dynamite VfL Gummersbach e.V. vs. SSV Nümbrecht Handball III\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 16:38 Uhr\nVoraussichtliche Fahrzeit: ca. 22 Minuten\nTreffzeit an der Halle: 17:00 Uhr\n\n== Ort ==\nSingerbrinkstr. 31 51643\n            Gummersbach
@@ -39,23 +23,7 @@ DURATION:PT1H30M
 LOCATION:Singerbrinkstr. 31 51643\n            Gummersbach
 DTSTART:20250921T160000Z
 SUMMARY:✈️ Blue-White-Dynamite VfL Gummersbach e.V. - SSV Nümbrecht Handball III
-UID:07196f1b-ee5b-4b0f-95a4-049abca64678@0719.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nH3 SSV Nümbrecht Handball III vs. HSG Marienheide/Müllenbach II\n\n== Zeiten ==\nTreffzeit an der Halle: 17:00 Uhr\n\n== Ort ==\nGouvieuxstr. 2 51588\n            Nümbrecht
-DURATION:PT1H30M
-LOCATION:Gouvieuxstr. 2 51588\n            Nümbrecht
-DTSTART:20260228T170000Z
-SUMMARY:🏠 SSV Nümbrecht Handball III - HSG Marienheide/Müllenbach II
-UID:4e315d5f-6bd5-486c-aaa9-dd8a6cad94ad@4e31.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nH3 SSV Nümbrecht Handball III vs. Blue-White-Dynamite VfL Gummersbach e.V.\n\n== Zeiten ==\nTreffzeit an der Halle: 15:00 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
-DURATION:PT1H30M
-LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
-DTSTART:20260117T150000Z
-SUMMARY:🏠 SSV Nümbrecht Handball III - Blue-White-Dynamite VfL Gummersbach e.V.
-UID:348eb293-9d3b-4128-bf4e-c39e20d5cbd3@348e.org
+UID:1946addb-570c-407c-8f59-c0e319643456@1946.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel (Auswärts)\nH3 HSG Marienheide/Müllenbach II vs. SSV Nümbrecht Handball III\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 14:39 Uhr\nVoraussichtliche Fahrzeit: ca. 31 Minuten\nTreffzeit an der Halle: 15:10 Uhr\n\n== Ort ==\nPestalozzistr. 51709\n            Marienheide
@@ -63,23 +31,7 @@ DURATION:PT1H30M
 LOCATION:Pestalozzistr. 51709\n            Marienheide
 DTSTART:20251116T151000Z
 SUMMARY:✈️ HSG Marienheide/Müllenbach II - SSV Nümbrecht Handball III
-UID:8d445cea-caa2-4d7f-9842-e5f3274da37d@8d44.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nH3 SSV Nümbrecht Handball III vs. CVJM Oberwiehl III\n\n== Zeiten ==\nTreffzeit an der Halle: 14:45 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
-DURATION:PT1H30M
-LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
-DTSTART:20251102T144500Z
-SUMMARY:🏠 SSV Nümbrecht Handball III - CVJM Oberwiehl III
-UID:5ace1f5e-ed2e-4568-a6de-43f478d19498@5ace.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\nH3 HBD Löwen Oberberg III vs. SSV Nümbrecht Handball III\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 11:40 Uhr\nVoraussichtliche Fahrzeit: ca. 20 Minuten\nTreffzeit an der Halle: 12:00 Uhr\n\n== Ort ==\nGoethestrasse 51702\n            Bergneustadt
-DURATION:PT1H30M
-LOCATION:Goethestrasse 51702\n            Bergneustadt
-DTSTART:20260308T120000Z
-SUMMARY:✈️ HBD Löwen Oberberg III - SSV Nümbrecht Handball III
-UID:d0e04fd6-c3d2-4071-abc6-cec8897f64e5@d0e0.org
+UID:d707398b-cbaf-43c0-8802-8edfe1714fb5@d707.org
 END:VEVENT
 BEGIN:VEVENT
 DESCRIPTION:Handballspiel (Auswärts)\nH3 CVJM Oberwiehl III vs. SSV Nümbrecht Handball III\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 16:51 Uhr\nVoraussichtliche Fahrzeit: ca. 9 Minuten\nTreffzeit an der Halle: 17:00 Uhr\n\n== Ort ==\nHauptstr. 81 51674\n            Wiehl
@@ -87,14 +39,62 @@ DURATION:PT1H30M
 LOCATION:Hauptstr. 81 51674\n            Wiehl
 DTSTART:20260418T160000Z
 SUMMARY:✈️ CVJM Oberwiehl III - SSV Nümbrecht Handball III
-UID:f84bb576-dfe7-4fb2-9341-bf2e73cea286@f84b.org
+UID:daebe100-ab52-4bfe-a158-a344fcddb503@daeb.org
 END:VEVENT
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nH3 SSV Nümbrecht Handball III vs. HBD Löwen Oberberg III\n\n== Zeiten ==\nTreffzeit an der Halle: 17:00 Uhr\n\n== Ort ==\nGouvieuxstr. 2 51588\n            Nümbrecht
+DESCRIPTION:Handballspiel (Auswärts)\nH3 TV Wahlscheid II vs. SSV Nümbrecht Handball III\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 18:21 Uhr\nVoraussichtliche Fahrzeit: ca. 39 Minuten\nTreffzeit an der Halle: 19:00 Uhr\n\n== Ort ==\nWahlscheider Str. 56 53797\n            Lohmar-Wahlscheid
+DURATION:PT1H30M
+LOCATION:Wahlscheider Str. 56 53797\n            Lohmar-Wahlscheid
+DTSTART:20260304T190000Z
+SUMMARY:✈️ TV Wahlscheid II - SSV Nümbrecht Handball III
+UID:b67421b6-fa98-4879-8891-098a6fc8331a@b674.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Auswärts)\nH3 HBD Löwen Oberberg III vs. SSV Nümbrecht Handball III\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 11:40 Uhr\nVoraussichtliche Fahrzeit: ca. 20 Minuten\nTreffzeit an der Halle: 12:00 Uhr\n\n== Ort ==\nGoethestrasse 51702\n            Bergneustadt
+DURATION:PT1H30M
+LOCATION:Goethestrasse 51702\n            Bergneustadt
+DTSTART:20260308T120000Z
+SUMMARY:✈️ HBD Löwen Oberberg III - SSV Nümbrecht Handball III
+UID:8ee1230f-5d80-4174-9e62-bc0010b4f07a@8ee1.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Heimspiel)\nH3 SSV Nümbrecht Handball III vs. Blue-White-Dynamite VfL Gummersbach e.V.\n\n== Zeiten ==\nTreffzeit an der Halle: 15:00 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DURATION:PT1H30M
+LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DTSTART:20260117T150000Z
+SUMMARY:🏠 SSV Nümbrecht Handball III - Blue-White-Dynamite VfL Gummersbach e.V.
+UID:57654256-032b-4999-b3b5-585100360038@5765.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Heimspiel)\nH3 SSV Nümbrecht Handball III vs. SV Frielingsdorf\n\n== Zeiten ==\nTreffzeit an der Halle: 17:00 Uhr\n\n== Ort ==\nGouvieuxstr. 2 51588\n            Nümbrecht
 DURATION:PT1H30M
 LOCATION:Gouvieuxstr. 2 51588\n            Nümbrecht
-DTSTART:20251130T170000Z
-SUMMARY:🏠 SSV Nümbrecht Handball III - HBD Löwen Oberberg III
-UID:0cfae158-ca11-4856-893f-638d27e26d36@0cfa.org
+DTSTART:20260314T170000Z
+SUMMARY:🏠 SSV Nümbrecht Handball III - SV Frielingsdorf
+UID:dc48efba-66bc-4ebf-b618-944ef29c8e2d@dc48.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Auswärts)\nH3 SV Frielingsdorf vs. SSV Nümbrecht Handball III\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 12:30 Uhr\nVoraussichtliche Fahrzeit: ca. 30 Minuten\nTreffzeit an der Halle: 13:00 Uhr\n\n== Ort ==\nCarola-Lob-Weg 1 51789\n            Lindlar
+DURATION:PT1H30M
+LOCATION:Carola-Lob-Weg 1 51789\n            Lindlar
+DTSTART:20260411T120000Z
+SUMMARY:✈️ SV Frielingsdorf - SSV Nümbrecht Handball III
+UID:3019b177-2b29-4c1c-9d4e-5ae959582a39@3019.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Heimspiel)\nH3 SSV Nümbrecht Handball III vs. CVJM Oberwiehl III\n\n== Zeiten ==\nTreffzeit an der Halle: 14:45 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DURATION:PT1H30M
+LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
+DTSTART:20251102T144500Z
+SUMMARY:🏠 SSV Nümbrecht Handball III - CVJM Oberwiehl III
+UID:683bff85-f6aa-4c3b-b4dc-555964c16cb0@683b.org
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Handballspiel (Heimspiel)\nH3 SSV Nümbrecht Handball III vs. HSG Marienheide/Müllenbach II\n\n== Zeiten ==\nTreffzeit an der Halle: 17:00 Uhr\n\n== Ort ==\nGouvieuxstr. 2 51588\n            Nümbrecht
+DURATION:PT1H30M
+LOCATION:Gouvieuxstr. 2 51588\n            Nümbrecht
+DTSTART:20260228T170000Z
+SUMMARY:🏠 SSV Nümbrecht Handball III - HSG Marienheide/Müllenbach II
+UID:a1f84e56-b685-4763-a219-3c07e1561ec4@a1f8.org
 END:VEVENT
 END:VCALENDAR
