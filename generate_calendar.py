@@ -11,11 +11,10 @@ import sys
 START_ADRESSE = "Gouvieuxstraße 2, 51588 Nümbrecht"
 
 # --- Konfiguration: handball.net Abo-Kalender (ICS-Feed, wird gefiltert) ---
-# HINWEIS zu den URLs: Die ICS-Endpunkte wurden aus den Liga-Seiten-URLs
-# abgeleitet (Muster: /kalender/liga/{id}.ics). season_id/fed_id wurden
-# sicherheitshalber übernommen, falls handball.net sie zur eindeutigen
-# Saison-Zuordnung benötigt. Bitte nach dem ersten Lauf in den Logs prüfen,
-# ob "X Spiele im Gesamt-Kalender gefunden" > 0 ist.
+# nuLiga/liga.nu ist entfallen (wird abgeschaltet). handball.net liefert pro
+# Liga einen Gesamt-Kalender als ICS; wir laden ihn herunter, übernehmen nur
+# die Spiele des eigenen Vereins (bzw. des gewünschten Vereins) und ergänzen
+# Halle, Treffzeit und Fahrzeit in der Beschreibung.
 HANDBALLNET_CONFIG = [
     {
         "url": "https://www.handball.net/kalender/liga/8053.ics",
@@ -39,11 +38,15 @@ HANDBALLNET_CONFIG = [
         "immer_fahrzeit_berechnen": False
     },
     {
-        # Achtung: Hier interessiert der 1. FC Köln, nicht Nümbrecht.
+        # Hier interessiert der 1. FC Köln, nicht Nümbrecht.
+        # Filter bewusst nur auf "Köln" (statt "1. FC Köln"), da der exakte
+        # Vereinsname im Feed abweichend geschrieben sein kann
+        # (z.B. "1.FC Köln", "1. FC Köln 1934" o.ä.) - "Köln" als Teilstring
+        # ist robuster.
         # immer_fahrzeit_berechnen=True, da die Fahrzeit ab Nümbrecht
         # unabhängig davon interessant ist, ob Köln Heim- oder Auswärtsspiel hat.
         "url": "https://www.handball.net/kalender/liga/6108.ics?season_id=2627&fed_id=20",
-        "filter_team": "1. FC Köln",
+        "filter_team": "Köln",
         "output": "handball_wjc-hsg.ics",
         "puffer_min": 60,
         "immer_fahrzeit_berechnen": True
@@ -67,10 +70,13 @@ HANDBALLNET_CONFIG = [
 ]
 
 # --- Manuelle Hallen-Overrides (bei bekannten Geokodierungs-Fehlern) ---
+# Schlüssel = eindeutiges Teilwort im Hallen-/Ortsnamen (klein geschrieben).
 HALLEN_KOORDINATEN_MANUELL = {
     # "wiehl": (50.9530, 7.4550),
 }
 
+# Bekannte, noch nicht ins Deutsche übersetzte Status-Begriffe von
+# handball.net (vermutlich ein Lokalisierungs-Bug in deren Backend).
 STATUS_UEBERSETZUNG = {
     "pendiente": "Ausstehend",
     "finalizado": "Beendet",
@@ -81,13 +87,18 @@ STATUS_UEBERSETZUNG = {
     "suspendido": "Abgebrochen",
 }
 
+# --- Caches für Performance (pro Skriptlauf) ---
 fahrzeit_cache = {}
 koordinaten_cache = {}
 
+# Mögliche Trennzeichen zwischen Heim- und Gastmannschaft im Event-Titel.
+# " - " ist im echten handball.net-Feed bestätigt (z.B.
+# "TV Wahlscheid II - SG Engelskirchen/Loope").
 TITEL_TRENNER = [" - ", " – ", " vs. ", " vs ", " : "]
 
 
 def zerlege_titel(titel):
+    """Versucht Heim- und Gastmannschaft aus dem Event-Titel zu extrahieren."""
     for trenner in TITEL_TRENNER:
         if trenner in titel:
             teile = titel.split(trenner, 1)
@@ -97,6 +108,7 @@ def zerlege_titel(titel):
 
 
 def uebersetze_status(text):
+    """Ersetzt bekannte spanische Status-Begriffe durch deutsche Entsprechungen."""
     if not text:
         return text
     ergebnis = text
@@ -105,7 +117,20 @@ def uebersetze_status(text):
     return ergebnis
 
 
+def korrigiere_umlaut_grossschreibung(text):
+    """
+    Korrigiert einen Quell-Bug bei handball.net: Ortsnamen werden in
+    Grossbuchstaben geschrieben, dabei aber Umlaute klein gelassen
+    (z.B. "WALDBRöL" statt "WALDBRÖL", "NüMBRECHT" statt "NÜMBRECHT").
+    Das erschwert die Geokodierung unnötig.
+    """
+    if not text:
+        return text
+    return text.replace('ü', 'Ü').replace('ö', 'Ö').replace('ä', 'Ä')
+
+
 def haversine_km(lat1, lon1, lat2, lon2):
+    """Luftlinien-Distanz in km zwischen zwei Koordinaten."""
     R = 6371.0
     lat1, lon1, lat2, lon2 = map(lambda x: radians(float(x)), [lat1, lon1, lat2, lon2])
     dlat = lat2 - lat1
@@ -120,6 +145,7 @@ def extrahiere_plz(adresse):
 
 
 def bereinige_adresse(adresse):
+    """Intelligente Adressbereinigung mit Regex-Parsing (Fallback-Strategie)."""
     original = adresse
     adresse = re.sub(r'Tel\.?:?\s*[\d\s/\-()]+', '', adresse, flags=re.IGNORECASE)
     adresse = re.sub(r'Telefon:?\s*[\d\s/\-()]+', '', adresse, flags=re.IGNORECASE)
@@ -151,6 +177,11 @@ def bereinige_adresse(adresse):
 
 
 def geocode_mit_validierung(adresse, erwartete_plz=None):
+    """
+    Nominatim-Freitextsuche mit Adressdetails, prüft die zurückgegebene PLZ
+    gegen die erwartete PLZ (falls vorhanden). Verhindert, dass ein falsch
+    getroffener Ort mit gleichem/ähnlichem Namen unbemerkt akzeptiert wird.
+    """
     try:
         headers = {'User-Agent': 'HandballKalenderSkript/1.0'}
         url = "https://nominatim.openstreetmap.org/search"
@@ -179,6 +210,7 @@ def get_coords(adresse):
     if adresse in koordinaten_cache:
         return koordinaten_cache[adresse]
 
+    # 1. Manuelle Overrides zuerst prüfen (zuverlässigste Quelle)
     adresse_lower = adresse.lower()
     for schluesselwort, (lat, lon) in HALLEN_KOORDINATEN_MANUELL.items():
         if schluesselwort in adresse_lower:
@@ -188,12 +220,15 @@ def get_coords(adresse):
 
     erwartete_plz = extrahiere_plz(adresse)
 
+    # 2. Freitextsuche mit PLZ-Validierung
     lat, lon = geocode_mit_validierung(adresse, erwartete_plz)
     if lat and lon:
         koordinaten_cache[adresse] = (lat, lon)
         return lat, lon
 
     time.sleep(0.5)
+
+    # 3. Fallback: bereinigte Adresse erneut versuchen
     adresse_bereinigt = bereinige_adresse(adresse)
     lat, lon = geocode_mit_validierung(adresse_bereinigt, erwartete_plz)
     if lat and lon:
@@ -201,6 +236,8 @@ def get_coords(adresse):
         return lat, lon
 
     time.sleep(0.5)
+
+    # 4. Letzter Fallback: Photon
     try:
         url = f"https://photon.komoot.io/api/?q={urllib.parse.quote(adresse_bereinigt)}&limit=1"
         response = requests.get(url, timeout=10)
@@ -221,6 +258,12 @@ def get_coords(adresse):
 
 
 def hole_fahrzeit(ziel_adresse):
+    """
+    Berechnet die Fahrzeit von der Startadresse zum Ziel in Minuten.
+    Prüft das OSRM-Ergebnis zusätzlich auf Plausibilität anhand der
+    Luftlinien-Distanz, um Geokodierungsfehler (falscher Ort gleichen
+    Namens) zu erkennen.
+    """
     if not ziel_adresse:
         return None
     if ziel_adresse in fahrzeit_cache:
@@ -249,6 +292,8 @@ def hole_fahrzeit(ziel_adresse):
     except Exception as e:
         print(f"  ⚠ OSRM-Routing fehlgeschlagen: {e}")
 
+    # Plausibilitätsprüfung: unter 15 km/h Durchschnitt ist unrealistisch
+    # für PKW-Fahrten -> deutet auf falsch geokodierten Ort hin.
     plausibel = True
     if duration_minutes is not None and distanz_km > 0:
         implizierte_kmh = distanz_km / (duration_minutes / 60)
@@ -258,6 +303,7 @@ def hole_fahrzeit(ziel_adresse):
                   f"({implizierte_kmh:.0f} km/h) -> nutze Schätzung")
 
     if duration_minutes is None or not plausibel:
+        # Grobe Schätzung: 45 km/h Durchschnitt für Landstraßen im Oberbergischen
         duration_minutes = max(5, round(distanz_km / 45 * 60))
         fahrzeit_cache[ziel_adresse] = duration_minutes
         print(f"  → Fahrzeit (Schätzung, {distanz_km:.1f} km Luftlinie): ca. {duration_minutes} min")
@@ -269,6 +315,12 @@ def hole_fahrzeit(ziel_adresse):
 
 
 def verarbeite_handballnet_kalender(url, filter_team, output, puffer_min=60, immer_fahrzeit_berechnen=False):
+    """
+    Lädt einen kompletten Liga-ICS-Kalender von handball.net, übernimmt nur
+    die Spiele des gewünschten Vereins und ergänzt die Beschreibung um
+    Halle, Treffzeit und (bei Bedarf) Fahrzeit/Abfahrtszeit.
+    Der Event-Titel (SUMMARY) von handball.net bleibt dabei unverändert.
+    """
     print(f"\n{'='*60}\nhandball.net-Kalender: {output} (Filter: '{filter_team}')\n{'='*60}")
 
     try:
@@ -294,7 +346,7 @@ def verarbeite_handballnet_kalender(url, filter_team, output, puffer_min=60, imm
     for event in quell_cal.events:
         titel = event.name or ""
         beschreibung_original = uebersetze_status(event.description or "")
-        ort = (event.location or "").strip()
+        ort = korrigiere_umlaut_grossschreibung((event.location or "").strip())
         haystack = f"{titel} {beschreibung_original} {ort}".lower()
 
         if filter_lower not in haystack:
@@ -329,6 +381,7 @@ def verarbeite_handballnet_kalender(url, filter_team, output, puffer_min=60, imm
 
         zusatz = "\n== Zeiten & Ort ==\n" + "\n".join(zeit_info_zeilen)
         event.description = (beschreibung_original + zusatz) if beschreibung_original else zusatz.strip()
+        event.location = ort
 
         ziel_cal.events.add(event)
 
@@ -362,4 +415,11 @@ if __name__ == "__main__":
     print(f"\n{'='*60}\nZUSAMMENFASSUNG\n{'='*60}")
     print(f"Erfolgreich: {sum(1 for r in results if r)} | Fehler: {sum(1 for r in results if not r)}")
     print(f"Koordinaten im Cache: {len(koordinaten_cache)} | Fahrzeiten im Cache: {len(fahrzeit_cache)}\n{'='*60}\n")
+
+    # Bricht den Workflow sichtbar (rotes Kreuz) ab, wenn KEIN einziger
+    # Kalender erstellt werden konnte - z.B. bei einem fehlenden Import.
+    if results and not any(results):
+        print("✗ ABBRUCH: Kein einziger Kalender konnte erfolgreich erstellt werden.")
+        sys.exit(1)
+
     sys.exit(0)
