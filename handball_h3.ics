@@ -2,99 +2,146 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:ics.py - http://git.io/lLljaA
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nH3 SSV Nümbrecht Handball III vs. HSG Marienheide/Müllenbach II\n\n== Zeiten ==\nTreffzeit an der Halle: 17:00 Uhr\n\n== Ort ==\nGouvieuxstr. 2 51588\n            Nümbrecht
-DURATION:PT1H30M
-LOCATION:Gouvieuxstr. 2 51588\n            Nümbrecht
-DTSTART:20260228T170000Z
-SUMMARY:🏠 SSV Nümbrecht Handball III - HSG Marienheide/Müllenbach II
-UID:357bd0f9-bd26-4580-94d8-174727040021@357b.org
+DTSTAMP:20260903T172635Z
+DESCRIPTION:Regionsliga MÄNNER\nSpieltag 4\nSpielnummer 2627OBEBKRERMA0402\nPendiente\nhttps://www.handball.net/match/388718\n== Zeiten & Ort ==\nAbfahrt von Nümbrecht: 15:22 Uhr\nVoraussichtliche Fahrzeit: ca. 98 Minuten\nHalle: SPH DIETRICH BONHOEFFER-GYMNASIUM\, HAUPTSTR. 81\, 51674 WIEHL\, 51674 WIEHL\nTreffzeit an der Halle: 17:00 Uhr
+DTEND:20261011T200000Z
+LOCATION:SPH DIETRICH BONHOEFFER-GYMNASIUM\, HAUPTSTR. 81\, 51674 WIEHL\, 51674 WIEHL
+DTSTART:20261011T180000Z
+STATUS:CONFIRMED
+SUMMARY:CVJM Oberwiehl III - SSV NÜMBRECHT HANDBALL III
+TRANSP:TRANSPARENT
+UID:spiel-388718@mmcc-news
+URL:https://www.handball.net/match/388718
 END:VEVENT
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\nH3 SV Frielingsdorf vs. SSV Nümbrecht Handball III\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 12:30 Uhr\nVoraussichtliche Fahrzeit: ca. 30 Minuten\nTreffzeit an der Halle: 13:00 Uhr\n\n== Ort ==\nCarola-Lob-Weg 1 51789\n            Lindlar
-DURATION:PT1H30M
-LOCATION:Carola-Lob-Weg 1 51789\n            Lindlar
-DTSTART:20260411T120000Z
-SUMMARY:✈️ SV Frielingsdorf - SSV Nümbrecht Handball III
-UID:6025d398-cf39-468e-81e0-dfefc2eddde2@6025.org
+DTSTAMP:20260903T172635Z
+DESCRIPTION:Regionsliga MÄNNER\nSpieltag 5\nSpielnummer 2627OBEBKRERMA0502\nPendiente\nhttps://www.handball.net/match/388721\n== Zeiten & Ort ==\nHalle: SPH NüMBRECHT 2\, GOUVIEUXSTR. 2\, 51588 NüMBRECHT\, 51588 NüMBRECHT\nTreffzeit an der Halle: 15:15 Uhr
+DTEND:20261108T181500Z
+LOCATION:SPH NüMBRECHT 2\, GOUVIEUXSTR. 2\, 51588 NüMBRECHT\, 51588 NüMBRECHT
+DTSTART:20261108T161500Z
+STATUS:CONFIRMED
+SUMMARY:SSV NÜMBRECHT HANDBALL III - Blue-White-Dynamite VfL Gummersbach e.V.
+TRANSP:TRANSPARENT
+UID:spiel-388721@mmcc-news
+URL:https://www.handball.net/match/388721
 END:VEVENT
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nH3 SSV Nümbrecht Handball III vs. HBD Löwen Oberberg III\n\n== Zeiten ==\nTreffzeit an der Halle: 17:00 Uhr\n\n== Ort ==\nGouvieuxstr. 2 51588\n            Nümbrecht
-DURATION:PT1H30M
-LOCATION:Gouvieuxstr. 2 51588\n            Nümbrecht
-DTSTART:20251130T170000Z
-SUMMARY:🏠 SSV Nümbrecht Handball III - HBD Löwen Oberberg III
-UID:fefb29c4-cc4d-4350-8bde-7633fc3b6639@fefb.org
+DTSTAMP:20260903T172635Z
+DESCRIPTION:Regionsliga MÄNNER\nSpieltag 14\nSpielnummer 2627OBEBKRERMA1401\nPendiente\nhttps://www.handball.net/match/388747\n== Zeiten & Ort ==\nAbfahrt von Nümbrecht: 15:41 Uhr\nVoraussichtliche Fahrzeit: ca. 19 Minuten\nHalle: SPH GESAMTSCHULE-SCHULE\, EPELSTR. 23\, 51645 GUMMERSBACH-DERSCHLAG\, 51645 GUMMERSBACH-DERSCHLAG\nTreffzeit an der Halle: 16:00 Uhr
+DTEND:20270307T190000Z
+LOCATION:SPH GESAMTSCHULE-SCHULE\, EPELSTR. 23\, 51645 GUMMERSBACH-DERSCHLAG\, 51645 GUMMERSBACH-DERSCHLAG
+DTSTART:20270307T170000Z
+STATUS:CONFIRMED
+SUMMARY:HBD LÖWEN OBERBERG III - SSV NÜMBRECHT HANDBALL III
+TRANSP:TRANSPARENT
+UID:spiel-388747@mmcc-news
+URL:https://www.handball.net/match/388747
 END:VEVENT
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\nH3 Blue-White-Dynamite VfL Gummersbach e.V. vs. SSV Nümbrecht Handball III\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 16:37 Uhr\nVoraussichtliche Fahrzeit: ca. 23 Minuten\nTreffzeit an der Halle: 17:00 Uhr\n\n== Ort ==\nSingerbrinkstr. 31 51643\n            Gummersbach
-DURATION:PT1H30M
-LOCATION:Singerbrinkstr. 31 51643\n            Gummersbach
-DTSTART:20250921T160000Z
-SUMMARY:✈️ Blue-White-Dynamite VfL Gummersbach e.V. - SSV Nümbrecht Handball III
-UID:b516f8a6-ee5a-4ad8-adb6-46a7f98a0731@b516.org
+DTSTAMP:20260903T172635Z
+DESCRIPTION:Regionsliga MÄNNER\nSpieltag 1\nSpielnummer 2627OBEBKRERMA0101\nPendiente\nhttps://www.handball.net/match/388708\n== Zeiten & Ort ==\nAbfahrt von Nümbrecht: 16:32 Uhr\nVoraussichtliche Fahrzeit: ca. 28 Minuten\nHalle: VOSSBRUCHER HALLE\, CAROLA-LOB-WEG 1\, 51789 LINDLAR\, 51789 LINDLAR\nTreffzeit an der Halle: 17:00 Uhr
+DTEND:20260919T200000Z
+LOCATION:VOSSBRUCHER HALLE\, CAROLA-LOB-WEG 1\, 51789 LINDLAR\, 51789 LINDLAR
+DTSTART:20260919T180000Z
+STATUS:CONFIRMED
+SUMMARY:SV Frielingsdorf - SSV NÜMBRECHT HANDBALL III
+TRANSP:TRANSPARENT
+UID:spiel-388708@mmcc-news
+URL:https://www.handball.net/match/388708
 END:VEVENT
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\nH3 TV Wahlscheid II vs. SSV Nümbrecht Handball III\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 18:22 Uhr\nVoraussichtliche Fahrzeit: ca. 38 Minuten\nTreffzeit an der Halle: 19:00 Uhr\n\n== Ort ==\nWahlscheider Str. 56 53797\n            Lohmar-Wahlscheid
-DURATION:PT1H30M
-LOCATION:Wahlscheider Str. 56 53797\n            Lohmar-Wahlscheid
-DTSTART:20260304T190000Z
-SUMMARY:✈️ TV Wahlscheid II - SSV Nümbrecht Handball III
-UID:567c6a8c-bfdd-4885-9e72-10caa68b1137@567c.org
+DTSTART;VALUE=DATE:20270123
+DTEND;VALUE=DATE:20270124
+DTSTAMP:20260903T172635Z
+DESCRIPTION:Regionsliga MÄNNER\nSpieltag 10\nSpielnummer 2627OBEBKRERMA1002\nPendiente\nhttps://www.handball.net/match/388736\n== Zeiten & Ort ==\nTreffzeit an der Halle: 23:00 Uhr
+STATUS:CONFIRMED
+SUMMARY:TV Wahlscheid V - SSV NÜMBRECHT HANDBALL III
+TRANSP:TRANSPARENT
+UID:spiel-388736@mmcc-news
+URL:https://www.handball.net/match/388736
 END:VEVENT
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nH3 SSV Nümbrecht Handball III vs. Blue-White-Dynamite VfL Gummersbach e.V.\n\n== Zeiten ==\nTreffzeit an der Halle: 15:00 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
-DURATION:PT1H30M
-LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
-DTSTART:20260117T150000Z
-SUMMARY:🏠 SSV Nümbrecht Handball III - Blue-White-Dynamite VfL Gummersbach e.V.
-UID:ddb064cb-4522-47ab-8736-2edd07dc41db@ddb0.org
+DTSTAMP:20260903T172635Z
+DESCRIPTION:Regionsliga MÄNNER\nSpieltag 6\nSpielnummer 2627OBEBKRERMA0602\nPendiente\nhttps://www.handball.net/match/388724\n== Zeiten & Ort ==\nAbfahrt von Nümbrecht: 14:28 Uhr\nVoraussichtliche Fahrzeit: ca. 32 Minuten\nHalle: SPH GES.SCHULE MARIENHEIDE\, PESTALOZZISTR.\, 51709 MARIENHEIDE\, 51709 MARIENHEIDE\nTreffzeit an der Halle: 15:00 Uhr
+DTEND:20261114T180000Z
+LOCATION:SPH GES.SCHULE MARIENHEIDE\, PESTALOZZISTR.\, 51709 MARIENHEIDE\, 51709 MARIENHEIDE
+DTSTART:20261114T160000Z
+STATUS:CONFIRMED
+SUMMARY:HSG MARIENHEIDE/MÜLLENBACH - SSV NÜMBRECHT HANDBALL III
+TRANSP:TRANSPARENT
+UID:spiel-388724@mmcc-news
+URL:https://www.handball.net/match/388724
 END:VEVENT
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nH3 SSV Nümbrecht Handball III vs. CVJM Oberwiehl III\n\n== Zeiten ==\nTreffzeit an der Halle: 14:45 Uhr\n\n== Ort ==\nMateh-Yehuda-Str. 3a 51588\n            Nümbrecht
-DURATION:PT1H30M
-LOCATION:Mateh-Yehuda-Str. 3a 51588\n            Nümbrecht
-DTSTART:20251102T144500Z
-SUMMARY:🏠 SSV Nümbrecht Handball III - CVJM Oberwiehl III
-UID:accc304b-2fbd-42f6-928b-3feeb50b44f6@accc.org
+DTSTAMP:20260903T172635Z
+DESCRIPTION:Regionsliga MÄNNER\nSpieltag 11\nSpielnummer 2627OBEBKRERMA1102\nPendiente\nhttps://www.handball.net/match/388739\n== Zeiten & Ort ==\nHalle: GWN-ARENA\, MATEH-YEHUDA-STR. 3A\, 51588 NüMBRECHT\, 51588 NüMBRECHT\nTreffzeit an der Halle: 15:00 Uhr
+DTEND:20270213T180000Z
+LOCATION:GWN-ARENA\, MATEH-YEHUDA-STR. 3A\, 51588 NüMBRECHT\, 51588 NüMBRECHT
+DTSTART:20270213T160000Z
+STATUS:CONFIRMED
+SUMMARY:SSV NÜMBRECHT HANDBALL III - CVJM Oberwiehl III
+TRANSP:TRANSPARENT
+UID:spiel-388739@mmcc-news
+URL:https://www.handball.net/match/388739
 END:VEVENT
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nH3 SSV Nümbrecht Handball III vs. TV Wahlscheid II\n\n== Zeiten ==\nTreffzeit an der Halle: 17:00 Uhr\n\n== Ort ==\nGouvieuxstr. 2 51588\n            Nümbrecht
-DURATION:PT1H30M
-LOCATION:Gouvieuxstr. 2 51588\n            Nümbrecht
-DTSTART:20251109T170000Z
-SUMMARY:🏠 SSV Nümbrecht Handball III - TV Wahlscheid II
-UID:6e19164f-edd7-4dd7-a542-654dfefd89f0@6e19.org
+DTSTAMP:20260903T172635Z
+DESCRIPTION:Regionsliga MÄNNER\nSpieltag 7\nSpielnummer 2627OBEBKRERMA0701\nPendiente\nhttps://www.handball.net/match/388726\n== Zeiten & Ort ==\nHalle: SPH NüMBRECHT 2\, GOUVIEUXSTR. 2\, 51588 NüMBRECHT\, 51588 NüMBRECHT\nTreffzeit an der Halle: 17:00 Uhr
+DTEND:20261129T200000Z
+LOCATION:SPH NüMBRECHT 2\, GOUVIEUXSTR. 2\, 51588 NüMBRECHT\, 51588 NüMBRECHT
+DTSTART:20261129T180000Z
+STATUS:CONFIRMED
+SUMMARY:SSV NÜMBRECHT HANDBALL III - HBD LÖWEN OBERBERG III
+TRANSP:TRANSPARENT
+UID:spiel-388726@mmcc-news
+URL:https://www.handball.net/match/388726
 END:VEVENT
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\nH3 HBD Löwen Oberberg III vs. SSV Nümbrecht Handball III\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 11:39 Uhr\nVoraussichtliche Fahrzeit: ca. 21 Minuten\nTreffzeit an der Halle: 12:00 Uhr\n\n== Ort ==\nGoethestrasse 51702\n            Bergneustadt
-DURATION:PT1H30M
-LOCATION:Goethestrasse 51702\n            Bergneustadt
-DTSTART:20260308T120000Z
-SUMMARY:✈️ HBD Löwen Oberberg III - SSV Nümbrecht Handball III
-UID:46eaba0d-7032-4cbb-bb53-aed46a7b6d59@46ea.org
+DTSTAMP:20260903T172635Z
+DESCRIPTION:Regionsliga MÄNNER\nSpieltag 3\nSpielnummer 2627OBEBKRERMA0302\nPendiente\nhttps://www.handball.net/match/388715\n== Zeiten & Ort ==\nHalle: GWN-ARENA\, MATEH-YEHUDA-STR. 3A\, 51588 NüMBRECHT\, 51588 NüMBRECHT\nTreffzeit an der Halle: 15:00 Uhr
+DTEND:20261004T180000Z
+LOCATION:GWN-ARENA\, MATEH-YEHUDA-STR. 3A\, 51588 NüMBRECHT\, 51588 NüMBRECHT
+DTSTART:20261004T160000Z
+STATUS:CONFIRMED
+SUMMARY:SSV NÜMBRECHT HANDBALL III - TV Wahlscheid V
+TRANSP:TRANSPARENT
+UID:spiel-388715@mmcc-news
+URL:https://www.handball.net/match/388715
 END:VEVENT
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\nH3 CVJM Oberwiehl III vs. SSV Nümbrecht Handball III\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 16:50 Uhr\nVoraussichtliche Fahrzeit: ca. 10 Minuten\nTreffzeit an der Halle: 17:00 Uhr\n\n== Ort ==\nHauptstr. 81 51674\n            Wiehl
-DURATION:PT1H30M
-LOCATION:Hauptstr. 81 51674\n            Wiehl
-DTSTART:20260418T160000Z
-SUMMARY:✈️ CVJM Oberwiehl III - SSV Nümbrecht Handball III
-UID:412f47dc-0cf5-47ad-949b-e718c7e843e9@412f.org
+DTSTAMP:20260903T172635Z
+DESCRIPTION:Regionsliga MÄNNER\nSpieltag 8\nSpielnummer 2627OBEBKRERMA0801\nPendiente\nhttps://www.handball.net/match/388729\n== Zeiten & Ort ==\nHalle: GWN-ARENA\, MATEH-YEHUDA-STR. 3A\, 51588 NüMBRECHT\, 51588 NüMBRECHT\nTreffzeit an der Halle: 17:00 Uhr
+DTEND:20261206T200000Z
+LOCATION:GWN-ARENA\, MATEH-YEHUDA-STR. 3A\, 51588 NüMBRECHT\, 51588 NüMBRECHT
+DTSTART:20261206T180000Z
+STATUS:CONFIRMED
+SUMMARY:SSV NÜMBRECHT HANDBALL III - SV Frielingsdorf
+TRANSP:TRANSPARENT
+UID:spiel-388729@mmcc-news
+URL:https://www.handball.net/match/388729
 END:VEVENT
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Auswärts)\nH3 HSG Marienheide/Müllenbach II vs. SSV Nümbrecht Handball III\n\n== Zeiten ==\nAbfahrt von Nümbrecht: 14:38 Uhr\nVoraussichtliche Fahrzeit: ca. 32 Minuten\nTreffzeit an der Halle: 15:10 Uhr\n\n== Ort ==\nPestalozzistr. 51709\n            Marienheide
-DURATION:PT1H30M
-LOCATION:Pestalozzistr. 51709\n            Marienheide
-DTSTART:20251116T151000Z
-SUMMARY:✈️ HSG Marienheide/Müllenbach II - SSV Nümbrecht Handball III
-UID:a36f0ed2-840c-48fb-b169-16bd043f9a09@a36f.org
+DTSTAMP:20260903T172635Z
+DESCRIPTION:Regionsliga MÄNNER\nSpieltag 12\nSpielnummer 2627OBEBKRERMA1202\nPendiente\nhttps://www.handball.net/match/388742\n== Zeiten & Ort ==\nAbfahrt von Nümbrecht: 17:08 Uhr\nVoraussichtliche Fahrzeit: ca. 22 Minuten\nHalle: GERHARD-KIENBAUM-HALLE\, SINGERBRINKSTR. 31\, 51643 GUMMERSBACH\, 51643 GUMMERSBACH\nTreffzeit an der Halle: 17:30 Uhr
+DTEND:20270220T203000Z
+LOCATION:GERHARD-KIENBAUM-HALLE\, SINGERBRINKSTR. 31\, 51643 GUMMERSBACH\, 51643 GUMMERSBACH
+DTSTART:20270220T183000Z
+STATUS:CONFIRMED
+SUMMARY:Blue-White-Dynamite VfL Gummersbach e.V. - SSV NÜMBRECHT HANDBALL III
+TRANSP:TRANSPARENT
+UID:spiel-388742@mmcc-news
+URL:https://www.handball.net/match/388742
 END:VEVENT
 BEGIN:VEVENT
-DESCRIPTION:Handballspiel (Heimspiel)\nH3 SSV Nümbrecht Handball III vs. SV Frielingsdorf\n\n== Zeiten ==\nTreffzeit an der Halle: 17:00 Uhr\n\n== Ort ==\nGouvieuxstr. 2 51588\n            Nümbrecht
-DURATION:PT1H30M
-LOCATION:Gouvieuxstr. 2 51588\n            Nümbrecht
-DTSTART:20260314T170000Z
-SUMMARY:🏠 SSV Nümbrecht Handball III - SV Frielingsdorf
-UID:db812f41-9bdd-4e3a-8fa1-f7f95846cba8@db81.org
+DTSTAMP:20260903T172635Z
+DESCRIPTION:Regionsliga MÄNNER\nSpieltag 13\nSpielnummer 2627OBEBKRERMA1302\nPendiente\nhttps://www.handball.net/match/388745\n== Zeiten & Ort ==\nHalle: SPH NüMBRECHT 2\, GOUVIEUXSTR. 2\, 51588 NüMBRECHT\, 51588 NüMBRECHT\nTreffzeit an der Halle: 17:00 Uhr
+DTEND:20270227T200000Z
+LOCATION:SPH NüMBRECHT 2\, GOUVIEUXSTR. 2\, 51588 NüMBRECHT\, 51588 NüMBRECHT
+DTSTART:20270227T180000Z
+STATUS:CONFIRMED
+SUMMARY:SSV NÜMBRECHT HANDBALL III - HSG MARIENHEIDE/MÜLLENBACH
+TRANSP:TRANSPARENT
+UID:spiel-388745@mmcc-news
+URL:https://www.handball.net/match/388745
 END:VEVENT
 END:VCALENDAR
