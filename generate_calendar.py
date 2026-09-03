@@ -1,6 +1,3 @@
-import requests
-from ics import Calendar
-from datetime import timedelta
 from math import radians, sin, cos, sqrt, atan2
 import urllib.parse
 import time
@@ -9,9 +6,13 @@ import sys
 
 # --- Globale Einstellungen ---
 START_ADRESSE = "Gouvieuxstraße 2, 51588 Nümbrecht"
-START_KOORDINATEN = None  # wird beim ersten Aufruf gecacht
 
 # --- Konfiguration: handball.net Abo-Kalender (ICS-Feed, wird gefiltert) ---
+# HINWEIS zu den URLs: Die ICS-Endpunkte wurden aus den Liga-Seiten-URLs
+# abgeleitet (Muster: /kalender/liga/{id}.ics). season_id/fed_id wurden
+# sicherheitshalber übernommen, falls handball.net sie zur eindeutigen
+# Saison-Zuordnung benötigt. Bitte nach dem ersten Lauf in den Logs prüfen,
+# ob "X Spiele im Gesamt-Kalender gefunden" > 0 ist.
 HANDBALLNET_CONFIG = [
     {
         "url": "https://www.handball.net/kalender/liga/8053.ics",
@@ -20,17 +21,51 @@ HANDBALLNET_CONFIG = [
         "puffer_min": 60,
         "immer_fahrzeit_berechnen": False
     },
-    # Weitere Kalender hier ergänzen ...
+    {
+        "url": "https://www.handball.net/kalender/liga/10014.ics?season_id=2627&fed_id=148",
+        "filter_team": "Nümbrecht",
+        "output": "handball_mjd1.ics",
+        "puffer_min": 60,
+        "immer_fahrzeit_berechnen": False
+    },
+    {
+        "url": "https://www.handball.net/kalender/liga/10012.ics?season_id=2627&fed_id=148",
+        "filter_team": "Nümbrecht",
+        "output": "handball_wjb.ics",
+        "puffer_min": 60,
+        "immer_fahrzeit_berechnen": False
+    },
+    {
+        # Achtung: Hier interessiert der 1. FC Köln, nicht Nümbrecht.
+        # immer_fahrzeit_berechnen=True, da die Fahrzeit ab Nümbrecht
+        # unabhängig davon interessant ist, ob Köln Heim- oder Auswärtsspiel hat.
+        "url": "https://www.handball.net/kalender/liga/6108.ics?season_id=2627&fed_id=20",
+        "filter_team": "1. FC Köln",
+        "output": "handball_wjc-hsg.ics",
+        "puffer_min": 60,
+        "immer_fahrzeit_berechnen": True
+    },
+
+    # Noch ohne handball.net-ICS-Quelle -> vorerst auskommentiert:
+    # {
+    #     "url": "https://www.handball.net/kalender/liga/XXXX.ics",
+    #     "filter_team": "Nümbrecht",
+    #     "output": "handball_wjc.ics",
+    #     "puffer_min": 75,
+    #     "immer_fahrzeit_berechnen": False
+    # },
+    # {
+    #     "url": "https://www.handball.net/kalender/liga/XXXX.ics",
+    #     "filter_team": "Nümbrecht",
+    #     "output": "handball_mjd2.ics",
+    #     "puffer_min": 60,
+    #     "immer_fahrzeit_berechnen": False
+    # },
 ]
 
-# --- NEU: Manuelle Hallen-Overrides ---
-# Für bekannte, wiederkehrende Hallen in der Region kannst du hier feste
-# Koordinaten hinterlegen. Das ist die zuverlässigste Methode, da sie jede
-# Geokodierungs-Unsicherheit umgeht. Schlüssel = eindeutiges Teilwort, das
-# im Hallen-/Ortsnamen vorkommt (z.B. Stadt- oder Hallenname).
+# --- Manuelle Hallen-Overrides (bei bekannten Geokodierungs-Fehlern) ---
 HALLEN_KOORDINATEN_MANUELL = {
-    # "wiehl": (50.9530, 7.4550),  # Beispiel: Sporthalle Wiehl - bitte mit echten Koordinaten befüllen
-    # "lindlar": (51.0167, 7.3667),
+    # "wiehl": (50.9530, 7.4550),
 }
 
 STATUS_UEBERSETZUNG = {
@@ -43,7 +78,6 @@ STATUS_UEBERSETZUNG = {
     "suspendido": "Abgebrochen",
 }
 
-# --- Caches für Performance (pro Skriptlauf) ---
 fahrzeit_cache = {}
 koordinaten_cache = {}
 
@@ -60,7 +94,6 @@ def zerlege_titel(titel):
 
 
 def uebersetze_status(text):
-    """Ersetzt bekannte spanische Status-Begriffe durch deutsche Entsprechungen."""
     if not text:
         return text
     ergebnis = text
@@ -70,7 +103,6 @@ def uebersetze_status(text):
 
 
 def haversine_km(lat1, lon1, lat2, lon2):
-    """Luftlinien-Distanz in km zwischen zwei Koordinaten."""
     R = 6371.0
     lat1, lon1, lat2, lon2 = map(lambda x: radians(float(x)), [lat1, lon1, lat2, lon2])
     dlat = lat2 - lat1
@@ -116,18 +148,10 @@ def bereinige_adresse(adresse):
 
 
 def geocode_mit_validierung(adresse, erwartete_plz=None):
-    """
-    Nominatim-Freitextsuche mit Adressdetails, prüft die zurückgegebene PLZ
-    gegen die erwartete PLZ (falls vorhanden). Verhindert, dass ein falsch
-    getroffener Ort mit gleichem/ähnlichem Namen unbemerkt akzeptiert wird.
-    """
     try:
         headers = {'User-Agent': 'HandballKalenderSkript/1.0'}
         url = "https://nominatim.openstreetmap.org/search"
-        params = {
-            'q': adresse, 'format': 'json', 'countrycodes': 'de',
-            'limit': 3, 'addressdetails': 1
-        }
+        params = {'q': adresse, 'format': 'json', 'countrycodes': 'de', 'limit': 3, 'addressdetails': 1}
         response = requests.get(url, params=params, headers=headers, timeout=10)
         response.raise_for_status()
         data = response.json()
@@ -152,7 +176,6 @@ def get_coords(adresse):
     if adresse in koordinaten_cache:
         return koordinaten_cache[adresse]
 
-    # 1. Manuelle Overrides zuerst prüfen (zuverlässigste Quelle)
     adresse_lower = adresse.lower()
     for schluesselwort, (lat, lon) in HALLEN_KOORDINATEN_MANUELL.items():
         if schluesselwort in adresse_lower:
@@ -162,15 +185,12 @@ def get_coords(adresse):
 
     erwartete_plz = extrahiere_plz(adresse)
 
-    # 2. Freitextsuche mit PLZ-Validierung (robuster als reine Struktursuche)
     lat, lon = geocode_mit_validierung(adresse, erwartete_plz)
     if lat and lon:
         koordinaten_cache[adresse] = (lat, lon)
         return lat, lon
 
     time.sleep(0.5)
-
-    # 3. Fallback: bereinigte Adresse erneut versuchen
     adresse_bereinigt = bereinige_adresse(adresse)
     lat, lon = geocode_mit_validierung(adresse_bereinigt, erwartete_plz)
     if lat and lon:
@@ -178,8 +198,6 @@ def get_coords(adresse):
         return lat, lon
 
     time.sleep(0.5)
-
-    # 4. Letzter Fallback: Photon
     try:
         url = f"https://photon.komoot.io/api/?q={urllib.parse.quote(adresse_bereinigt)}&limit=1"
         response = requests.get(url, timeout=10)
@@ -200,12 +218,6 @@ def get_coords(adresse):
 
 
 def hole_fahrzeit(ziel_adresse):
-    """
-    Berechnet die Fahrzeit von der Startadresse zum Ziel in Minuten.
-    Prüft das OSRM-Ergebnis zusätzlich auf Plausibilität anhand der
-    Luftlinien-Distanz, um Geokodierungsfehler (falscher Ort gleichen
-    Namens) zu erkennen.
-    """
     if not ziel_adresse:
         return None
     if ziel_adresse in fahrzeit_cache:
@@ -234,20 +246,15 @@ def hole_fahrzeit(ziel_adresse):
     except Exception as e:
         print(f"  ⚠ OSRM-Routing fehlgeschlagen: {e}")
 
-    # Plausibilitätsprüfung: bei plausiblen Landstraßen-/Autobahn-
-    # Geschwindigkeiten sollte die Fahrzeit nicht einem Schnitt von
-    # unter 15 km/h entsprechen. Wenn doch: Geokodierung war
-    # wahrscheinlich falsch -> Distanzschätzung statt OSRM-Wert nutzen.
     plausibel = True
     if duration_minutes is not None and distanz_km > 0:
         implizierte_kmh = distanz_km / (duration_minutes / 60)
         if implizierte_kmh < 15:
             plausibel = False
             print(f"  ⚠ Unplausible Fahrzeit erkannt: {duration_minutes} min für {distanz_km:.1f} km "
-                  f"({implizierte_kmh:.0f} km/h) -> vermutlich falsche Geokodierung, nutze Schätzung")
+                  f"({implizierte_kmh:.0f} km/h) -> nutze Schätzung")
 
     if duration_minutes is None or not plausibel:
-        # Grobe Schätzung: 45 km/h Durchschnitt für Landstraßen im Oberbergischen
         duration_minutes = max(5, round(distanz_km / 45 * 60))
         fahrzeit_cache[ziel_adresse] = duration_minutes
         print(f"  → Fahrzeit (Schätzung, {distanz_km:.1f} km Luftlinie): ca. {duration_minutes} min")
