@@ -1,6 +1,7 @@
 import requests
 from ics import Calendar
 from datetime import timedelta
+from math import radians, sin, cos, sqrt, atan2
 import urllib.parse
 import time
 import re
@@ -8,11 +9,9 @@ import sys
 
 # --- Globale Einstellungen ---
 START_ADRESSE = "Gouvieuxstraße 2, 51588 Nümbrecht"
+START_KOORDINATEN = None  # wird beim ersten Aufruf gecacht
 
 # --- Konfiguration: handball.net Abo-Kalender (ICS-Feed, wird gefiltert) ---
-# nuLiga/liga.nu ist entfallen. handball.net liefert pro Liga einen
-# Gesamt-Kalender als ICS; wir laden ihn herunter, übernehmen nur die Spiele
-# des eigenen Vereins und ergänzen Halle + Fahrzeit in der Beschreibung.
 HANDBALLNET_CONFIG = [
     {
         "url": "https://www.handball.net/kalender/liga/8053.ics",
@@ -21,29 +20,37 @@ HANDBALLNET_CONFIG = [
         "puffer_min": 60,
         "immer_fahrzeit_berechnen": False
     },
-    # Weitere Kalender (wJC, mJD1, mJD2, wJB, wJC-HSG, ggf. FC Köln) hier
-    # ergänzen, sobald die jeweilige handball.net Liga-ICS-URL bekannt ist:
-    # {
-    #     "url": "https://www.handball.net/kalender/liga/XXXX.ics",
-    #     "filter_team": "Nümbrecht",
-    #     "output": "handball_wjc.ics",
-    #     "puffer_min": 75,
-    #     "immer_fahrzeit_berechnen": False
-    # },
+    # Weitere Kalender hier ergänzen ...
 ]
+
+# --- NEU: Manuelle Hallen-Overrides ---
+# Für bekannte, wiederkehrende Hallen in der Region kannst du hier feste
+# Koordinaten hinterlegen. Das ist die zuverlässigste Methode, da sie jede
+# Geokodierungs-Unsicherheit umgeht. Schlüssel = eindeutiges Teilwort, das
+# im Hallen-/Ortsnamen vorkommt (z.B. Stadt- oder Hallenname).
+HALLEN_KOORDINATEN_MANUELL = {
+    # "wiehl": (50.9530, 7.4550),  # Beispiel: Sporthalle Wiehl - bitte mit echten Koordinaten befüllen
+    # "lindlar": (51.0167, 7.3667),
+}
+
+STATUS_UEBERSETZUNG = {
+    "pendiente": "Ausstehend",
+    "finalizado": "Beendet",
+    "en curso": "Laufend",
+    "en juego": "Laufend",
+    "aplazado": "Verschoben",
+    "cancelado": "Abgesagt",
+    "suspendido": "Abgebrochen",
+}
 
 # --- Caches für Performance (pro Skriptlauf) ---
 fahrzeit_cache = {}
 koordinaten_cache = {}
 
-# Mögliche Trennzeichen, mit denen handball.net Heim- und Gastmannschaft
-# im Event-Titel (SUMMARY) verbindet. Wird defensiv probiert, da das exakte
-# Format nicht offiziell dokumentiert ist.
 TITEL_TRENNER = [" - ", " – ", " vs. ", " vs ", " : "]
 
 
 def zerlege_titel(titel):
-    """Versucht Heim- und Gastmannschaft aus dem Event-Titel zu extrahieren."""
     for trenner in TITEL_TRENNER:
         if trenner in titel:
             teile = titel.split(trenner, 1)
@@ -52,8 +59,32 @@ def zerlege_titel(titel):
     return None, None
 
 
+def uebersetze_status(text):
+    """Ersetzt bekannte spanische Status-Begriffe durch deutsche Entsprechungen."""
+    if not text:
+        return text
+    ergebnis = text
+    for spanisch, deutsch in STATUS_UEBERSETZUNG.items():
+        ergebnis = re.sub(rf'\b{re.escape(spanisch)}\b', deutsch, ergebnis, flags=re.IGNORECASE)
+    return ergebnis
+
+
+def haversine_km(lat1, lon1, lat2, lon2):
+    """Luftlinien-Distanz in km zwischen zwei Koordinaten."""
+    R = 6371.0
+    lat1, lon1, lat2, lon2 = map(lambda x: radians(float(x)), [lat1, lon1, lat2, lon2])
+    dlat = lat2 - lat1
+    dlon = lon2 - lon1
+    a = sin(dlat / 2) ** 2 + cos(lat1) * cos(lat2) * sin(dlon / 2) ** 2
+    return R * 2 * atan2(sqrt(a), sqrt(1 - a))
+
+
+def extrahiere_plz(adresse):
+    match = re.search(r'\b(\d{5})\b', adresse)
+    return match.group(1) if match else None
+
+
 def bereinige_adresse(adresse):
-    """Intelligente Adressbereinigung mit Regex-Parsing"""
     original = adresse
     adresse = re.sub(r'Tel\.?:?\s*[\d\s/\-()]+', '', adresse, flags=re.IGNORECASE)
     adresse = re.sub(r'Telefon:?\s*[\d\s/\-()]+', '', adresse, flags=re.IGNORECASE)
@@ -79,65 +110,76 @@ def bereinige_adresse(adresse):
         adresse += ', Deutschland'
 
     if len(original) - len(adresse) > 20:
-        print(f"  🔧 Adresse bereinigt von: '{original[:50]}...'")
-        print(f"     zu: '{adresse[:50]}...'")
+        print(f"  🔧 Adresse bereinigt von: '{original[:50]}...' zu: '{adresse[:50]}...'")
 
     return adresse
 
 
-def get_coords_strukturiert(adresse):
-    strasse_match = re.search(r'([A-ZÄÖÜa-zäöüß\.\-]+(?:straße|str\.|weg|platz|allee))\s*(\d+[a-z]?)', adresse, re.IGNORECASE)
-    plz_match = re.search(r'\b(\d{5})\b', adresse)
-    ort_match = re.search(r'(\d{5})\s+([A-ZÄÖÜ][a-zäöüß\-]+(?:\s+[A-ZÄÖÜ][a-zäöüß\-]+)?)', adresse)
+def geocode_mit_validierung(adresse, erwartete_plz=None):
+    """
+    Nominatim-Freitextsuche mit Adressdetails, prüft die zurückgegebene PLZ
+    gegen die erwartete PLZ (falls vorhanden). Verhindert, dass ein falsch
+    getroffener Ort mit gleichem/ähnlichem Namen unbemerkt akzeptiert wird.
+    """
+    try:
+        headers = {'User-Agent': 'HandballKalenderSkript/1.0'}
+        url = "https://nominatim.openstreetmap.org/search"
+        params = {
+            'q': adresse, 'format': 'json', 'countrycodes': 'de',
+            'limit': 3, 'addressdetails': 1
+        }
+        response = requests.get(url, params=params, headers=headers, timeout=10)
+        response.raise_for_status()
+        data = response.json()
 
-    params = {'format': 'json', 'countrycodes': 'de', 'limit': 1}
-    if strasse_match:
-        params['street'] = f"{strasse_match.group(1)} {strasse_match.group(2)}"
-    if plz_match:
-        params['postalcode'] = plz_match.group(1)
-    if ort_match:
-        params['city'] = ort_match.group(2)
+        if not data:
+            return None, None
 
-    if len(params) > 3:
-        try:
-            headers = {'User-Agent': 'HandballKalenderSkript/1.0'}
-            response = requests.get('https://nominatim.openstreetmap.org/search', params=params, headers=headers, timeout=10)
-            data = response.json()
-            if data:
-                print(f"  ✓ Strukturierte Suche: {params.get('street', '')} {params.get('postalcode', '')} {params.get('city', '')}")
-                return data[0]['lat'], data[0]['lon']
-        except Exception:
-            pass
+        if erwartete_plz:
+            for treffer in data:
+                gefundene_plz = treffer.get('address', {}).get('postcode')
+                if gefundene_plz == erwartete_plz:
+                    return treffer['lat'], treffer['lon']
+            print(f"  ⚠ Keine Übereinstimmung mit erwarteter PLZ {erwartete_plz}, nehme ersten Treffer mit Vorbehalt")
 
-    return None, None
+        return data[0]['lat'], data[0]['lon']
+    except Exception as e:
+        print(f"  ⚠ Nominatim fehlgeschlagen: {e}")
+        return None, None
 
 
 def get_coords(adresse):
     if adresse in koordinaten_cache:
         return koordinaten_cache[adresse]
 
-    lat, lon = get_coords_strukturiert(adresse)
+    # 1. Manuelle Overrides zuerst prüfen (zuverlässigste Quelle)
+    adresse_lower = adresse.lower()
+    for schluesselwort, (lat, lon) in HALLEN_KOORDINATEN_MANUELL.items():
+        if schluesselwort in adresse_lower:
+            koordinaten_cache[adresse] = (lat, lon)
+            print(f"  ✓ Manueller Override für '{schluesselwort}' verwendet")
+            return lat, lon
+
+    erwartete_plz = extrahiere_plz(adresse)
+
+    # 2. Freitextsuche mit PLZ-Validierung (robuster als reine Struktursuche)
+    lat, lon = geocode_mit_validierung(adresse, erwartete_plz)
     if lat and lon:
         koordinaten_cache[adresse] = (lat, lon)
         return lat, lon
 
     time.sleep(0.5)
+
+    # 3. Fallback: bereinigte Adresse erneut versuchen
     adresse_bereinigt = bereinige_adresse(adresse)
-    try:
-        headers = {'User-Agent': 'HandballKalenderSkript/1.0'}
-        url = f"https://nominatim.openstreetmap.org/search?q={urllib.parse.quote(adresse_bereinigt)}&format=json&countrycodes=de&limit=1"
-        response = requests.get(url, headers=headers, timeout=10)
-        response.raise_for_status()
-        data = response.json()
-        if data:
-            lat, lon = data[0]['lat'], data[0]['lon']
-            koordinaten_cache[adresse] = (lat, lon)
-            print(f"  ✓ Nominatim (bereinigte Adresse): Koordinaten gefunden")
-            return lat, lon
-    except Exception as e:
-        print(f"  ⚠ Nominatim fehlgeschlagen: {e}")
+    lat, lon = geocode_mit_validierung(adresse_bereinigt, erwartete_plz)
+    if lat and lon:
+        koordinaten_cache[adresse] = (lat, lon)
+        return lat, lon
 
     time.sleep(0.5)
+
+    # 4. Letzter Fallback: Photon
     try:
         url = f"https://photon.komoot.io/api/?q={urllib.parse.quote(adresse_bereinigt)}&limit=1"
         response = requests.get(url, timeout=10)
@@ -158,7 +200,12 @@ def get_coords(adresse):
 
 
 def hole_fahrzeit(ziel_adresse):
-    """Berechnet die Fahrzeit von der Startadresse zum Ziel in Minuten."""
+    """
+    Berechnet die Fahrzeit von der Startadresse zum Ziel in Minuten.
+    Prüft das OSRM-Ergebnis zusätzlich auf Plausibilität anhand der
+    Luftlinien-Distanz, um Geokodierungsfehler (falscher Ort gleichen
+    Namens) zu erkennen.
+    """
     if not ziel_adresse:
         return None
     if ziel_adresse in fahrzeit_cache:
@@ -174,6 +221,9 @@ def hole_fahrzeit(ziel_adresse):
         fahrzeit_cache[ziel_adresse] = None
         return None
 
+    distanz_km = haversine_km(start_lat, start_lon, ziel_lat, ziel_lon)
+
+    duration_minutes = None
     try:
         url = f"http://router.project-osrm.org/route/v1/driving/{start_lon},{start_lat};{ziel_lon},{ziel_lat}?overview=false"
         response = requests.get(url, timeout=10)
@@ -181,23 +231,34 @@ def hole_fahrzeit(ziel_adresse):
         data = response.json()
         if data.get('code') == 'Ok':
             duration_minutes = int(data['routes'][0]['duration'] / 60)
-            fahrzeit_cache[ziel_adresse] = duration_minutes
-            print(f"  → Fahrzeit nach '{ziel_adresse[:40]}...': {duration_minutes} min")
-            return duration_minutes
     except Exception as e:
         print(f"  ⚠ OSRM-Routing fehlgeschlagen: {e}")
 
-    fahrzeit_cache[ziel_adresse] = None
-    return None
+    # Plausibilitätsprüfung: bei plausiblen Landstraßen-/Autobahn-
+    # Geschwindigkeiten sollte die Fahrzeit nicht einem Schnitt von
+    # unter 15 km/h entsprechen. Wenn doch: Geokodierung war
+    # wahrscheinlich falsch -> Distanzschätzung statt OSRM-Wert nutzen.
+    plausibel = True
+    if duration_minutes is not None and distanz_km > 0:
+        implizierte_kmh = distanz_km / (duration_minutes / 60)
+        if implizierte_kmh < 15:
+            plausibel = False
+            print(f"  ⚠ Unplausible Fahrzeit erkannt: {duration_minutes} min für {distanz_km:.1f} km "
+                  f"({implizierte_kmh:.0f} km/h) -> vermutlich falsche Geokodierung, nutze Schätzung")
+
+    if duration_minutes is None or not plausibel:
+        # Grobe Schätzung: 45 km/h Durchschnitt für Landstraßen im Oberbergischen
+        duration_minutes = max(5, round(distanz_km / 45 * 60))
+        fahrzeit_cache[ziel_adresse] = duration_minutes
+        print(f"  → Fahrzeit (Schätzung, {distanz_km:.1f} km Luftlinie): ca. {duration_minutes} min")
+        return duration_minutes
+
+    fahrzeit_cache[ziel_adresse] = duration_minutes
+    print(f"  → Fahrzeit nach '{ziel_adresse[:40]}...': {duration_minutes} min ({distanz_km:.1f} km Luftlinie)")
+    return duration_minutes
 
 
 def verarbeite_handballnet_kalender(url, filter_team, output, puffer_min=60, immer_fahrzeit_berechnen=False):
-    """
-    Lädt einen kompletten Liga-ICS-Kalender von handball.net, übernimmt nur
-    die Spiele des eigenen Vereins und ergänzt die Beschreibung um Halle,
-    Treffzeit und (bei Auswärtsspielen) Fahrzeit/Abfahrtszeit.
-    Der Event-Titel (SUMMARY) von handball.net bleibt dabei unverändert.
-    """
     print(f"\n{'='*60}\nhandball.net-Kalender: {output} (Filter: '{filter_team}')\n{'='*60}")
 
     try:
@@ -222,7 +283,7 @@ def verarbeite_handballnet_kalender(url, filter_team, output, puffer_min=60, imm
 
     for event in quell_cal.events:
         titel = event.name or ""
-        beschreibung_original = event.description or ""
+        beschreibung_original = uebersetze_status(event.description or "")
         ort = (event.location or "").strip()
         haystack = f"{titel} {beschreibung_original} {ort}".lower()
 
@@ -274,7 +335,6 @@ def verarbeite_handballnet_kalender(url, filter_team, output, puffer_min=60, imm
     return True
 
 
-# --- Hauptprogramm ---
 if __name__ == "__main__":
     print("="*60 + "\nHANDBALL KALENDER GENERATOR (handball.net)\n" + "="*60)
 
