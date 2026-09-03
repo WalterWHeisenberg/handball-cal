@@ -18,7 +18,7 @@ jobs:
     steps:
       # Schritt 1: Das Repository in den Runner klonen
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       # Schritt 2: Python-Umgebung einrichten
       - name: Set up Python
@@ -35,10 +35,10 @@ jobs:
       # Schritt 4: Das Python-Skript ausführen, um die .ics-Datei zu erstellen
       - name: Generate calendar file
         run: python generate_calendar.py
-      
+
       - name: Create .nojekyll file
         run: touch .nojekyll
-      
+
       - name: Commit and push if changed
         run: |
           git config user.name "github-actions[bot]"
