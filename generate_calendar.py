@@ -5,10 +5,19 @@ from math import radians, sin, cos, sqrt, atan2
 import urllib.parse
 import time
 import re
+import os
 import sys
 
 # --- Globale Einstellungen ---
 START_ADRESSE = "Gouvieuxstraße 2, 51588 Nümbrecht"
+
+# --- OpenRouteService (ORS) ---
+# Wird aus einem GitHub Secret gelesen (Settings -> Secrets and variables ->
+# Actions -> ORS_API_KEY). Wenn nicht gesetzt, wird automatisch auf
+# Nominatim/OSRM zurückgefallen.
+ORS_API_KEY = os.environ.get("ORS_API_KEY", "").strip()
+ORS_GEOCODE_URL = "https://api.openrouteservice.org/geocode/search"
+ORS_DIRECTIONS_URL = "https://api.openrouteservice.org/v2/directions/driving-car"
 
 # --- Konfiguration: handball.net Abo-Kalender (ICS-Feed, wird gefiltert) ---
 HANDBALLNET_CONFIG = [
@@ -34,9 +43,6 @@ HANDBALLNET_CONFIG = [
         "immer_fahrzeit_berechnen": False
     },
     {
-        # Hier interessiert der 1. FC Köln, nicht Nümbrecht.
-        # Filter bewusst nur auf "Köln" (robuster gegen abweichende
-        # Schreibweisen im Feed).
         "url": "https://www.handball.net/kalender/liga/6108.ics?season_id=2627&fed_id=20",
         "filter_team": "Köln",
         "output": "handball_wjc-hsg.ics",
@@ -107,21 +113,7 @@ def korrigiere_umlaut_grossschreibung(text):
 
 
 def korrigiere_zeitzone(arrow_zeit):
-    """
-    NEU: Behebt einen Zeitzonen-Bug. Der handball.net-Feed schreibt
-    DTSTART/DTEND ohne 'Z' oder TZID (z.B. "20260912T171500"), meint damit
-    aber laut eigener Deklaration "X-WR-TIMEZONE:Europe/Berlin" Berliner
-    Ortszeit. Die 'ics'-Bibliothek interpretiert solche Werte ohne
-    Kennung jedoch als UTC - dadurch wird z.B. 17:15 Uhr Ortszeit
-    fälschlich als 17:15 UTC gespeichert, was Kalender-Apps dann (korrekt
-    von UTC umgerechnet) als 19:15 Uhr anzeigen.
-
-    Diese Funktion belässt die Uhrzeit-Ziffern unverändert, korrigiert
-    aber das Zeitzonen-Label auf Europe/Berlin, sodass der tatsächliche
-    UTC-Zeitpunkt stimmt und alle Kalender-Apps die richtige Ortszeit
-    anzeigen - inklusive korrekter Behandlung der Zeitumstellung
-    (Sommer-/Winterzeit) je nach Spieldatum.
-    """
+    """Korrigiert das UTC-Fehl-Label des handball.net-Feeds auf Europe/Berlin."""
     if arrow_zeit is None:
         return None
     if arrow_zeit.utcoffset().total_seconds() == 0:
@@ -174,7 +166,42 @@ def bereinige_adresse(adresse):
     return adresse
 
 
+def geocode_ors(adresse, erwartete_plz=None):
+    """Geokodierung über OpenRouteService (Pelias). Primärquelle, wenn Key vorhanden."""
+    if not ORS_API_KEY:
+        return None, None
+    try:
+        params = {
+            'api_key': ORS_API_KEY,
+            'text': adresse,
+            'boundary.country': 'DE',
+            'size': 3
+        }
+        response = requests.get(ORS_GEOCODE_URL, params=params, timeout=10)
+        response.raise_for_status()
+        data = response.json()
+        features = data.get('features', [])
+        if not features:
+            return None, None
+
+        if erwartete_plz:
+            for feat in features:
+                gefundene_plz = feat.get('properties', {}).get('postalcode')
+                if gefundene_plz == erwartete_plz:
+                    lon, lat = feat['geometry']['coordinates']
+                    return lat, lon
+            print(f"  ⚠ ORS: keine Übereinstimmung mit PLZ {erwartete_plz}, nehme ersten Treffer mit Vorbehalt")
+
+        lon, lat = features[0]['geometry']['coordinates']
+        print(f"  ✓ ORS-Geocoding erfolgreich für '{adresse[:50]}...'")
+        return lat, lon
+    except Exception as e:
+        print(f"  ⚠ ORS-Geocoding fehlgeschlagen: {e}")
+        return None, None
+
+
 def geocode_mit_validierung(adresse, erwartete_plz=None):
+    """Fallback: Nominatim-Freitextsuche mit PLZ-Validierung."""
     try:
         headers = {'User-Agent': 'HandballKalenderSkript/1.0'}
         url = "https://nominatim.openstreetmap.org/search"
@@ -191,7 +218,7 @@ def geocode_mit_validierung(adresse, erwartete_plz=None):
                 gefundene_plz = treffer.get('address', {}).get('postcode')
                 if gefundene_plz == erwartete_plz:
                     return treffer['lat'], treffer['lon']
-            print(f"  ⚠ Keine Übereinstimmung mit erwarteter PLZ {erwartete_plz}, nehme ersten Treffer mit Vorbehalt")
+            print(f"  ⚠ Nominatim: keine Übereinstimmung mit PLZ {erwartete_plz}, nehme ersten Treffer mit Vorbehalt")
 
         return data[0]['lat'], data[0]['lon']
     except Exception as e:
@@ -212,12 +239,23 @@ def get_coords(adresse):
 
     erwartete_plz = extrahiere_plz(adresse)
 
+    # 1. ORS (primär, wenn Key vorhanden)
+    lat, lon = geocode_ors(adresse, erwartete_plz)
+    if lat and lon:
+        koordinaten_cache[adresse] = (lat, lon)
+        return lat, lon
+
+    time.sleep(0.3)
+
+    # 2. Nominatim (Fallback 1)
     lat, lon = geocode_mit_validierung(adresse, erwartete_plz)
     if lat and lon:
         koordinaten_cache[adresse] = (lat, lon)
         return lat, lon
 
     time.sleep(0.5)
+
+    # 3. Nominatim mit bereinigter Adresse (Fallback 2)
     adresse_bereinigt = bereinige_adresse(adresse)
     lat, lon = geocode_mit_validierung(adresse_bereinigt, erwartete_plz)
     if lat and lon:
@@ -225,6 +263,8 @@ def get_coords(adresse):
         return lat, lon
 
     time.sleep(0.5)
+
+    # 4. Photon (letzter Fallback)
     try:
         url = f"https://photon.komoot.io/api/?q={urllib.parse.quote(adresse_bereinigt)}&limit=1"
         response = requests.get(url, timeout=10)
@@ -244,6 +284,45 @@ def get_coords(adresse):
     return None, None
 
 
+def route_ors(start_lat, start_lon, ziel_lat, ziel_lon):
+    """Routenberechnung über OpenRouteService. Primärquelle, wenn Key vorhanden."""
+    if not ORS_API_KEY:
+        return None
+    try:
+        headers = {
+            'Authorization': ORS_API_KEY,
+            'Content-Type': 'application/json'
+        }
+        body = {
+            "coordinates": [
+                [float(start_lon), float(start_lat)],
+                [float(ziel_lon), float(ziel_lat)]
+            ]
+        }
+        response = requests.post(ORS_DIRECTIONS_URL, json=body, headers=headers, timeout=10)
+        response.raise_for_status()
+        data = response.json()
+        duration_sek = data['routes'][0]['summary']['duration']
+        return int(duration_sek / 60)
+    except Exception as e:
+        print(f"  ⚠ ORS-Routing fehlgeschlagen: {e}")
+        return None
+
+
+def route_osrm(start_lat, start_lon, ziel_lat, ziel_lon):
+    """Fallback: öffentlicher OSRM-Demo-Server."""
+    try:
+        url = f"http://router.project-osrm.org/route/v1/driving/{start_lon},{start_lat};{ziel_lon},{ziel_lat}?overview=false"
+        response = requests.get(url, timeout=10)
+        response.raise_for_status()
+        data = response.json()
+        if data.get('code') == 'Ok':
+            return int(data['routes'][0]['duration'] / 60)
+    except Exception as e:
+        print(f"  ⚠ OSRM-Routing fehlgeschlagen: {e}")
+    return None
+
+
 def hole_fahrzeit(ziel_adresse):
     if not ziel_adresse:
         return None
@@ -253,7 +332,7 @@ def hole_fahrzeit(ziel_adresse):
     start_lat, start_lon = get_coords(START_ADRESSE)
     ziel_lat, ziel_lon = get_coords(ziel_adresse)
 
-    time.sleep(1)
+    time.sleep(0.5)
 
     if not all([start_lat, start_lon, ziel_lat, ziel_lon]):
         print(f"  ⚠ Koordinaten für Fahrzeit konnten nicht ermittelt werden.")
@@ -262,23 +341,20 @@ def hole_fahrzeit(ziel_adresse):
 
     distanz_km = haversine_km(start_lat, start_lon, ziel_lat, ziel_lon)
 
-    duration_minutes = None
-    try:
-        url = f"http://router.project-osrm.org/route/v1/driving/{start_lon},{start_lat};{ziel_lon},{ziel_lat}?overview=false"
-        response = requests.get(url, timeout=10)
-        response.raise_for_status()
-        data = response.json()
-        if data.get('code') == 'Ok':
-            duration_minutes = int(data['routes'][0]['duration'] / 60)
-    except Exception as e:
-        print(f"  ⚠ OSRM-Routing fehlgeschlagen: {e}")
+    # 1. ORS (primär), 2. OSRM (Fallback)
+    duration_minutes = route_ors(start_lat, start_lon, ziel_lat, ziel_lon)
+    quelle = "ORS"
+    if duration_minutes is None:
+        duration_minutes = route_osrm(start_lat, start_lon, ziel_lat, ziel_lon)
+        quelle = "OSRM"
 
+    # Plausibilitätsprüfung bleibt als Sicherheitsnetz erhalten
     plausibel = True
     if duration_minutes is not None and distanz_km > 0:
         implizierte_kmh = distanz_km / (duration_minutes / 60)
         if implizierte_kmh < 15:
             plausibel = False
-            print(f"  ⚠ Unplausible Fahrzeit erkannt: {duration_minutes} min für {distanz_km:.1f} km "
+            print(f"  ⚠ Unplausible Fahrzeit ({quelle}) erkannt: {duration_minutes} min für {distanz_km:.1f} km "
                   f"({implizierte_kmh:.0f} km/h) -> nutze Schätzung")
 
     if duration_minutes is None or not plausibel:
@@ -288,7 +364,7 @@ def hole_fahrzeit(ziel_adresse):
         return duration_minutes
 
     fahrzeit_cache[ziel_adresse] = duration_minutes
-    print(f"  → Fahrzeit nach '{ziel_adresse[:40]}...': {duration_minutes} min ({distanz_km:.1f} km Luftlinie)")
+    print(f"  → Fahrzeit ({quelle}) nach '{ziel_adresse[:40]}...': {duration_minutes} min ({distanz_km:.1f} km Luftlinie)")
     return duration_minutes
 
 
@@ -326,7 +402,6 @@ def verarbeite_handballnet_kalender(url, filter_team, output, puffer_min=60, imm
 
         treffer += 1
 
-        # NEU: Zeitzonen-Korrektur direkt nach dem Filtern anwenden
         event.begin = korrigiere_zeitzone(event.begin)
         event.end = korrigiere_zeitzone(event.end)
 
@@ -376,6 +451,10 @@ def verarbeite_handballnet_kalender(url, filter_team, output, puffer_min=60, imm
 
 if __name__ == "__main__":
     print("="*60 + "\nHANDBALL KALENDER GENERATOR (handball.net)\n" + "="*60)
+    if ORS_API_KEY:
+        print("✓ ORS_API_KEY gefunden - OpenRouteService wird als primäre Quelle genutzt")
+    else:
+        print("⚠ Kein ORS_API_KEY gefunden - falle zurück auf Nominatim/OSRM")
 
     results = []
     for config in HANDBALLNET_CONFIG:
