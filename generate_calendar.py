@@ -31,7 +31,7 @@ HANDBALLNET_CONFIG = [
     {
         "url": "https://www.handball.net/kalender/liga/10014.ics?season_id=2627&fed_id=148",
         "filter_team": "Nümbrecht",
-        "output": "handball_mjd1.ics",
+        "output": "handball_mjd2.ics",
         "puffer_min": 60,
         "immer_fahrzeit_berechnen": False
     },
@@ -51,20 +51,20 @@ HANDBALLNET_CONFIG = [
     },
 
     # Noch ohne handball.net-ICS-Quelle -> vorerst auskommentiert:
-    # {
+   # {
     #     "url": "https://www.handball.net/kalender/liga/XXXX.ics",
     #     "filter_team": "Nümbrecht",
     #     "output": "handball_wjc.ics",
     #     "puffer_min": 75,
     #     "immer_fahrzeit_berechnen": False
     # },
-    # {
-    #     "url": "https://www.handball.net/kalender/liga/XXXX.ics",
-    #     "filter_team": "Nümbrecht",
-    #     "output": "handball_mjd2.ics",
-    #     "puffer_min": 60,
-    #     "immer_fahrzeit_berechnen": False
-    # },
+     {
+         "url": "https://www.handball.net/kalender/team/95226.ics",
+         "filter_team": "Nümbrecht",
+         "output": "handball_mjd1.ics",
+         "puffer_min": 60,
+         "immer_fahrzeit_berechnen": False
+     },
 ]
 
 # --- Manuelle Hallen-Overrides (bei bekannten Geokodierungs-Fehlern) ---
