@@ -22,7 +22,6 @@ from urllib3.util.retry import Retry
 START_ADRESSE = "Gouvieuxstraße 2, 51588 Nümbrecht, Deutschland"
 
 # Verzeichnis für die erzeugten Kalender.
-# Standardmäßig wird in das aktuelle Arbeitsverzeichnis geschrieben.
 OUTPUT_VERZEICHNIS = Path(
     os.environ.get("OUTPUT_VERZEICHNIS", ".")
 ).resolve()
@@ -36,13 +35,10 @@ STRASSENFAKTOR_LUFTLINIE = 1.25
 # Durchschnittsgeschwindigkeit für die Fahrzeitschätzung.
 GESCHAETZTE_GESCHWINDIGKEIT_KMH = 45
 
-# Nominatim soll möglichst nicht öfter als einmal pro Sekunde
-# aufgerufen werden.
+# Nominatim soll nicht öfter als einmal pro Sekunde aufgerufen werden.
 NOMINATIM_MINDESTABSTAND_SEKUNDEN = 1.1
 
 # Kontaktadresse kann in GitHub als Variable oder Secret gesetzt werden.
-# Beispiel:
-# NOMINATIM_CONTACT_EMAIL=max.mustermann@example.de
 NOMINATIM_CONTACT_EMAIL = os.environ.get(
     "NOMINATIM_CONTACT_EMAIL",
     ""
@@ -51,10 +47,10 @@ NOMINATIM_CONTACT_EMAIL = os.environ.get(
 # Verhalten, wenn bei einem Kalender keine passenden Spiele gefunden werden:
 #
 # True:
-#   Der Kalender gilt als fehlerhaft und die GitHub Action endet mit Exit-Code 1.
+#   Der Kalender gilt als fehlerhaft, die GitHub Action endet mit Exit-Code 1.
 #
 # False:
-#   Der Kalender wird übersprungen, die Verarbeitung gilt aber nicht als Fehler.
+#   Der Kalender wird übersprungen, die Verarbeitung gilt nicht als Fehler.
 KEINE_TREFFER_SIND_FEHLER = True
 
 
@@ -93,14 +89,9 @@ ZEITMODUS_UNVERAENDERT = "unveraendert"
 
 # fahrzeit_modus:
 #
-# "auswaerts":
-#   Fahrzeit nur für erkannte Auswärtsspiele berechnen.
-#
-# "immer":
-#   Fahrzeit für jedes Spiel mit Hallenadresse berechnen.
-#
-# "nie":
-#   Keine Fahrzeit berechnen.
+# "auswaerts": Fahrzeit nur für erkannte Auswärtsspiele berechnen.
+# "immer":     Fahrzeit für jedes Spiel mit Hallenadresse berechnen.
+# "nie":       Keine Fahrzeit berechnen.
 #
 # Die beiden männlichen D-Jugendmannschaften sind getrennt aufgeführt:
 # - männliche D1: Teamkalender 95226
@@ -248,7 +239,7 @@ def erstelle_http_session():
     session.mount("https://", adapter)
     session.mount("http://", adapter)
 
-    user_agent = "HandballKalenderGenerator/2.0"
+    user_agent = "HandballKalenderGenerator/2.1"
 
     if NOMINATIM_CONTACT_EMAIL:
         user_agent += f" ({NOMINATIM_CONTACT_EMAIL})"
@@ -272,8 +263,8 @@ def normalisiere_text(text):
     """
     Normalisiert Text für robuste Vergleiche.
 
-    Dabei bleiben Umlaute erhalten. Groß- und Kleinschreibung werden
-    über casefold() vereinheitlicht.
+    Umlaute bleiben erhalten, Groß- und Kleinschreibung wird über
+    casefold() vereinheitlicht.
     """
     if not text:
         return ""
@@ -372,8 +363,8 @@ def team_passt(filter_team, titel, beschreibung=""):
     Prüft, ob das gesuchte Team zu einem Spiel gehört.
 
     Der Hallenort wird bewusst nicht durchsucht. Dadurch wird verhindert,
-    dass beispielsweise der Filter 'Köln' nur deshalb anschlägt, weil
-    die Halle in Köln liegt.
+    dass beispielsweise der Filter 'Köln' nur deshalb anschlägt, weil die
+    Halle in Köln liegt.
     """
     filter_normalisiert = normalisiere_text(filter_team)
 
@@ -474,7 +465,7 @@ def bereinige_adresse(adresse):
     original = str(adresse).strip()
     bereinigt = original
 
-    # Zeilenumbrüche und typische Trenner vereinheitlichen.
+    # Zeilenumbrüche vereinheitlichen.
     bereinigt = bereinigt.replace("\r", " ")
     bereinigt = bereinigt.replace("\n", ", ")
 
@@ -522,6 +513,33 @@ def bereinige_adresse(adresse):
     return bereinigt
 
 
+def plz_bewertung(gefundene_plz, erwartete_plz):
+    """
+    Bewertet die Übereinstimmung zweier Postleitzahlen.
+
+    0 = identisch oder keine Erwartung
+    1 = gleiche PLZ-Region (erste drei Stellen)
+    2 = Dienst liefert keine PLZ
+    3 = deutliche Abweichung
+    """
+    if not erwartete_plz:
+        return 0
+
+    erwartet = re.sub(r"\D", "", str(erwartete_plz))
+    gefunden = re.sub(r"\D", "", str(gefundene_plz or ""))
+
+    if not gefunden:
+        return 2
+
+    if gefunden == erwartet:
+        return 0
+
+    if gefunden[:3] == erwartet[:3]:
+        return 1
+
+    return 3
+
+
 def koordinaten_gueltig(lat, lon):
     """
     Prüft, ob gültige Koordinaten vorhanden sind.
@@ -538,31 +556,80 @@ def koordinaten_gueltig(lat, lon):
     return -90 <= lat <= 90 and -180 <= lon <= 180
 
 
-def postleitzahl_passt(gefundene_plz, erwartete_plz):
+def waehle_besten_treffer(
+    kandidaten,
+    erwartete_plz,
+    plz_streng,
+    quelle,
+):
     """
-    Vergleicht gefundene und erwartete Postleitzahl.
+    Wählt aus einer Liste von Kandidaten den besten Treffer.
 
-    Wenn keine PLZ erwartet wird, gilt der Treffer als passend.
+    Jeder Kandidat ist ein Tupel aus gefundener PLZ, Breite und Länge.
     """
-    if not erwartete_plz:
-        return True
+    bewertet = []
 
-    if not gefundene_plz:
-        return False
+    for gefundene_plz, lat, lon in kandidaten:
+        if not koordinaten_gueltig(lat, lon):
+            continue
 
-    return str(gefundene_plz).strip() == str(erwartete_plz).strip()
+        bewertet.append(
+            (
+                plz_bewertung(gefundene_plz, erwartete_plz),
+                gefundene_plz,
+                float(lat),
+                float(lon),
+            )
+        )
+
+    if not bewertet:
+        return None, None
+
+    bewertet.sort(key=lambda eintrag: eintrag[0])
+
+    bewertung, gefundene_plz, lat, lon = bewertet[0]
+
+    if bewertung == 0:
+        return lat, lon
+
+    if bewertung == 1:
+        print(
+            f"  ⚠ {quelle}: PLZ {gefundene_plz} weicht von "
+            f"{erwartete_plz} ab, liegt aber in derselben Region."
+        )
+        return lat, lon
+
+    if bewertung == 2:
+        print(
+            f"  ⚠ {quelle}: Treffer ohne PLZ-Angabe. "
+            f"PLZ {erwartete_plz} konnte nicht geprüft werden."
+        )
+        return lat, lon
+
+    if plz_streng:
+        print(
+            f"  ⚠ {quelle}: kein Treffer mit passender PLZ "
+            f"{erwartete_plz}, gefunden wurde "
+            f"{gefundene_plz or 'keine Angabe'}."
+        )
+        return None, None
+
+    print(
+        f"  ⚠ {quelle}: Treffer mit abweichender PLZ "
+        f"{gefundene_plz} statt {erwartete_plz} wird "
+        f"ersatzweise verwendet."
+    )
+
+    return lat, lon
 
 
 # ============================================================
 # GEOCODING: OPENROUTESERVICE
 # ============================================================
 
-def geocode_ors(adresse, erwartete_plz=None):
+def geocode_ors(adresse, erwartete_plz=None, plz_streng=True):
     """
     Geokodiert eine Adresse über OpenRouteService.
-
-    Bei vorhandener erwarteter PLZ wird ausschließlich ein Treffer mit
-    übereinstimmender PLZ akzeptiert.
     """
     if not ORS_API_KEY or not adresse:
         return None, None
@@ -591,45 +658,41 @@ def geocode_ors(adresse, erwartete_plz=None):
         print(f"  ⚠ ORS lieferte kein gültiges JSON: {exc}")
         return None, None
 
-    features = daten.get("features", [])
-
-    if not features:
+    if not isinstance(daten, dict):
         return None, None
 
-    passende_features = []
+    kandidaten = []
 
-    for feature in features:
+    for feature in daten.get("features", []):
         properties = feature.get("properties", {})
-        gefundene_plz = properties.get("postalcode")
+        geometry = feature.get("geometry", {})
+        koordinaten = geometry.get("coordinates", [])
 
-        if postleitzahl_passt(gefundene_plz, erwartete_plz):
-            passende_features.append(feature)
+        if len(koordinaten) < 2:
+            continue
 
-    if erwartete_plz and not passende_features:
-        print(
-            f"  ⚠ ORS: kein Treffer mit der erwarteten PLZ "
-            f"{erwartete_plz}"
+        kandidaten.append(
+            (
+                properties.get("postalcode"),
+                koordinaten[1],
+                koordinaten[0],
+            )
         )
-        return None, None
 
-    feature = passende_features[0] if passende_features else features[0]
-    geometry = feature.get("geometry", {})
-    koordinaten = geometry.get("coordinates", [])
-
-    if len(koordinaten) < 2:
-        return None, None
-
-    lon, lat = koordinaten[0], koordinaten[1]
-
-    if not koordinaten_gueltig(lat, lon):
-        return None, None
-
-    print(
-        f"  ✓ ORS-Geocoding erfolgreich: "
-        f"{kuerze_text(adresse, 65)}"
+    lat, lon = waehle_besten_treffer(
+        kandidaten,
+        erwartete_plz,
+        plz_streng,
+        "ORS",
     )
 
-    return float(lat), float(lon)
+    if lat is not None:
+        print(
+            f"  ✓ ORS-Geocoding erfolgreich: "
+            f"{kuerze_text(adresse, 65)}"
+        )
+
+    return lat, lon
 
 
 # ============================================================
@@ -651,12 +714,9 @@ def warte_auf_nominatim():
     letzter_nominatim_aufruf = time.monotonic()
 
 
-def geocode_nominatim(adresse, erwartete_plz=None):
+def geocode_nominatim(adresse, erwartete_plz=None, plz_streng=True):
     """
     Geokodiert eine Adresse über Nominatim.
-
-    Bei einer erwarteten PLZ werden nur Treffer mit identischer PLZ
-    übernommen.
     """
     if not adresse:
         return None, None
@@ -693,51 +753,48 @@ def geocode_nominatim(adresse, erwartete_plz=None):
         print(f"  ⚠ Nominatim lieferte kein gültiges JSON: {exc}")
         return None, None
 
-    if not daten:
+    if not isinstance(daten, list):
         return None, None
 
-    passende_treffer = []
+    kandidaten = []
 
     for treffer in daten:
+        if not isinstance(treffer, dict):
+            continue
+
         adressdaten = treffer.get("address", {})
-        gefundene_plz = adressdaten.get("postcode")
 
-        if postleitzahl_passt(gefundene_plz, erwartete_plz):
-            passende_treffer.append(treffer)
-
-    if erwartete_plz and not passende_treffer:
-        print(
-            f"  ⚠ Nominatim: kein Treffer mit der erwarteten PLZ "
-            f"{erwartete_plz}"
+        kandidaten.append(
+            (
+                adressdaten.get("postcode"),
+                treffer.get("lat"),
+                treffer.get("lon"),
+            )
         )
-        return None, None
 
-    treffer = passende_treffer
-
-    lat = treffer.get("lat")
-    lon = treffer.get("lon")
-
-    if not koordinaten_gueltig(lat, lon):
-        return None, None
-
-    print(
-        f"  ✓ Nominatim-Geocoding erfolgreich: "
-        f"{kuerze_text(adresse, 65)}"
+    lat, lon = waehle_besten_treffer(
+        kandidaten,
+        erwartete_plz,
+        plz_streng,
+        "Nominatim",
     )
 
-    return float(lat), float(lon)
+    if lat is not None:
+        print(
+            f"  ✓ Nominatim-Geocoding erfolgreich: "
+            f"{kuerze_text(adresse, 65)}"
+        )
+
+    return lat, lon
 
 
 # ============================================================
 # GEOCODING: PHOTON
 # ============================================================
 
-def geocode_photon(adresse, erwartete_plz=None):
+def geocode_photon(adresse, erwartete_plz=None, plz_streng=True):
     """
     Letzter Geocoding-Fallback über Photon.
-
-    Es werden ausschließlich deutsche Treffer akzeptiert. Bei bekannter
-    PLZ muss auch diese übereinstimmen.
     """
     if not adresse:
         return None, None
@@ -760,9 +817,12 @@ def geocode_photon(adresse, erwartete_plz=None):
         print(f"  ⚠ Photon lieferte kein gültiges JSON: {exc}")
         return None, None
 
-    features = daten.get("features", [])
+    if not isinstance(daten, dict):
+        return None, None
 
-    for feature in features:
+    kandidaten = []
+
+    for feature in daten.get("features", []):
         properties = feature.get("properties", {})
 
         countrycode = normalisiere_text(
@@ -772,36 +832,34 @@ def geocode_photon(adresse, erwartete_plz=None):
         if countrycode and countrycode not in {"de", "deu"}:
             continue
 
-        gefundene_plz = properties.get("postcode")
-
-        if not postleitzahl_passt(gefundene_plz, erwartete_plz):
-            continue
-
         geometry = feature.get("geometry", {})
         koordinaten = geometry.get("coordinates", [])
 
         if len(koordinaten) < 2:
             continue
 
-        lon, lat = koordinaten[0], koordinaten[1]
+        kandidaten.append(
+            (
+                properties.get("postcode"),
+                koordinaten[1],
+                koordinaten[0],
+            )
+        )
 
-        if not koordinaten_gueltig(lat, lon):
-            continue
+    lat, lon = waehle_besten_treffer(
+        kandidaten,
+        erwartete_plz,
+        plz_streng,
+        "Photon",
+    )
 
+    if lat is not None:
         print(
             f"  ✓ Photon-Geocoding erfolgreich: "
             f"{kuerze_text(adresse, 65)}"
         )
 
-        return float(lat), float(lon)
-
-    if erwartete_plz:
-        print(
-            f"  ⚠ Photon: kein deutscher Treffer mit PLZ "
-            f"{erwartete_plz}"
-        )
-
-    return None, None
+    return lat, lon
 
 
 # ============================================================
@@ -810,14 +868,10 @@ def geocode_photon(adresse, erwartete_plz=None):
 
 def get_coords(adresse):
     """
-    Ermittelt Koordinaten über folgende Reihenfolge:
+    Ermittelt Koordinaten in mehreren Stufen.
 
-    1. manueller Override
-    2. ORS mit Originaladresse
-    3. Nominatim mit Originaladresse
-    4. ORS mit bereinigter Adresse
-    5. Nominatim mit bereinigter Adresse
-    6. Photon mit bereinigter Adresse
+    Zuerst werden alle Dienste mit strenger PLZ-Prüfung versucht.
+    Erst danach folgt ein Durchlauf ohne strenge Prüfung.
     """
     if not adresse:
         return None, None
@@ -847,58 +901,37 @@ def get_coords(adresse):
                 return koordinaten_cache[schluessel]
 
     erwartete_plz = extrahiere_plz(adresse)
-
-    # 1. ORS mit Originaladresse
-    lat, lon = geocode_ors(adresse, erwartete_plz)
-
-    if koordinaten_gueltig(lat, lon):
-        koordinaten_cache[schluessel] = (lat, lon)
-        return lat, lon
-
-    # 2. Nominatim mit Originaladresse
-    lat, lon = geocode_nominatim(adresse, erwartete_plz)
-
-    if koordinaten_gueltig(lat, lon):
-        koordinaten_cache[schluessel] = (lat, lon)
-        return lat, lon
-
     bereinigte_adresse = bereinige_adresse(adresse)
 
-    # Bereinigte Adresse nur erneut prüfen, wenn sie sich tatsächlich
-    # von der Originaladresse unterscheidet.
-    if normalisiere_text(bereinigte_adresse) != normalisiere_text(adresse):
+    adressvarianten = [adresse]
 
-        # 3. ORS mit bereinigter Adresse
-        lat, lon = geocode_ors(
-            bereinigte_adresse,
-            erwartete_plz,
-        )
+    if normalisiere_text(bereinigte_adresse) != adresse_normalisiert:
+        adressvarianten.append(bereinigte_adresse)
 
-        if koordinaten_gueltig(lat, lon):
-            koordinaten_cache[schluessel] = (lat, lon)
-            return lat, lon
+    # Stufe 1: alle Dienste mit strenger PLZ-Prüfung.
+    # Stufe 2: dieselbe Reihenfolge ohne strenge Prüfung.
+    for plz_streng in (True, False):
+        for variante in adressvarianten:
+            for geocoder in (
+                geocode_ors,
+                geocode_nominatim,
+                geocode_photon,
+            ):
+                lat, lon = geocoder(
+                    variante,
+                    erwartete_plz,
+                    plz_streng,
+                )
 
-        # 4. Nominatim mit bereinigter Adresse
-        lat, lon = geocode_nominatim(
-            bereinigte_adresse,
-            erwartete_plz,
-        )
+                if koordinaten_gueltig(lat, lon):
+                    koordinaten_cache[schluessel] = (lat, lon)
+                    return lat, lon
 
-        if koordinaten_gueltig(lat, lon):
-            koordinaten_cache[schluessel] = (lat, lon)
-            return lat, lon
-
-    # 5. Photon als letzter Fallback
-    photon_adresse = bereinigte_adresse or adresse
-
-    lat, lon = geocode_photon(
-        photon_adresse,
-        erwartete_plz,
-    )
-
-    if koordinaten_gueltig(lat, lon):
-        koordinaten_cache[schluessel] = (lat, lon)
-        return lat, lon
+        if plz_streng and erwartete_plz:
+            print(
+                "  ⚠ Kein Treffer mit passender PLZ. "
+                "Zweiter Versuch ohne strenge PLZ-Prüfung."
+            )
 
     print(
         f"  ✗ Keine verlässlichen Koordinaten gefunden: "
@@ -933,7 +966,7 @@ def haversine_km(lat1, lon1, lat2, lon2):
         + cos(lat1) * cos(lat2) * sin(delta_lon / 2) ** 2
     )
 
-    c = 2 * atan2(sqrt(a), sqrt(max(0, 1 - a)))
+    c = 2 * atan2(sqrt(a), sqrt(max(0.0, 1 - a)))
 
     return erdradius_km * c
 
@@ -990,7 +1023,8 @@ def route_ors(start_lat, start_lon, ziel_lat, ziel_lon):
         print(f"  ⚠ ORS-Routing fehlgeschlagen: {exc}")
         return None
 
-    except (ValueError, TypeError, KeyError, IndexError) as exc:
+    except (ValueError, TypeError, KeyError, IndexError,
+            AttributeError) as exc:
         print(f"  ⚠ Ungültige ORS-Routingantwort: {exc}")
         return None
 
@@ -1037,7 +1071,8 @@ def route_osrm(start_lat, start_lon, ziel_lat, ziel_lon):
         print(f"  ⚠ OSRM-Routing fehlgeschlagen: {exc}")
         return None
 
-    except (ValueError, TypeError, KeyError, IndexError) as exc:
+    except (ValueError, TypeError, KeyError, IndexError,
+            AttributeError) as exc:
         print(f"  ⚠ Ungültige OSRM-Routingantwort: {exc}")
         return None
 
@@ -1068,8 +1103,8 @@ def fahrzeit_plausibel(dauer_minuten, luftlinie_km):
     if implizierte_kmh > 130:
         return False
 
-    # Eine sehr geringe Geschwindigkeit wird erst ab einer Luftlinie
-    # von mehr als 10 km als unplausibel eingestuft.
+    # Sehr geringe Geschwindigkeiten erst ab mehr als 10 km Luftlinie
+    # als unplausibel einstufen.
     if luftlinie_km > 10 and implizierte_kmh < 15:
         return False
 
@@ -1143,12 +1178,8 @@ def hole_fahrzeit(ziel_adresse):
         quelle = "OSRM"
 
     if not fahrzeit_plausibel(dauer_minuten, luftlinie_km):
-        if dauer_minuten is not None:
-            implizierte_kmh = (
-                luftlinie_km / (dauer_minuten / 60)
-                if dauer_minuten > 0
-                else 0
-            )
+        if dauer_minuten is not None and dauer_minuten > 0:
+            implizierte_kmh = luftlinie_km / (dauer_minuten / 60)
 
             print(
                 f"  ⚠ Unplausible Fahrzeit von {quelle}: "
@@ -1310,9 +1341,7 @@ def erstelle_zusatzbeschreibung(
         fahrzeit = hole_fahrzeit(ort)
 
         if fahrzeit is not None:
-            abfahrtszeit = treffzeit - timedelta(
-                minutes=fahrzeit
-            )
+            abfahrtszeit = treffzeit - timedelta(minutes=fahrzeit)
 
             zeilen.insert(
                 0,
@@ -1343,14 +1372,8 @@ def verarbeite_handballnet_kalender(config):
     output = config["output"]
 
     puffer_min = int(config.get("puffer_min", 60))
-    fahrzeit_modus = config.get(
-        "fahrzeit_modus",
-        "auswaerts",
-    )
-    zeitmodus = config.get(
-        "zeitmodus",
-        ZEITMODUS_UNVERAENDERT,
-    )
+    fahrzeit_modus = config.get("fahrzeit_modus", "auswaerts")
+    zeitmodus = config.get("zeitmodus", ZEITMODUS_UNVERAENDERT)
 
     output_pfad = OUTPUT_VERZEICHNIS / output
 
@@ -1384,15 +1407,13 @@ def verarbeite_handballnet_kalender(config):
             "fehler": "ICS-Feed konnte nicht geparst werden",
         }
 
-    print(
-        f"  → {len(quell_cal.events)} Spiele im Feed gefunden"
-    )
+    print(f"  → {len(quell_cal.events)} Spiele im Feed gefunden")
 
     ziel_cal = Calendar()
     treffer = 0
 
     # Sortierung dient einer nachvollziehbaren Konsolenausgabe.
-    # Falls ein Termin keinen Beginn hat, wird er nach hinten sortiert.
+    # Termine ohne Beginn werden nach hinten sortiert.
     events = sorted(
         quell_cal.events,
         key=lambda event: (
@@ -1436,51 +1457,51 @@ def verarbeite_handballnet_kalender(config):
                 f"{titel}: {exc}"
             )
 
-        spieltyp = bestimme_spieltyp(
-            titel,
-            filter_team,
-        )
+        spieltyp = bestimme_spieltyp(titel, filter_team)
 
         if spieltyp == "unbekannt":
-            print(
-                f"  ⚠ Heim/Gast nicht eindeutig erkannt: "
-                f"{titel}"
+            print(f"  ⚠ Heim/Gast nicht eindeutig erkannt: {titel}")
+
+        try:
+            zusatzzeilen = erstelle_zusatzbeschreibung(
+                ort=ort,
+                beginn=event.begin,
+                puffer_min=puffer_min,
+                spieltyp=spieltyp,
+                fahrzeit_modus=fahrzeit_modus,
             )
 
-        zusatzzeilen = erstelle_zusatzbeschreibung(
-            ort=ort,
-            beginn=event.begin,
-            puffer_min=puffer_min,
-            spieltyp=spieltyp,
-            fahrzeit_modus=fahrzeit_modus,
-        )
+        except Exception as exc:
+            # Ein einzelnes Spiel darf den gesamten Kalender nicht
+            # verhindern.
+            print(
+                f"  ⚠ Zusatzangaben konnten nicht ermittelt werden "
+                f"für '{titel}': {exc}"
+            )
+
+            zusatzzeilen = [f"Halle: {ort}"] if ort else []
 
         beschreibungsteile = []
 
         if beschreibung_original:
-            beschreibungsteile.append(
-                beschreibung_original.strip()
-            )
+            beschreibungsteile.append(beschreibung_original.strip())
 
         if zusatzzeilen:
             beschreibungsteile.append(
-                "== Zeiten & Ort ==\n"
-                + "\n".join(zusatzzeilen)
+                "== Zeiten & Ort ==\n" + "\n".join(zusatzzeilen)
             )
 
-        event.description = "\n\n".join(
-            beschreibungsteile
-        ).strip()
-
+        event.description = "\n\n".join(beschreibungsteile).strip()
         event.location = ort
 
         ziel_cal.events.add(event)
 
-        print(
-            f"  ✓ {titel} "
-            f"({spieltyp}, "
-            f"{event.begin.format('DD.MM.YYYY HH:mm') if event.begin else 'ohne Termin'})"
-        )
+        if event.begin is not None:
+            zeitangabe = event.begin.format("DD.MM.YYYY HH:mm")
+        else:
+            zeitangabe = "ohne Termin"
+
+        print(f"  ✓ {titel} ({spieltyp}, {zeitangabe})")
 
     if treffer == 0:
         print(
@@ -1491,13 +1512,11 @@ def verarbeite_handballnet_kalender(config):
         print("  → Beispieltitel aus dem Feed:")
 
         for event in events[:5]:
-            print(
-                f"     - {event.name or '(ohne Titel)'}"
-            )
+            print(f"     - {event.name or '(ohne Titel)'}")
 
         print(
-            "  → Eine eventuell vorhandene Kalenderdatei "
-            "wird nicht überschrieben."
+            "  → Eine eventuell vorhandene Kalenderdatei wird "
+            "nicht überschrieben."
         )
 
         return {
@@ -1512,15 +1531,11 @@ def verarbeite_handballnet_kalender(config):
         }
 
     try:
-        schreibe_kalender_atomisch(
-            ziel_cal,
-            output_pfad,
-        )
+        schreibe_kalender_atomisch(ziel_cal, output_pfad)
 
     except OSError as exc:
         print(
-            f"✗ Kalenderdatei konnte nicht geschrieben werden: "
-            f"{exc}"
+            f"✗ Kalenderdatei konnte nicht geschrieben werden: {exc}"
         )
 
         return {
@@ -1530,9 +1545,7 @@ def verarbeite_handballnet_kalender(config):
             "fehler": "Kalenderdatei konnte nicht geschrieben werden",
         }
 
-    print(
-        f"✓ {treffer} Spiele übernommen: {output_pfad}"
-    )
+    print(f"✓ {treffer} Spiele übernommen: {output_pfad}")
 
     return {
         "erfolg": True,
@@ -1572,10 +1585,7 @@ def pruefe_konfiguration():
         "output",
     }
 
-    for nummer, config in enumerate(
-        HANDBALLNET_CONFIG,
-        start=1,
-    ):
+    for nummer, config in enumerate(HANDBALLNET_CONFIG, start=1):
         fehlende_felder = erforderliche_felder - config.keys()
 
         if fehlende_felder:
@@ -1601,10 +1611,7 @@ def pruefe_konfiguration():
                 f"'.ics' enden"
             )
 
-        fahrzeit_modus = config.get(
-            "fahrzeit_modus",
-            "auswaerts",
-        )
+        fahrzeit_modus = config.get("fahrzeit_modus", "auswaerts")
 
         if fahrzeit_modus not in erlaubte_fahrzeitmodi:
             fehler.append(
@@ -1612,10 +1619,7 @@ def pruefe_konfiguration():
                 f"Fahrzeitmodus '{fahrzeit_modus}'"
             )
 
-        zeitmodus = config.get(
-            "zeitmodus",
-            ZEITMODUS_UNVERAENDERT,
-        )
+        zeitmodus = config.get("zeitmodus", ZEITMODUS_UNVERAENDERT)
 
         if zeitmodus not in erlaubte_zeitmodi:
             fehler.append(
@@ -1631,8 +1635,7 @@ def pruefe_konfiguration():
 
         except (TypeError, ValueError):
             fehler.append(
-                f"Konfiguration {nummer}: ungültiger "
-                f"Zeitpuffer"
+                f"Konfiguration {nummer}: ungültiger Zeitpuffer"
             )
 
     return fehler
@@ -1654,8 +1657,8 @@ def main():
 
     if ORS_API_KEY:
         print(
-            "✓ ORS_API_KEY gefunden – OpenRouteService wird "
-            "als primäre Quelle verwendet."
+            "✓ ORS_API_KEY gefunden – OpenRouteService wird als "
+            "primäre Quelle verwendet."
         )
     else:
         print(
@@ -1678,25 +1681,19 @@ def main():
 
     for config in HANDBALLNET_CONFIG:
         try:
-            ergebnis = verarbeite_handballnet_kalender(
-                config
-            )
+            ergebnis = verarbeite_handballnet_kalender(config)
 
         except Exception as exc:
             # Letztes Sicherheitsnetz, damit die weiteren Kalender
             # trotzdem verarbeitet werden.
             print(
                 f"✗ Unerwarteter Fehler bei "
-                f"'{config.get('bezeichnung', 'Unbekannt')}': "
-                f"{exc}"
+                f"'{config.get('bezeichnung', 'Unbekannt')}': {exc}"
             )
 
             ergebnis = {
                 "erfolg": False,
-                "bezeichnung": config.get(
-                    "bezeichnung",
-                    "Unbekannt",
-                ),
+                "bezeichnung": config.get("bezeichnung", "Unbekannt"),
                 "treffer": 0,
                 "fehler": f"Unerwarteter Fehler: {exc}",
             }
@@ -1704,15 +1701,11 @@ def main():
         ergebnisse.append(ergebnis)
 
     erfolgreiche_kalender = [
-        ergebnis
-        for ergebnis in ergebnisse
-        if ergebnis["erfolg"]
+        ergebnis for ergebnis in ergebnisse if ergebnis["erfolg"]
     ]
 
     fehlerhafte_kalender = [
-        ergebnis
-        for ergebnis in ergebnisse
-        if not ergebnis["erfolg"]
+        ergebnis for ergebnis in ergebnisse if not ergebnis["erfolg"]
     ]
 
     print()
@@ -1744,8 +1737,8 @@ def main():
     )
     print("=" * 70)
 
-    # Sobald ein Kalender fehlschlägt, erhält die GitHub Action
-    # einen Fehlerstatus. Erfolgreich erzeugte Kalender bleiben erhalten.
+    # Sobald ein Kalender fehlschlägt, erhält die GitHub Action einen
+    # Fehlerstatus. Erfolgreich erzeugte Kalender bleiben erhalten.
     if fehlerhafte_kalender:
         return 1
 
