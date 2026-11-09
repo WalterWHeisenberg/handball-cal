@@ -141,14 +141,14 @@ HANDBALLNET_CONFIG = [
         "zeitmodus": ZEITMODUS_LOKAL_FALSCH_ALS_UTC,
     },
     {
-        "bezeichnung": "Weibliche C-Jugend HSG",
+        "bezeichnung": "Weibliche B-Jugend Köln",
         "url": (
             "https://www.handball.net/kalender/liga/6108.ics"
             "?season_id=2627&fed_id=20"
         ),
         "filter_team": "Köln",
         "output": "handball_wjc-hsg.ics",
-        "puffer_min": 60,
+        "puffer_min": 75,
         "fahrzeit_modus": "immer",
         "zeitmodus": ZEITMODUS_LOKAL_FALSCH_ALS_UTC,
     },
